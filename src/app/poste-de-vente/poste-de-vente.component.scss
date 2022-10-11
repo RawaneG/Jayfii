@@ -1,0 +1,126 @@
+/************************ Produits *******************************/
+html, body
+{
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  font-family: 'Manrope', sans-serif;
+}
+.container
+{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F0F2F4;
+  .card
+  {
+    background-color: #c1d0e4;
+    border-radius: 25px;
+    padding: 0
+  }
+  .product-card
+  {
+    max-width: 200px;
+    margin: 10px;
+    box-shadow: 0 10px 15px rgba(0,0,100,0.05);
+    cursor: pointer;
+    .product-header
+    {
+      max-height: 150px;
+    }
+    .product-picture
+    {
+      position: relative;
+      top: -70px;
+      width: 105%;
+      left: -2.5%;
+    }
+    .card-details
+    {
+      background-color: white;
+      border-radius: 25px;
+      padding: 15px;
+      .product-name
+      {
+        font-weight: 500;
+        font-size: 13pt;
+        margin: 0;
+      }
+      .bottom-row
+      {
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        .price
+        {
+          font-size: 13pt;
+          margin: 0;
+        }
+        .add-cart
+        {
+          width: 32px;
+          height: 32px;
+          background-image: linear-gradient(120deg, rgb(85, 88, 218) 0%, rgb(95, 209, 249) 100.2%);
+          font-size:10pt;
+          color: white;
+          border: none;
+          border-radius: 25px;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media(min-width : 180px) and (max-width : 650px)
+{
+  .container
+  {
+    width: 100%;
+    .product-card
+    {
+      max-width: 30%;
+      margin: 5px;
+      .product-header
+      {
+        max-height: 100px;
+        .product-picture
+        {
+          position: relative;
+          top: -50px;
+          height: 150px;
+          width: 150px;
+          left: calc(50% - 75px);
+        }
+      }
+      .card-details
+      {
+        .product-name
+        {
+          font-size: 11pt;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 1; /* number of lines to show */
+                  line-clamp: 1;
+          -webkit-box-orient: vertical;
+        }
+        .stars
+        {
+          color: #ffd145;
+          margin: 5px 0 15px 0;
+          font-size: 7pt;
+        }
+        .bottom-row
+        {
+          .price
+          {
+            font-size: 10pt;
+          }
+        }
+      }
+    }
+  }
+}
+/************************ Panier *******************************/
