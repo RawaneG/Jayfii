@@ -1,25 +1,38 @@
-nav
-{
-    background-color: #02142F;
-    padding: 0.5%;
-}
-.left,.right
-{
-    width: 25%;
-}
 button
 {
     border: none;
     background: none;
     color: white;
-}
-.logo
-{
-    font-size: 2rem;
     cursor: pointer;
 }
-.active
+.nav
 {
-    color: #666;
-    text-decoration: underline;
+    background-color: #002978;
+    color:white;
 }
+  .example-container
+  {
+      position: absolute;
+      width: 150px;
+      height: 100%;
+      background: rgba(221, 221, 221, 0);
+  }
+
+  .example-sidenav-content
+  {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+
+  .example-sidenav
+  {
+    width: 100%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .link
+  {
+    cursor: pointer;
+  }

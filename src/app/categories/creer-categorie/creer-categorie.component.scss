@@ -1,0 +1,89 @@
+.container
+{
+    margin: 5em 0 0 10em;
+    min-height: 50vh;
+    width: 60%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+form
+{
+    margin: 0 auto;
+}
+.radio-group
+{
+    margin: 1em 0;
+    display: flex;
+    justify-content: space-evenly;
+}
+.parent
+{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: space-between;
+}
+.radio
+{
+    margin: 0.5em;
+}
+.box
+{
+    background: rgb(0, 115, 255);
+    padding: 2em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.example-form
+{
+    min-width: 80%;
+    max-width: 500px;
+    width: 100%;
+}
+.example-full-width
+{
+   width: 100%;
+}
+.final-boutons
+{
+    margin: 0 29em;
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    button
+    {
+        cursor:pointer;
+        border: none;
+        background: none;
+        padding: 1em 3em;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        font-size: 15px;
+    }
+    .valider
+    {
+        background: #002978;
+        color:white;
+    }
+}
+.green
+{
+    background-color:greenyellow;
+}
+.red
+{
+    background-color:red;
+
+}
+.purple
+{
+    background-color:purple;
+
+}
+.black
+{
+    background-color:black;
+
+}

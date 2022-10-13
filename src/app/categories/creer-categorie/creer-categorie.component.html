@@ -1,1 +1,43 @@
-<p>creer-categorie works!</p>
+<div class="container">
+  <form class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Nom de la catégorie</mat-label>
+      <input matInput placeholder="Ex. Nourriture" />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea
+        matInput
+        placeholder="Ex. Cette partie est reservée à la nourriture..."
+      ></textarea>
+    </mat-form-field>
+
+    <mat-radio-group aria-label="Select an option" class="radio-group">
+      <div class="parent">
+        <mat-radio-button value="1" class="radio"></mat-radio-button>
+        <div class="box"></div>
+      </div>
+      <div class="parent">
+        <mat-radio-button value="2" class="radio"></mat-radio-button>
+        <div class="box red"></div>
+      </div>
+      <div class="parent">
+        <mat-radio-button value="3" class="radio"></mat-radio-button>
+        <div class="box green"></div>
+      </div>
+      <div class="parent">
+        <mat-radio-button value="4" class="radio"></mat-radio-button>
+        <div class="box purple"></div>
+      </div>
+      <div class="parent">
+        <mat-radio-button value="5" class="radio"></mat-radio-button>
+        <div class="box black"></div>
+      </div>
+    </mat-radio-group>
+  </form>
+  <div class="final-boutons">
+    <button>Annuler</button>
+    <button class="valider">Enregistrer</button>
+  </div>
+</div>

@@ -1,0 +1,107 @@
+.container
+{
+    margin: 5em 0 0 10em;
+    min-height: 50vh;
+    width: 60%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.first-parent
+{
+    margin: 1em 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.first-container
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 35%;
+    button
+    {
+        padding: 1em;
+        transition: 0.5s ease-in-out;
+        border-radius: 5px;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: #002978;
+        cursor: pointer;
+        color:white;
+    }
+    button:hover
+    {
+        background-color: #033fb8;
+    }
+    .fa-trash
+    {
+        cursor: pointer;
+    }
+    .ajout
+    {
+        font-size: 14px;
+        margin: 1%;
+    }
+}
+.second-container
+{
+    width: 50%;
+    display: flex;
+    justify-content: space-around;
+}
+.second-parent
+{
+    margin: 2em 0 0 0;
+    display: flex;
+    justify-content: space-around;
+    color:#9C9C9C;
+}
+.first-contayner
+{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.second-contayner
+{
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.third-parent
+{
+    margin: 2em 0 0 0;
+    display: flex;
+    justify-content: space-around;
+}
+.mini-parent,.autre-mini
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.mini-parent
+{
+    width: 20%;
+}
+.autre-mini
+{
+    width: 60%;
+}
+.firste-container
+{
+    width: 100%;
+}
+.seconde-container
+{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

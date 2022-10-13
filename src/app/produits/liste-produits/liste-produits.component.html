@@ -1,1 +1,67 @@
-<p>liste-produits works!</p>
+<!-- ========== First Parent ========== -->
+<div class="container">
+  <div class="first-parent">
+    <div class="first-container">
+      <button routerLink="add">
+        <i class="fas fa-plus" style="font-size: 10px"></i>
+        <p class="ajout">AJOUTER UN PRODUIT</p>
+      </button>
+      <div><i class="fas fa-trash" style="font-size: 20px"></i></div>
+    </div>
+    <div class="second-container">
+      <mat-form-field>
+        <mat-label>Catégorie</mat-label>
+        <mat-select>
+          <mat-option value="one">Tous les produits</mat-option>
+          <mat-option value="two">Nourriture</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Alerte de Stock</mat-label>
+        <mat-select>
+          <mat-option value="one">Tous les produits</mat-option>
+          <mat-option value="two">En Rupture</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <!-- ========== Second Parent ========== -->
+  <div class="second-parent">
+    <div class="first-contayner">
+      <mat-checkbox>
+        <span style="margin: 0 0 0 4em">Nom du Produit</span>
+      </mat-checkbox>
+    </div>
+    <div class="second-contayner">
+      <span>Catégorie</span>
+      <span>Prix</span>
+      <span>Coût</span>
+      <span>En Stock</span>
+    </div>
+  </div>
+  <!-- ========== Third Parent ========== -->
+  <div class="third-parent">
+    <div class="mini-parent">
+      <div class="firste-container">
+        <mat-checkbox>
+          <span style="margin: 0 0 0 4em">Pringles</span>
+        </mat-checkbox>
+      </div>
+    </div>
+    <div class="autre-mini">
+      <div class="seconde-container">
+        <span>Nourriture</span>
+        <span>1500 FCFA</span>
+        <span>2000 FCFA</span>
+        <span>En Rupture</span>
+      </div>
+    </div>
+  </div>
+  <!-- ========== Pagination ========== -->
+  <mat-paginator
+    [length]="100"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
+  </mat-paginator>
+</div>

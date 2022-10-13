@@ -1,25 +1,29 @@
-<mat-toolbar>
+<mat-toolbar class="nav">
   <button
     mat-icon-button
     class="example-icon"
     aria-label="Example icon-button with menu icon"
   >
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>My App</span>
-  <span class="example-spacer"></span>
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>share</mat-icon>
+    <mat-icon (click)="drawer.toggle()">menu</mat-icon>
   </button>
 </mat-toolbar>
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-list>
+      <mat-list-item routerLink="dashboard" class="link"
+        >Dashboard</mat-list-item
+      >
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="produits" class="link">Produit</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="categories" class="link"
+        >Catégorie</mat-list-item
+      >
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="poc" class="link">POC</mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item routerLink="login" class="link">Déconnexion</mat-list-item>
+    </mat-list>
+  </mat-drawer>
+</mat-drawer-container>

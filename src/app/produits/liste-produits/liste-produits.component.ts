@@ -5,11 +5,15 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './liste-produits.component.html',
   styleUrls: ['./liste-produits.component.scss']
 })
-export class ListeProduitsComponent implements OnInit {
+export class ListeProduitsComponent implements OnInit
+{
+  panelOpenState = false;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
+
   }
 
 }

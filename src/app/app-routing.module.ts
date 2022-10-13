@@ -16,11 +16,10 @@ const routes: Routes =
   {path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'poc', component: PosteDeVenteComponent},
-  {path: 'add-produit', component: CreerProduitComponent},
-  {path: 'add-categorie', component: CreerCategorieComponent},
+  {path: 'produits/add', component: CreerProduitComponent},
+  {path: 'categories/add', component: CreerCategorieComponent},
   {path: 'produits', component: ListeProduitsComponent},
   {path: 'categories', component: ListeCategoriesComponent},
-  {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({
