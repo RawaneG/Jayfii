@@ -1,1 +1,29 @@
-<p>liste-categories works!</p>
+<div class="container">
+  <div class="first-container">
+    <button>
+      <i class="fas fa-plus" style="font-size: 10px"></i>
+      <p class="ajout">AJOUTER UNE CATÉGORIE</p>
+    </button>
+    <div><i class="fas fa-trash" style="font-size: 20px"></i></div>
+  </div>
+  <div class="second-container">
+    <input type="checkbox" name="" id="" />
+    <p>Nom de la catégorie</p>
+  </div>
+  <div class="final-container">
+    <input type="checkbox" name="" id="" />
+    <div class="box-n-stuff">
+      <div class="box"></div>
+      <div>
+        <h4>Nourriture</h4>
+        <p>3 Produits</p>
+      </div>
+    </div>
+  </div>
+  <mat-paginator
+    [length]="100"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
+  </mat-paginator>
+</div>

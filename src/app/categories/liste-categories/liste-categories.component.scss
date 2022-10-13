@@ -1,0 +1,69 @@
+.container
+{
+    margin: 5em 0 0 10em;
+    min-height: 50vh;
+    width: 60%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+.first-container
+{
+    margin: 1em 0 0 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 35%;
+    button
+    {
+        padding: 0.5em;
+        transition: 0.5s ease-in-out;
+        border-radius: 5px;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        background-color: #002978;
+        cursor: pointer;
+        color:white;
+    }
+    button:hover
+    {
+        background-color: #033fb8;
+    }
+    .fa-trash
+    {
+        cursor: pointer;
+    }
+    .ajout
+    {
+        font-size: 14px;
+        margin: 1%;
+    }
+}
+.second-container,.final-container
+{
+    margin: 1.5em 0 0 0.5em;
+    display: flex;
+    width: 25%;
+    justify-content: space-evenly;
+    color:#9C9C9C;
+}
+.final-container
+{
+    color:#000;
+    margin: 1em 0 0 2em;
+    .box-n-stuff
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+    }
+    .box
+    {
+        background: rgb(0, 115, 255);
+        padding: 2em;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
