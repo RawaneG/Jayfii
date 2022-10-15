@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClientService } from 'src/app/services.service';
 
 @Component({
   selector: 'app-liste-produits',
@@ -8,12 +9,21 @@ import { Component, OnInit } from '@angular/core';
 export class ListeProduitsComponent implements OnInit
 {
   panelOpenState = false;
+  mesProduits : any;
+  mesCategories : any;
 
-  constructor() { }
+  constructor(private httpService : HttpClientService) { }
 
   ngOnInit(): void
   {
-
+    this.httpService.getUrl(this.httpService.produitUrl).subscribe
+    (
+      (reponse) => {this.mesProduits = reponse}
+    );
+    this.httpService.getUrl(this.httpService.categorieUrl).subscribe
+    (
+      (reponse) => {this.mesCategories = reponse}
+    );
   }
 
 }

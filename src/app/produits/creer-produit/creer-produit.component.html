@@ -1,108 +1,115 @@
-<div class="body">
-  <div class="first-section">
-    <div class="container1">
-      <h1>Description du Produit</h1>
-      <form>
+<form [formGroup]="ajouterProduit" (submit)="submit()">
+  <div class="body">
+    <div class="first-section">
+      <div class="container1">
+        <h1>Description du Produit</h1>
         <mat-form-field class="example-input">
           <mat-label>Nom de la catégorie</mat-label>
-          <input matInput placeholder="Ex. Nourriture" />
+          <input matInput placeholder="Ex. Nourriture" formControlName="nom" />
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Catégorie</mat-label>
-          <mat-select>
-            <mat-option value="one">Vêtement</mat-option>
-            <mat-option value="two">Nourriture</mat-option>
+          <mat-select formControlName="categorie">
+            <mat-option
+              *ngFor="let categorie of mesCategories"
+              value="{{ categorie.nom }}"
+            >
+              {{ categorie.nom }}
+            </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Prix</mat-label>
-          <input matInput placeholder="Ex. Nourriture" />
+          <input matInput placeholder="Ex. Nourriture" formControlName="prix" />
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Coût</mat-label>
-          <input matInput placeholder="Ex. Nourriture" />
+          <input matInput placeholder="Ex. Nourriture" formControlName="cout" />
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Description</mat-label>
           <textarea
             matInput
             placeholder="Ex. Cette partie est reservée à la nourriture..."
+            formControlName="description"
           ></textarea>
         </mat-form-field>
-      </form>
-    </div>
-    <div class="container1">
-      <h1>Inventaire</h1>
-      <form>
+      </div>
+      <div class="container1">
+        <h1>Inventaire</h1>
         <mat-form-field class="example-input">
           <mat-label>Produit en Stock</mat-label>
-          <input matInput placeholder="Ex. Nourriture" />
+          <input
+            matInput
+            placeholder="Ex. Nourriture"
+            formControlName="quantiteEnStock"
+          />
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Stock faible</mat-label>
           <input matInput placeholder="Ex. Nourriture" />
         </mat-form-field>
-      </form>
+      </div>
+    </div>
+    <div class="second-section">
+      <div class="container2">
+        <h1>Illustration du produit</h1>
+        <mat-accordion>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Représentation par Couleur </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-radio-group aria-label="Select an option" class="radio-group">
+              <div class="parent">
+                <mat-radio-button value="1" class="radio">
+                  <div class="box"></div>
+                </mat-radio-button>
+              </div>
+              <div class="parent">
+                <mat-radio-button value="2" class="radio">
+                  <div class="box red"></div>
+                </mat-radio-button>
+              </div>
+              <div class="parent">
+                <mat-radio-button value="3" class="radio">
+                  <div class="box green"></div>
+                </mat-radio-button>
+              </div>
+              <div class="parent">
+                <mat-radio-button value="4" class="radio">
+                  <div class="box purple"></div>
+                </mat-radio-button>
+              </div>
+              <div class="parent">
+                <mat-radio-button value="5" class="radio">
+                  <div class="box black"></div>
+                </mat-radio-button>
+              </div>
+            </mat-radio-group>
+          </mat-expansion-panel>
+        </mat-accordion>
+        <mat-accordion>
+          <mat-expansion-panel
+            (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false"
+          >
+            <mat-expansion-panel-header>
+              <mat-panel-title> Représentation par Image </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button class="download">
+              <i class="fa fa-download" aria-hidden="true"></i>
+              <h3>Importer une image</h3>
+            </button>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </div>
     </div>
   </div>
-  <div class="second-section">
-    <div class="container2">
-      <h1>Illustration du produit</h1>
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
-          <mat-expansion-panel-header>
-            <mat-panel-title> Représentation par Couleur </mat-panel-title>
-          </mat-expansion-panel-header>
-          <mat-radio-group aria-label="Select an option" class="radio-group">
-            <div class="parent">
-              <mat-radio-button value="1" class="radio">
-                <div class="box"></div>
-              </mat-radio-button>
-            </div>
-            <div class="parent">
-              <mat-radio-button value="2" class="radio">
-                <div class="box red"></div>
-              </mat-radio-button>
-            </div>
-            <div class="parent">
-              <mat-radio-button value="3" class="radio">
-                <div class="box green"></div>
-              </mat-radio-button>
-            </div>
-            <div class="parent">
-              <mat-radio-button value="4" class="radio">
-                <div class="box purple"></div>
-              </mat-radio-button>
-            </div>
-            <div class="parent">
-              <mat-radio-button value="5" class="radio">
-                <div class="box black"></div>
-              </mat-radio-button>
-            </div>
-          </mat-radio-group>
-        </mat-expansion-panel>
-      </mat-accordion>
-      <mat-accordion>
-        <mat-expansion-panel
-          (opened)="panelOpenState = true"
-          (closed)="panelOpenState = false"
-        >
-          <mat-expansion-panel-header>
-            <mat-panel-title> Représentation par Image </mat-panel-title>
-          </mat-expansion-panel-header>
-          <button class="download">
-            <i class="fa fa-download" aria-hidden="true"></i>
-            <h3>Importer une image</h3>
-          </button>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </div>
+  <div class="final-boutons">
+    <button>Annuler</button>
+    <button class="valider">Enregistrer</button>
   </div>
-</div>
-<div class="final-boutons">
-  <button>Annuler</button>
-  <button class="valider">Enregistrer</button>
-</div>
+</form>

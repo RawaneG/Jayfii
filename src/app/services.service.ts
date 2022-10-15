@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 })
 export class HttpClientService
 {
+  produitUrl = "https://127.0.0.1:8000/api/produits";
+  categorieUrl = "https://127.0.0.1:8000/api/categories";
 
   tab !: any[];
 

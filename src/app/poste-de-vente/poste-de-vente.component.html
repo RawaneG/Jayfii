@@ -1,14 +1,127 @@
-<!-- ========== Produits ========== -->
-<div class="container">
-  <div class="product-card card">
-    <div class="product-header">
-      <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+<div class="body">
+  <div class="first-parent">
+    <div class="header">
+      <mat-form-field class="example-form">
+        <mat-label>Tous les produits</mat-label>
+        <mat-select class="example-select">
+          <mat-option value="one">Tous les produits</mat-option>
+          <mat-option value="two">Pringles</mat-option>
+          <mat-option value="three">Coca-Cola</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <div class="card-details">
-      <h3 class="product-name">Calathea Orbifolia</h3>
-      <div class="bottom-row">
-        <p class="price">21,95€</p>
-        <button class="add-cart"><i class="fas fa-plus"></i></button>
+    <!-- ========== Produits ========== -->
+    <div class="container">
+      <div class="product-card card">
+        <div class="product-header">
+          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+        </div>
+        <div class="card-details">
+          <h3 class="product-name">Calathea Orbifolia</h3>
+          <div class="bottom-row">
+            <p class="price">21,95€</p>
+            <button class="add-cart"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card card">
+        <div class="product-header">
+          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+        </div>
+        <div class="card-details">
+          <h3 class="product-name">Calathea Orbifolia</h3>
+          <div class="bottom-row">
+            <p class="price">21,95€</p>
+            <button class="add-cart"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card card">
+        <div class="product-header">
+          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+        </div>
+        <div class="card-details">
+          <h3 class="product-name">Calathea Orbifolia</h3>
+          <div class="bottom-row">
+            <p class="price">21,95€</p>
+            <button class="add-cart"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card card">
+        <div class="product-header">
+          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+        </div>
+        <div class="card-details">
+          <h3 class="product-name">Calathea Orbifolia</h3>
+          <div class="bottom-row">
+            <p class="price">21,95€</p>
+            <button class="add-cart"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="product-card card">
+        <div class="product-header">
+          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+        </div>
+        <div class="card-details">
+          <h3 class="product-name">Calathea Orbifolia</h3>
+          <div class="bottom-row">
+            <p class="price">21,95€</p>
+            <button class="add-cart"><i class="fas fa-plus"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========== Panier ========== -->
+  <div class="second-parent">
+    <div class="p-header">
+      <span><i class="fas fa-user-plus"></i></span>
+      <mat-form-field class="example-form">
+        <mat-label>Chercher un Client</mat-label>
+        <mat-select class="example-select">
+          <mat-option value="one">Rawane</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <span><i class="fas fa-sign-out"></i></span>
+    </div>
+    <div class="p-middle">
+      <div class="myCard">
+        <div class="myCard-header">
+          <span>Produit</span>
+          <span>Quantité</span>
+          <span>Prix</span>
+          <span><i class="fas fa-trash"></i></span>
+        </div>
+        <div class="myCard-content">
+          <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
+          <div class="myCard-empty">
+            <span>
+              <i class="fas fa-shopping-cart"></i>
+            </span>
+          </div>
+          <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
+          <!-- <div class="myCard-child">
+            <span>Coca-Cola</span>
+            <span class="quantity-control">
+              <button>+</button>
+              <span class="quantity">1</span>
+              <button>-</button>
+            </span>
+            <span>1000 FCFA</span>
+            <button><i class="fas fa-close"></i></button>
+          </div> -->
+        </div>
+        <div class="myCard-footer">
+          <span>Sous-Total</span>
+          <span>1000 FCFA</span>
+        </div>
+      </div>
+    </div>
+    <div class="p-footer">
+      <div class="payment">
+        <span class="payment-title">Valider la commande</span>
       </div>
     </div>
   </div>

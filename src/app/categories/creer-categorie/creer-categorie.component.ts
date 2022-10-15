@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpClientService } from 'src/app/services.service';
 
 @Component({
   selector: 'app-creer-categorie',
@@ -10,10 +11,27 @@ import {ErrorStateMatcher} from '@angular/material/core';
 
 export class CreerCategorieComponent implements OnInit
 {
-  constructor() { }
-
+  ajouterCategorie : FormGroup = new FormGroup({});
+  body : any = {};
+  constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router) { }
+  submit()
+  {
+    this.body =
+    {
+      "nom" : this.ajouterCategorie.value.nom,
+      "description" : this.ajouterCategorie.value.description,
+      "couleur" : this.ajouterCategorie.value.couleur
+    }
+    this.httpService.postUrl(this.httpService.categorieUrl,this.body);
+    this.route.navigateByUrl('categories');
+  }
   ngOnInit(): void
   {
-
+    this.ajouterCategorie = this.formBuilder.group(
+      {
+        'nom' : new FormControl(""),
+        'description' : new FormControl(""),
+        "couleur" : new FormControl("")
+      })
   }
 }

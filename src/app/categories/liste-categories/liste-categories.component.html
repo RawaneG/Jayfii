@@ -7,16 +7,16 @@
     <div><i class="fas fa-trash" style="font-size: 20px"></i></div>
   </div>
   <div class="second-container">
-    <input type="checkbox" name="" id="" />
+    <mat-checkbox></mat-checkbox>
     <p>Nom de la catégorie</p>
   </div>
-  <div class="final-container">
-    <input type="checkbox" name="" id="" />
+  <div class="final-container" *ngFor="let categorie of mesCategories">
+    <mat-checkbox></mat-checkbox>
     <div class="box-n-stuff">
       <div class="box"></div>
       <div>
-        <h4>Nourriture</h4>
-        <p>3 Produits</p>
+        <h4>{{ categorie.nom }}</h4>
+        <p>{{ categorie.produits.length }} produit(s)</p>
       </div>
     </div>
   </div>
