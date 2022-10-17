@@ -8,6 +8,7 @@ import { CreerCategorieComponent } from './categories/creer-categorie/creer-cate
 import { CreerProduitComponent } from './produits/creer-produit/creer-produit.component';
 import { ListeCategoriesComponent } from './categories/liste-categories/liste-categories.component';
 import { ListeProduitsComponent } from './produits/liste-produits/liste-produits.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes =
 [
@@ -20,6 +21,7 @@ const routes: Routes =
   {path: 'categories/add', component: CreerCategorieComponent},
   {path: 'produits', component: ListeProduitsComponent},
   {path: 'categories', component: ListeCategoriesComponent},
+  {path: '**', redirectTo : 'login'}
 ];
 
 @NgModule({

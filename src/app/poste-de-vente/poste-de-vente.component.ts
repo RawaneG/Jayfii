@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-poste-de-vente',
@@ -12,15 +14,18 @@ export class PosteDeVenteComponent implements OnInit
   monPanier :any[] = [];
   mesProduits : any;
   monTotal : number = 0;
-  constructor(private httpService : HttpClientService) {}
+  constructor(private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
 
+  logout()
+  {
+    this.serviceAuth.deconnecter();
+  }
   closeAll()
   {
     this.httpService.items$.subscribe(
       value =>
       {
-          this.monPanier = [];
-          localStorage.setItem('panier', JSON.stringify(this.monPanier));
+          localStorage.removeItem('panier');
           location.reload();
           this.monTotal = this.httpService.sousTotal();
       }

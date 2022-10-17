@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
+import { Router } from '@angular/router';
+import jwt_decode from "jwt-decode";
 
 @Injectable(
 {
@@ -8,14 +10,17 @@ import { BehaviorSubject, map, Observable, take } from 'rxjs';
 })
 export class HttpClientService
 {
+  loginUrl = "https://127.0.0.1:8000/api/login";
   produitUrl = "https://127.0.0.1:8000/api/produits";
   categorieUrl = "https://127.0.0.1:8000/api/categories";
   quantite : number = 1;
   tab !: any[];
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();
+  myUser: any;
+  user: any;
 
-  constructor(private http : HttpClient)
+  constructor(private http : HttpClient, private route : Router)
   {
     let existingCartItems = JSON.parse(localStorage.getItem('panier') || '[]');
     if (!existingCartItems)
@@ -24,7 +29,33 @@ export class HttpClientService
     }
     this.itemsSubject.next(existingCartItems);
   }
-
+/**************************************** Authentification ******** **************************/
+  login(body : any)
+  {
+    this.http.post(this.loginUrl, body).subscribe
+    (
+      token =>
+      {
+        this.myUser = this.getDecodedAccessToken(JSON.stringify(token));
+        if(this.myUser != undefined)
+        {
+          localStorage.setItem('ACCESS_TOKEN', JSON.stringify(this.myUser));
+          this.route.navigateByUrl('poc');
+        }
+      }
+    )
+  }
+  getDecodedAccessToken(token: string): any
+  {
+    try
+    {
+      return jwt_decode(token);
+    }
+    catch(Error)
+    {
+      return null;
+    }
+  }
 /**************************************** Récupération des Observables ******** **************************/
   putUrl(url : any, body : any)
   {

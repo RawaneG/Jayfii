@@ -17,26 +17,19 @@
   {
     position: absolute;
     top:10%;
-    right: 20%;
+    right: 15%;
     font-family: sans-serif;
-    width: 300px;
+    width: 400px;
     border-radius: 10px;
     background-color: #ffff;
     opacity: 75%;
     padding: 1.8rem;
     box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.1);
   }
-
   .title
   {
-    text-align: center;
-    font-weight: bold;
-    margin: 0;
-  }
-  .subtitle
-  {
-    text-align: center;
-    font-weight: bold;
+    font-size: 3.5em;
+    margin: 1em 0;
   }
   .btn-text
   {
@@ -45,54 +38,43 @@
   .social-login
   {
     display: flex;
-    justify-content: center;
-    gap: 5px;
+    justify-content: space-evenly;
+    width: 100%;
+    margin: 2em 0;
   }
   .google-btn
   {
-    background: #fff;
+    cursor: pointer;
+    width: 50%;
+    background: #E9F1FF;
+    color:#4285F4;
     border: solid 2px rgb(245 239 239);
     border-radius: 8px;
     font-weight: bold;
     display: flex;
-    padding: 10px 10px;
     flex: auto;
     align-items: center;
-    gap: 5px;
-    justify-content: center;
+    justify-content: space-evenly;
   }
   .fb-btn
   {
+    cursor: pointer;
+    width: 20%;
     background: #fff;
-    border: solid 2px rgb(69, 69, 185);
-    border-radius: 8px;
-    padding: 10px;
+    border: none;
+    padding: 15px;
     display: flex;
+    justify-content: center;
     align-items: center;
-  }
-  .or
-  {
-    text-align: center;
-    font-weight: bold;
-    border-bottom: 2px solid rgb(245 239 239);
-    line-height: 0.1em;
-    margin: 25px 0;
-  }
-  .or span
-  {
-    background: #fff;
-    padding: 0 10px;
+    cursor: pointer;
   }
   .email-login
   {
     display: flex;
     flex-direction: column;
+    margin: 1em 0;
   }
-  .email-login label
-  {
-    color: rgb(170 166 166);
-  }
-  input[type="text"],
+  input[type="email"],
   input[type="password"]
   {
     padding: 15px 20px;
@@ -104,17 +86,39 @@
   }
   .cta-btn
   {
-    background-color: rgb(69, 69, 185);
+    background-color: #779341;
+    font-weight: bold;
     color: white;
     padding: 18px 20px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 100%;
+    width: 50%;
     border-radius: 10px;
     border: none;
+    margin-left: 52%;
+    cursor: pointer;
   }
-  .forget-pass
+  .footer
   {
-    text-align: center;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+  }
+  .account
+  {
+    color: #779341;
+  }
+  .forgot-mdp
+  {
+    color: #4285F4;
+  }
+  .cta-btn:hover
+  {
+	  animation: pulse 1500ms infinite ;
+  }
+  @keyframes pulse
+  {
+    0% {
+      box-shadow: 0 0 0 0 rgba(119, 147, 65, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 0 10px #fbb32f01;
+    }
   }

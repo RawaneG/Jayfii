@@ -5,8 +5,6 @@
         <mat-label>Tous les produits</mat-label>
         <mat-select class="example-select">
           <mat-option value="one">Tous les produits</mat-option>
-          <mat-option value="two">Pringles</mat-option>
-          <mat-option value="three">Coca-Cola</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -39,7 +37,7 @@
           <mat-option value="one">Rawane</mat-option>
         </mat-select>
       </mat-form-field>
-      <span><i class="fas fa-sign-out"></i></span>
+      <span><i class="fas fa-sign-out" (click)="logout()"></i></span>
     </div>
     <div class="p-middle">
       <div class="myCard">
