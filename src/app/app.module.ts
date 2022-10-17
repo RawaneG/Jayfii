@@ -25,6 +25,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { PanierComponent } from './poste-de-vente/panier/panier.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ListeCategoriesComponent,
     ListeProduitsComponent,
     CreerProduitComponent,
-    CreerCategorieComponent
+    CreerCategorieComponent,
+    PanierComponent
   ],
   imports: [
     MatToolbarModule,
@@ -55,7 +58,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MatListModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxMatFileInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

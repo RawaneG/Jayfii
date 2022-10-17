@@ -1,8 +1,8 @@
 <form [formGroup]="ajouterProduit" (submit)="submit()">
   <div class="body">
     <div class="first-section">
+      <h1>Description du Produit</h1>
       <div class="container1">
-        <h1>Description du Produit</h1>
         <mat-form-field class="example-input">
           <mat-label>Nom de la catégorie</mat-label>
           <input matInput placeholder="Ex. Nourriture" formControlName="nom" />
@@ -12,7 +12,7 @@
           <mat-select formControlName="categorie">
             <mat-option
               *ngFor="let categorie of mesCategories"
-              value="{{ categorie.nom }}"
+              value="{{ categorie.id }}"
             >
               {{ categorie.nom }}
             </mat-option>
@@ -35,8 +35,19 @@
           ></textarea>
         </mat-form-field>
       </div>
+      <h1>Inventaire</h1>
       <div class="container1">
-        <h1>Inventaire</h1>
+        <mat-form-field class="example-input">
+          <mat-label>Produit Composé</mat-label>
+          <mat-select formControlName="compose">
+            <mat-option value="true"> Oui </mat-option>
+            <mat-option value="false"> Non </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-input">
+          <mat-label>SKU</mat-label>
+          <input matInput placeholder="Ex. AX1E4GNG978" formControlName="SKU" />
+        </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Produit en Stock</mat-label>
           <input
@@ -62,36 +73,40 @@
             <mat-expansion-panel-header>
               <mat-panel-title> Représentation par Couleur </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-radio-group aria-label="Select an option" class="radio-group">
+            <mat-radio-group
+              aria-label="Select an option"
+              class="radio-group"
+              formControlName="couleur"
+            >
               <div class="parent">
-                <mat-radio-button value="1" class="radio">
+                <mat-radio-button value="blue" class="radio">
                   <div class="box"></div>
                 </mat-radio-button>
               </div>
               <div class="parent">
-                <mat-radio-button value="2" class="radio">
+                <mat-radio-button value="red" class="radio">
                   <div class="box red"></div>
                 </mat-radio-button>
               </div>
               <div class="parent">
-                <mat-radio-button value="3" class="radio">
+                <mat-radio-button value="green" class="radio">
                   <div class="box green"></div>
                 </mat-radio-button>
               </div>
               <div class="parent">
-                <mat-radio-button value="4" class="radio">
+                <mat-radio-button value="purple" class="radio">
                   <div class="box purple"></div>
                 </mat-radio-button>
               </div>
               <div class="parent">
-                <mat-radio-button value="5" class="radio">
+                <mat-radio-button value="black" class="radio">
                   <div class="box black"></div>
                 </mat-radio-button>
               </div>
             </mat-radio-group>
           </mat-expansion-panel>
         </mat-accordion>
-        <mat-accordion>
+        <mat-accordion class="accordion">
           <mat-expansion-panel
             (opened)="panelOpenState = true"
             (closed)="panelOpenState = false"
@@ -99,10 +114,18 @@
             <mat-expansion-panel-header>
               <mat-panel-title> Représentation par Image </mat-panel-title>
             </mat-expansion-panel-header>
-            <button class="download">
-              <i class="fa fa-download" aria-hidden="true"></i>
-              <h3>Importer une image</h3>
-            </button>
+            <label for="image" class="input-file">
+              <i class="fas fa-upload"></i>
+              <p>Importer une image</p>
+            </label>
+            <input
+              id="image"
+              class="input"
+              type="file"
+              name="upload"
+              class="image"
+              (change)="readUrl($event)"
+            />
           </mat-expansion-panel>
         </mat-accordion>
       </div>

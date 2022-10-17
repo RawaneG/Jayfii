@@ -10,33 +10,57 @@ import { HttpClientService } from 'src/app/services.service';
 })
 export class CreerProduitComponent implements OnInit
 {
+  compose !: boolean;
+  requiredFile !: string;
   panelOpenState = false;
   mesCategories : any;
   ajouterProduit : any;
   body : any = {};
+  url !: string | ArrayBuffer | null;
+
   constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router) { }
+  readUrl(event:any)
+  {
+    if (event.target.files && event.target.files[0])
+    {
+      var reader = new FileReader();
+      reader.onload = (event: ProgressEvent) =>
+      {
+        this.url = (<FileReader>event.target).result;
+      }
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  }
   submit()
   {
+    if (this.ajouterProduit.value.compose == "true")
+    {
+      this.compose = true;
+    }
+    else
+    {
+      this.compose = false;
+    }
     this.body =
     {
-      "prix": this.ajouterProduit.value.prix,
-      "cout": this.ajouterProduit.value.cout,
-      "quantiteEnStock": this.ajouterProduit.value.quantiteEnStock,
-      "compose": this.ajouterProduit.value.compose,
+      "prix": +this.ajouterProduit.value.prix,
+      "cout": +this.ajouterProduit.value.cout,
+      "quantiteEnStock": +this.ajouterProduit.value.quantiteEnStock,
+      "image": this.url,
+      "compose": this.compose,
       "SKU": this.ajouterProduit.value.SKU,
       "categorie":
       [
         {
-            "id" : 3
+            "id" : +this.ajouterProduit.value.categorie
         }
       ],
       "nom": this.ajouterProduit.value.nom,
       "description": this.ajouterProduit.value.description,
       "couleur": this.ajouterProduit.value.couleur
     }
-    console.log(this.ajouterProduit);
-    // this.httpService.postUrl(this.httpService.categorieUrl,this.body);
-    // this.route.navigateByUrl('produits');
+    this.httpService.postUrl(this.httpService.produitUrl,this.body);
+    this.route.navigateByUrl('produits');
   }
   ngOnInit(): void
   {

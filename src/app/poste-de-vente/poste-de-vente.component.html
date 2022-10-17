@@ -12,62 +12,17 @@
     </div>
     <!-- ========== Produits ========== -->
     <div class="container">
-      <div class="product-card card">
-        <div class="product-header">
-          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
+      <div class="product-card card" *ngFor="let produit of mesProduits">
+        <div class="product-header" (click)="panier(produit)">
+          <img
+            class="product-picture"
+            src="{{ 'data:image/png;base64,' + produit.image }}"
+          />
         </div>
-        <div class="card-details">
-          <h3 class="product-name">Calathea Orbifolia</h3>
+        <div class="card-details" (click)="panier(produit)">
+          <h3 class="product-name">{{ produit.nom }}</h3>
           <div class="bottom-row">
-            <p class="price">21,95€</p>
-            <button class="add-cart"><i class="fas fa-plus"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="product-card card">
-        <div class="product-header">
-          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
-        </div>
-        <div class="card-details">
-          <h3 class="product-name">Calathea Orbifolia</h3>
-          <div class="bottom-row">
-            <p class="price">21,95€</p>
-            <button class="add-cart"><i class="fas fa-plus"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="product-card card">
-        <div class="product-header">
-          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
-        </div>
-        <div class="card-details">
-          <h3 class="product-name">Calathea Orbifolia</h3>
-          <div class="bottom-row">
-            <p class="price">21,95€</p>
-            <button class="add-cart"><i class="fas fa-plus"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="product-card card">
-        <div class="product-header">
-          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
-        </div>
-        <div class="card-details">
-          <h3 class="product-name">Calathea Orbifolia</h3>
-          <div class="bottom-row">
-            <p class="price">21,95€</p>
-            <button class="add-cart"><i class="fas fa-plus"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="product-card card">
-        <div class="product-header">
-          <img class="product-picture" src="https://i.imgur.com/BzIoXyY.png" />
-        </div>
-        <div class="card-details">
-          <h3 class="product-name">Calathea Orbifolia</h3>
-          <div class="bottom-row">
-            <p class="price">21,95€</p>
+            <p class="price">{{ produit.prix }} FCFA</p>
             <button class="add-cart"><i class="fas fa-plus"></i></button>
           </div>
         </div>
@@ -92,30 +47,22 @@
           <span>Produit</span>
           <span>Quantité</span>
           <span>Prix</span>
-          <span><i class="fas fa-trash"></i></span>
+          <span (click)="closeAll()"><i class="fas fa-trash"></i></span>
+        </div>
+        <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
+        <div class="myCard-empty" *ngIf="monPanier === []">
+          <span>
+            <i class="fas fa-shopping-cart"></i>
+          </span>
         </div>
         <div class="myCard-content">
-          <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-          <div class="myCard-empty">
-            <span>
-              <i class="fas fa-shopping-cart"></i>
-            </span>
-          </div>
           <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
-          <!-- <div class="myCard-child">
-            <span>Coca-Cola</span>
-            <span class="quantity-control">
-              <button>+</button>
-              <span class="quantity">1</span>
-              <button>-</button>
-            </span>
-            <span>1000 FCFA</span>
-            <button><i class="fas fa-close"></i></button>
-          </div> -->
+          <app-panier *ngFor="let elus of monPanier" [selected]="elus">
+          </app-panier>
         </div>
         <div class="myCard-footer">
           <span>Sous-Total</span>
-          <span>1000 FCFA</span>
+          <span>{{ monTotal }} FCFA</span>
         </div>
       </div>
     </div>

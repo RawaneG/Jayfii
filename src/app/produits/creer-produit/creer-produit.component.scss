@@ -1,5 +1,12 @@
+form
+{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
 .body
 {
+    width: 100%;
     margin: 2em 0 0 0;
     display: flex;
     justify-content: flex-end;
@@ -7,26 +14,37 @@
 .first-section
 {
     width: 40%;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 .second-section
 {
+    max-height: 80vh;
     width: 50%;
     display: flex;
     justify-content: center;
 }
 .container1
 {
-    min-height: 40vh;
+    min-height: 20vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
     justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
 }
 .container2
 {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     width: 90%;
+}
+.example-input
+{
+    width: 45%;
 }
 .box
 {
@@ -62,17 +80,6 @@
     align-items: center;
     justify-content: space-between;
 }
-form
-{
-    width: 100%;
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
-.example-input
-{
-    width: 40%;
-}
 .final-boutons
 {
     margin: 2em 0 0 50%;
@@ -92,6 +99,25 @@ form
     {
         background: #002978;
         color:white;
+    }
+}
+.accordion
+{
+    label
+    {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .fas
+    {
+        font-size: 3em;
+    }
+    input[type=file]
+    {
+        display: none;
     }
 }
 h1
