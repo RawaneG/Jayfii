@@ -27,6 +27,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { PanierComponent } from './poste-de-vente/panier/panier.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { PanierComponent } from './poste-de-vente/panier/panier.component';
     PanierComponent
   ],
   imports: [
+    NgxPaginationModule,
     MatToolbarModule,
     MatIconModule,
     BrowserModule,

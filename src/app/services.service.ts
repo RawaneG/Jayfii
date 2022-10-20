@@ -13,6 +13,7 @@ export class HttpClientService
   loginUrl = "https://127.0.0.1:8000/api/login";
   produitUrl = "https://127.0.0.1:8000/api/produits";
   categorieUrl = "https://127.0.0.1:8000/api/categories";
+  commandeUrl = "https://127.0.0.1:8000/api/commandes";
   quantite : number = 1;
   tab !: any[];
   itemsSubject = new BehaviorSubject<any[]>([]);

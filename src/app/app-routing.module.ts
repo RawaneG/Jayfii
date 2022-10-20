@@ -21,7 +21,6 @@ const routes: Routes =
   {path: 'categories/add', component: CreerCategorieComponent},
   {path: 'produits', component: ListeProduitsComponent},
   {path: 'categories', component: ListeCategoriesComponent},
-  {path: '**', redirectTo : 'login'}
 ];
 
 @NgModule({

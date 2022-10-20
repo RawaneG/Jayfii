@@ -34,7 +34,7 @@ export class PanierComponent implements OnInit
       value =>
       {
         this.monPanier = value;
-        this.ajoutee = value.find(prod => prod.id === produit.id);
+        this.ajoutee = value.findIndex(prod => prod.id === produit.id);
         this.monPanier.splice(this.ajoutee, 1);
         localStorage.setItem('panier', JSON.stringify(this.monPanier));
       }

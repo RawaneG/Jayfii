@@ -65,8 +65,49 @@
       </div>
     </div>
     <div class="p-footer">
-      <div class="payment">
+      <div class="payment" (click)="paiement()">
         <span class="payment-title">Valider la commande</span>
+      </div>
+    </div>
+  </div>
+  <!-- ========== Pop Up ========== -->
+  <div [hidden]="show == false">
+    <div class="popup-container">
+      <div class="popup-content">
+        <div class="popup">
+          <h1>Méthode de paiement</h1>
+          <div class="popup-div-2">
+            <p>En espèce</p>
+            <!-- <p>Par carte</p> -->
+          </div>
+          <div class="popup-div-1">
+            <h3>À Payer : {{ monTotal }} FCFA</h3>
+          </div>
+          <div class="form">
+            <!-- ========== Formulaire ========== -->
+            <form [formGroup]="form">
+              <mat-form-field class="example-full-width">
+                <mat-label>Entrez votre montant Ici (FCFA)</mat-label>
+                <input
+                  matInput
+                  class="input"
+                  (input)="ecriture()"
+                  formControlName="montant"
+                />
+              </mat-form-field>
+            </form>
+            <div class="reste">
+              <h3>Reste : {{ reste }} FCFA</h3>
+            </div>
+          </div>
+          <!-- ========== Boutons de confirmation ========== -->
+          <div class="boutons">
+            <p (click)="ferme()">Annuler le paiement</p>
+            <p *ngIf="confirmer" (click)="confirmerPaiement()">
+              Valider le paiement
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

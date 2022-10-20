@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-poste-de-vente',
@@ -14,8 +15,80 @@ export class PosteDeVenteComponent implements OnInit
   monPanier :any[] = [];
   mesProduits : any;
   monTotal : number = 0;
-  constructor(private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
+  show: boolean = false;
+  form !: FormGroup;
+  montant !: number;
+  reste : number = 0;
+  confirmer : boolean = false;
+  body : any;
+  tabCommandes : any = [];
+  intermediaire : any = [];
+  tabEntier : any = [];
+  constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
 
+  getProduct()
+  {
+    this.httpService.items$.subscribe
+    (
+      reponse =>
+      {
+        this.tabCommandes = reponse;
+        this.tabCommandes.forEach((element : any) =>
+        {
+          this.intermediaire =
+          {
+            "quantite" : element.quantite,
+            "prix" : element.prix,
+            "produit" :
+            {
+                "id" : element.id
+            }
+          }
+          this.tabEntier.push(this.intermediaire);
+        });
+      }
+    )
+    return this.tabEntier;
+  }
+  confirmerPaiement()
+  {
+    this.body =
+    {
+      "prixCommande": this.monTotal,
+      "montant": this.montant,
+      "reste": this.reste,
+      "methodePaiement":
+      {
+        "id" : 1
+      },
+      "client":
+      {
+        "id" : 3
+      },
+      "boutiquier":
+      {
+        "id" : 1
+      },
+      "ligneDeCommandes": this.getProduct()
+    }
+    this.httpService.postUrl(this.httpService.commandeUrl,this.body);
+    localStorage.removeItem('panier');
+    location.reload();
+  }
+  ecriture()
+  {
+    this.montant = +this.form.controls['montant'].value;
+    if(this.montant > this.monTotal && !isNaN(this.montant))
+    {
+      this.reste = this.montant - this.monTotal;
+      this.confirmer = true;
+    }
+    else
+    {
+      this.reste = 0;
+      this.confirmer = false;
+    }
+  }
   logout()
   {
     this.serviceAuth.deconnecter();
@@ -44,13 +117,24 @@ export class PosteDeVenteComponent implements OnInit
         }
         else
         {
-          localStorage.setItem('panier', JSON.stringify(this.httpService.items$));
         }
       }
     );
   }
+  paiement()
+  {
+    this.show = true;
+  }
+  ferme()
+  {
+    this.show = false;
+  }
   ngOnInit(): void
   {
+    this.form = this.formBuilder.group(
+    {
+      montant: [""]
+    });
     this.monTotal = this.httpService.sousTotal();
     this.httpService.items$.subscribe(value => this.monPanier = value);
     this.httpService.getUrl(this.httpService.produitUrl).subscribe
