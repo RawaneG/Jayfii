@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit, LOCALE_ID } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
@@ -28,6 +28,16 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { PanierComponent } from './poste-de-vente/panier/panier.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { registerLocaleData, DatePipe } from '@angular/common';
+import * as fr from '@angular/common/locales/fr';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSortModule } from '@angular/material/sort';
+import {MatTableModule} from '@angular/material/table';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -43,7 +53,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
     CreerCategorieComponent,
     PanierComponent
   ],
-  imports: [
+  imports:
+  [
+    Ng2SearchPipeModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    MatSortModule,
+    MatDatepickerModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
     NgxPaginationModule,
     MatToolbarModule,
     MatIconModule,
@@ -63,7 +83,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatExpansionModule,
     NgxMatFileInputModule
   ],
-  providers: [],
+  providers:
+  [
+    { provide: LOCALE_ID, useValue: 'fr-FR'},
+    DatePipe,
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule
+{
+  constructor()
+  {
+    registerLocaleData(fr.default);
+  }
+ }

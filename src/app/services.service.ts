@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { Router } from '@angular/router';
@@ -14,12 +14,14 @@ export class HttpClientService
   produitUrl = "https://127.0.0.1:8000/api/produits";
   categorieUrl = "https://127.0.0.1:8000/api/categories";
   commandeUrl = "https://127.0.0.1:8000/api/commandes";
+  monTotalService : any = 0;
   quantite : number = 1;
-  tab !: any[];
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();
+  tab !: any[];
   myUser: any;
   user: any;
+  produit: any;
 
   constructor(private http : HttpClient, private route : Router)
   {
@@ -95,33 +97,37 @@ export class HttpClientService
       {
         productParam.quantite = 1;
         productsParam.push(productParam);
+        this.monTotalService = this.sousTotal();
         localStorage.setItem('panier', JSON.stringify(productsParam));
       }),
     ).subscribe();
   }
 /**************************************** Incrémentation *************************************************/
-incremente()
+incremente(element : any)
 {
-  this.quantite++;
   this.items$.pipe(
     take(1),
-    map((selected) =>
+    map((productsParam) =>
     {
-      selected[0].quantite++;
-      localStorage.setItem('panier', JSON.stringify(selected));
+      this.produit = productsParam.findIndex((param : any) => param.id === element.id)
+      console.log(this.produit)
+      productsParam[this.produit].quantite++;
+      this.monTotalService = this.sousTotal();
+      localStorage.setItem('panier', JSON.stringify(productsParam));
     }),
   ).subscribe();
 }
 /**************************************** Décrementation *************************************************/
-decremente()
+decremente(element : any)
 {
-  this.quantite--;
   this.items$.pipe(
     take(1),
-    map((selected) =>
+    map((productsParam) =>
     {
-      selected[0].quantite--;
-      localStorage.setItem('panier', JSON.stringify(selected));
+      this.produit = productsParam.findIndex((param : any) => param.id === element.id)
+      productsParam[this.produit].quantite--;
+      this.monTotalService = this.sousTotal();
+      localStorage.setItem('panier', JSON.stringify(productsParam));
     }),
   ).subscribe();
 }

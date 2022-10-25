@@ -1,33 +1,38 @@
 <div class="container">
   <h2>Récapitulatif des ventes</h2>
   <ul class="responsive-table">
+    <form [formGroup]="form">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="date"
+          (dateChange)="dateChange($event)"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </form>
     <li class="table-header">
-      <div class="col col-1">Date</div>
+      <div class="col col-2">Date</div>
       <div class="col col-2">Ventes Brutes</div>
-      <div class="col col-3">Remboursements</div>
-      <div class="col col-4">Coût de la marchandise</div>
+      <div class="col col-4">Coût des marchandises</div>
       <div class="col col-5">Marge</div>
     </li>
-    <li class="table-row">
-      <div class="col col-1">10 Juillet 1999</div>
-      <div class="col col-2">2000 FCFA</div>
-      <div class="col col-3">500 FCFA</div>
-      <div class="col col-4">3000 FCFA</div>
-      <div class="col col-5">1000 FCFA</div>
-    </li>
-    <li class="table-row">
-      <div class="col col-1">10 Juillet 1999</div>
-      <div class="col col-2">2000 FCFA</div>
-      <div class="col col-3">500 FCFA</div>
-      <div class="col col-4">3000 FCFA</div>
-      <div class="col col-5">1000 FCFA</div>
-    </li>
-    <li class="table-row">
-      <div class="col col-1">10 Juillet 1999</div>
-      <div class="col col-2">2000 FCFA</div>
-      <div class="col col-3">500 FCFA</div>
-      <div class="col col-4">3000 FCFA</div>
-      <div class="col col-5">1000 FCFA</div>
+    <li class="table-row" *ngFor="let vente of pageSlice | filter: filtreDate">
+      <div class="col col-2">{{ vente.date | date: "fullDate" }}</div>
+      <div class="col col-2">{{ vente.prixCommande }} FCFA</div>
+      <div class="col col-4">{{ vente.cout }} FCFA</div>
+      <div class="col col-5">{{ vente.prixCommande - vente.cout }} FCFA</div>
     </li>
   </ul>
+  <mat-paginator
+    [length]="filtrer.length"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
 </div>

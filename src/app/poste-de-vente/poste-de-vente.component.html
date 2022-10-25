@@ -1,12 +1,7 @@
 <div class="body">
   <div class="first-parent">
     <div class="header">
-      <mat-form-field class="example-form">
-        <mat-label>Tous les produits</mat-label>
-        <mat-select class="example-select">
-          <mat-option value="one">Tous les produits</mat-option>
-        </mat-select>
-      </mat-form-field>
+      <h1>Nos Produits</h1>
     </div>
     <!-- ========== Produits ========== -->
     <div class="container">
@@ -48,15 +43,19 @@
           <span (click)="closeAll()"><i class="fas fa-trash"></i></span>
         </div>
         <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-        <div class="myCard-empty" *ngIf="monPanier === []">
+        <div class="myCard-empty" *ngIf="monTotal === 0">
           <span>
             <i class="fas fa-shopping-cart"></i>
           </span>
         </div>
         <div class="myCard-content">
           <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
-          <app-panier *ngFor="let elus of monPanier" [selected]="elus">
-          </app-panier>
+          <app-panier
+            *ngFor="let elus of monPanier"
+            [selected]="elus"
+            (message)="messageRecu($event)"
+            [quantite]="maQuantite"
+          ></app-panier>
         </div>
         <div class="myCard-footer">
           <span>Sous-Total</span>

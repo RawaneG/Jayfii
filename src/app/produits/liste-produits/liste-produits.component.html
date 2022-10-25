@@ -12,8 +12,10 @@
       <mat-form-field>
         <mat-label>Catégorie</mat-label>
         <mat-select>
-          <mat-option value="one">Tous les produits</mat-option>
-          <mat-option value="two" *ngFor="let categorie of mesCategories">
+          <mat-option
+            *ngFor="let categorie of mesCategories"
+            (click)="selectCategorie(categorie)"
+          >
             {{ categorie.nom }}
           </mat-option>
         </mat-select>
@@ -31,9 +33,8 @@
   <!-- ========== Second Parent ========== -->
   <div class="second-parent">
     <div class="first-contayner">
-      <mat-checkbox>
-        <span style="margin: 0 0 0 4em">Nom du Produit</span>
-      </mat-checkbox>
+      <mat-checkbox> </mat-checkbox>
+      <span style="margin: 0 0 0 4em">Nom du Produit</span>
     </div>
     <div class="second-contayner">
       <span>Catégorie</span>
@@ -43,7 +44,10 @@
     </div>
   </div>
   <!-- ========== Third Parent ========== -->
-  <div class="third-parent" *ngFor="let produit of mesProduits">
+  <div
+    class="third-parent"
+    *ngFor="let produit of pageSlice | filter: category"
+  >
     <div class="mini-parent">
       <div class="firste-container">
         <mat-checkbox>
@@ -62,9 +66,11 @@
   </div>
   <!-- ========== Pagination ========== -->
   <mat-paginator
-    [length]="100"
+    [length]="mesProduits.length"
     [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 25, 100]"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
   >
   </mat-paginator>
 </div>

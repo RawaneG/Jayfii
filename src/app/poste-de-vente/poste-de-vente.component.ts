@@ -11,10 +11,11 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 })
 export class PosteDeVenteComponent implements OnInit
 {
+  maQuantite : any;
   ajoutee: any;
   monPanier :any[] = [];
   mesProduits : any;
-  monTotal : number = 0;
+  monTotal !: number;
   show: boolean = false;
   form !: FormGroup;
   montant !: number;
@@ -26,6 +27,10 @@ export class PosteDeVenteComponent implements OnInit
   tabEntier : any = [];
   constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
 
+  messageRecu(event : any)
+  {
+    this.monTotal = event;
+  }
   getProduct()
   {
     this.httpService.items$.subscribe
@@ -73,12 +78,15 @@ export class PosteDeVenteComponent implements OnInit
     }
     this.httpService.postUrl(this.httpService.commandeUrl,this.body);
     localStorage.removeItem('panier');
-    location.reload();
+    alert("Vente effectué avec succès");
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
   }
   ecriture()
   {
     this.montant = +this.form.controls['montant'].value;
-    if(this.montant > this.monTotal && !isNaN(this.montant))
+    if(this.montant >= this.monTotal && !isNaN(this.montant))
     {
       this.reste = this.montant - this.monTotal;
       this.confirmer = true;
@@ -117,6 +125,9 @@ export class PosteDeVenteComponent implements OnInit
         }
         else
         {
+          this.httpService.incremente(this.ajoutee);
+          this.maQuantite = this.ajoutee.quantite;
+          this.monTotal = this.httpService.sousTotal();
         }
       }
     );
@@ -136,7 +147,10 @@ export class PosteDeVenteComponent implements OnInit
       montant: [""]
     });
     this.monTotal = this.httpService.sousTotal();
-    this.httpService.items$.subscribe(value => this.monPanier = value);
+    this.httpService.items$.subscribe(value =>
+      {
+        this.monPanier = value;
+      });
     this.httpService.getUrl(this.httpService.produitUrl).subscribe
     (
       (reponse) => {this.mesProduits = reponse}

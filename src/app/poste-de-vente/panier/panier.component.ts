@@ -9,24 +9,28 @@ import { HttpClientService } from 'src/app/services.service';
 })
 export class PanierComponent implements OnInit
 {
-  @Output() event = new EventEmitter<number>();
+  @Output() message = new EventEmitter();
   @Input() selected : any;
+  @Input() quantite !: number;
   ajoutee: any;
   monPanier: any[] = [];
-  quantite : number = 1;
   monPrix : any;
   disable : boolean = true;
-  monTotal : number = 0;
+  monTotal !: number;
   constructor(private httpService : HttpClientService) { }
-  incremente()
+  incremente(element : any)
   {
     this.quantite++;
-    this.httpService.incremente();
+    this.httpService.incremente(element);
+    this.monTotal = this.httpService.sousTotal();
+    this.message.emit(this.monTotal);
   }
-  decremente()
+  decremente(element : any)
   {
     this.quantite--;
-    this.httpService.decremente();
+    this.httpService.decremente(element);
+    this.monTotal = this.httpService.sousTotal();
+    this.message.emit(this.monTotal);
   }
   close(produit : any)
   {
@@ -36,18 +40,15 @@ export class PanierComponent implements OnInit
         this.monPanier = value;
         this.ajoutee = value.findIndex(prod => prod.id === produit.id);
         this.monPanier.splice(this.ajoutee, 1);
+        this.monTotal = this.httpService.sousTotal();
+        this.message.emit(this.monTotal);
         localStorage.setItem('panier', JSON.stringify(this.monPanier));
       }
     );
   }
   ngOnInit(): void
   {
-    this.httpService.items$.subscribe(
-      value =>
-      {
-        this.quantite = value[0].quantite
-      }
-    );
+    this.monTotal = this.httpService.sousTotal();
+    this.quantite = this.selected.quantite;
   }
-
 }

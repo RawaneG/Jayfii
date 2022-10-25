@@ -10,7 +10,7 @@
     <mat-checkbox></mat-checkbox>
     <p>Nom de la catégorie</p>
   </div>
-  <div class="final-container" *ngFor="let categorie of mesCategories">
+  <div class="final-container" *ngFor="let categorie of pageSlice">
     <mat-checkbox></mat-checkbox>
     <div class="box-n-stuff">
       <div class="box"></div>
@@ -21,9 +21,11 @@
     </div>
   </div>
   <mat-paginator
-    [length]="100"
+    [length]="mesCategories.length"
     [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 25, 100]"
+    [pageSizeOptions]="[5, 10, 25, 50]"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
   >
   </mat-paginator>
 </div>

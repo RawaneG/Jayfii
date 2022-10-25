@@ -31,6 +31,10 @@ html, body
   justify-content: space-evenly;
   background-color: #F0F2F4;
   width: 100%;
+  h1
+  {
+    margin: 2em;
+  }
 }
 .container
 {
@@ -229,13 +233,15 @@ html, body
   display: flex;
   flex-direction: column;
   overflow: auto;
+  position: relative;
 }
 .myCard-empty
 {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  position: absolute;
+  top:50%;
   span
   {
     padding: 1em;
