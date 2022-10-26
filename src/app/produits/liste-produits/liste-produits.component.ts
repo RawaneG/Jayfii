@@ -15,6 +15,11 @@ export class ListeProduitsComponent implements OnInit
   mesCategories : any;
   pageSlice : any;
   category : any;
+  isSelected !: boolean;
+  isChecked : any = 'decochee';
+
+  constructor(private httpService : HttpClientService) { }
+
   onPageChange(event : PageEvent)
   {
     const startIndex = event.pageIndex * event.pageSize;
@@ -25,9 +30,47 @@ export class ListeProduitsComponent implements OnInit
     }
     this.pageSlice = this.mesProduits.slice(startIndex, endIndex);
   }
-
-  constructor(private httpService : HttpClientService) { }
-
+  toTrash()
+  {
+    if(this.isSelected == true)
+    {
+      this.mesProduits.forEach((element : any) =>
+      {
+        element.etat = true;
+        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id, element);
+      });
+    }
+    else
+    {
+      if(this.isChecked !== 'decochee')
+      {
+        this.isChecked.etat = true;
+        this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.isChecked.id), this.isChecked);
+      }
+    }
+  }
+  check(event : any)
+  {
+    if(event.checked === true)
+    {
+      this.isSelected = true;
+    }
+    else
+    {
+      this.isSelected = false;
+    }
+  }
+  coche(event : any, produit : any)
+  {
+    if(event.checked == true)
+    {
+      this.isChecked = produit;
+    }
+    else
+    {
+      this.isChecked = 'decochee';
+    }
+  }
   selectCategorie(event : any)
   {
     this.category = event.nom;

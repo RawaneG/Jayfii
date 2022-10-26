@@ -25,6 +25,7 @@ export class PosteDeVenteComponent implements OnInit
   tabCommandes : any = [];
   intermediaire : any = [];
   tabEntier : any = [];
+
   constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
 
   messageRecu(event : any)
@@ -125,9 +126,15 @@ export class PosteDeVenteComponent implements OnInit
         }
         else
         {
-          this.httpService.incremente(this.ajoutee);
-          this.maQuantite = this.ajoutee.quantite;
-          this.monTotal = this.httpService.sousTotal();
+          if(this.ajoutee.quantiteEnStock == 0)
+          {
+            return;
+          }
+          else
+          {
+            this.httpService.incremente(this.ajoutee);
+            this.monTotal = this.httpService.sousTotal();
+          }
         }
       }
     );

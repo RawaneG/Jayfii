@@ -14,6 +14,7 @@ export class HttpClientService
   produitUrl = "https://127.0.0.1:8000/api/produits";
   categorieUrl = "https://127.0.0.1:8000/api/categories";
   commandeUrl = "https://127.0.0.1:8000/api/commandes";
+
   monTotalService : any = 0;
   quantite : number = 1;
   itemsSubject = new BehaviorSubject<any[]>([]);
@@ -48,6 +49,7 @@ export class HttpClientService
       }
     )
   }
+/**************************************** Obtenir le token d'authentification **************************/
   getDecodedAccessToken(token: string): any
   {
     try
@@ -96,6 +98,7 @@ export class HttpClientService
       map((productsParam) =>
       {
         productParam.quantite = 1;
+        console.log(productParam.quantiteEnStock--);
         productsParam.push(productParam);
         this.monTotalService = this.sousTotal();
         localStorage.setItem('panier', JSON.stringify(productsParam));
@@ -110,8 +113,8 @@ incremente(element : any)
     map((productsParam) =>
     {
       this.produit = productsParam.findIndex((param : any) => param.id === element.id)
-      console.log(this.produit)
       productsParam[this.produit].quantite++;
+      productsParam[this.produit].quantiteEnStock--;
       this.monTotalService = this.sousTotal();
       localStorage.setItem('panier', JSON.stringify(productsParam));
     }),
@@ -126,6 +129,7 @@ decremente(element : any)
     {
       this.produit = productsParam.findIndex((param : any) => param.id === element.id)
       productsParam[this.produit].quantite--;
+      productsParam[this.produit].quantiteEnStock++;
       this.monTotalService = this.sousTotal();
       localStorage.setItem('panier', JSON.stringify(productsParam));
     }),

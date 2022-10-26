@@ -11,12 +11,14 @@ export class PanierComponent implements OnInit
 {
   @Output() message = new EventEmitter();
   @Input() selected : any;
-  @Input() quantite !: number;
+
+  quantite !: number;
   ajoutee: any;
   monPanier: any[] = [];
   monPrix : any;
   disable : boolean = true;
   monTotal !: number;
+
   constructor(private httpService : HttpClientService) { }
   incremente(element : any)
   {
@@ -49,6 +51,5 @@ export class PanierComponent implements OnInit
   ngOnInit(): void
   {
     this.monTotal = this.httpService.sousTotal();
-    this.quantite = this.selected.quantite;
   }
 }

@@ -182,24 +182,10 @@ html, body
   display: flex;
   flex-direction: column;
 }
-.p-header
-{
-  height: 10%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  .fas
-  {
-    font-size: 1.5em;
-  }
-  .fa-sign-out
-  {
-    cursor: pointer;
-  }
-}
+
 .p-middle
 {
-  height: 80%;
+  height: 82%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -208,7 +194,7 @@ html, body
 {
   height: 96%;
   width: 96%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -241,7 +227,7 @@ html, body
   justify-content: center;
   align-items: center;
   position: absolute;
-  top:50%;
+  top:45%;
   span
   {
     padding: 1em;

@@ -1,16 +1,15 @@
 <div class="myCard-child">
   <span>{{ selected.nom }}</span>
   <span class="quantity-control">
-    <button
-      *ngIf="quantite < selected.quantiteEnStock"
-      (click)="incremente(selected)"
-    >
+    <button *ngIf="selected.quantiteEnStock > 0" (click)="incremente(selected)">
       +
     </button>
-    <span class="quantity">{{ quantite }}</span>
-    <button *ngIf="quantite > 1" (click)="decremente(selected)">-</button>
+    <span class="quantity">{{ selected.quantite }}</span>
+    <button *ngIf="selected.quantite > 1" (click)="decremente(selected)">
+      -
+    </button>
   </span>
-  <span class="prix">{{ selected.prix * quantite }} FCFA</span>
+  <span class="prix">{{ selected.prix * selected.quantite }} FCFA</span>
   <button (click)="close(selected)">
     <i class="fas fa-close"></i>
   </button>

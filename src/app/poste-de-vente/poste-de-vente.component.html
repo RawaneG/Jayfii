@@ -1,8 +1,5 @@
 <div class="body">
   <div class="first-parent">
-    <div class="header">
-      <h1>Nos Produits</h1>
-    </div>
     <!-- ========== Produits ========== -->
     <div class="container">
       <div class="product-card card" *ngFor="let produit of mesProduits">
@@ -24,16 +21,6 @@
   </div>
   <!-- ========== Panier ========== -->
   <div class="second-parent">
-    <div class="p-header">
-      <span><i class="fas fa-user-plus"></i></span>
-      <mat-form-field class="example-form">
-        <mat-label>Chercher un Client</mat-label>
-        <mat-select class="example-select">
-          <mat-option value="one">Rawane</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <span><i class="fas fa-sign-out" (click)="logout()"></i></span>
-    </div>
     <div class="p-middle">
       <div class="myCard">
         <div class="myCard-header">
@@ -54,7 +41,6 @@
             *ngFor="let elus of monPanier"
             [selected]="elus"
             (message)="messageRecu($event)"
-            [quantite]="maQuantite"
           ></app-panier>
         </div>
         <div class="myCard-footer">
