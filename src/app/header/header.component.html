@@ -1,29 +1,42 @@
 <mat-toolbar class="nav">
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with menu icon"
-  >
-    <mat-icon (click)="drawer.toggle()">menu</mat-icon>
-  </button>
+  <h1>Titre de page</h1>
 </mat-toolbar>
-
-<mat-drawer-container class="example-container" autosize>
-  <mat-drawer #drawer class="example-sidenav" mode="side">
-    <mat-list>
-      <mat-list-item routerLink="dashboard" class="link"
-        >Dashboard</mat-list-item
-      >
-      <mat-divider></mat-divider>
-      <mat-list-item routerLink="produits" class="link">Produit</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item routerLink="categories" class="link"
-        >Catégorie</mat-list-item
-      >
-      <mat-divider></mat-divider>
-      <mat-list-item routerLink="poc" class="link">POC</mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-list-item routerLink="login" class="link">Déconnexion</mat-list-item>
-    </mat-list>
-  </mat-drawer>
-</mat-drawer-container>
+<nav>
+  <div class="nav__container">
+    <a
+      id="a"
+      class="nav__item active"
+      routerLink="dashboard"
+      (click)="link('#a')"
+    >
+      <div class="nav__item-icon">
+        <mat-icon>dashboard</mat-icon>
+      </div>
+      <div class="nav__item-name">Dashboard</div>
+    </a>
+    <a id="b" class="nav__item" routerLink="produits" (click)="link('#b')">
+      <div class="nav__item-icon">
+        <mat-icon>shopping_basket</mat-icon>
+      </div>
+      <div class="nav__item-name">Produits</div>
+    </a>
+    <a id="c" class="nav__item" routerLink="categories" (click)="link('#c')">
+      <div class="nav__item-icon">
+        <mat-icon>bubble_chart</mat-icon>
+      </div>
+      <div class="nav__item-name">Catégories</div>
+    </a>
+    <a id="d" class="nav__item" routerLink="poc" (click)="link('#d')">
+      <div class="nav__item-icon">
+        <mat-icon>add_shopping_cart</mat-icon>
+      </div>
+      <div class="nav__item-name">POC</div>
+    </a>
+    <a id="e" class="nav__item" (click)="deconnexion()" (click)="link('#e')">
+      <div class="nav__item-icon">
+        <mat-icon name="log-out-outline" fontIcon="logout"></mat-icon>
+      </div>
+      <div class="nav__item-name">Se Déconnecter</div>
+    </a>
+  </div>
+</nav>

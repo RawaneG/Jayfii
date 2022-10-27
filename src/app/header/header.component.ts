@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,13 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit
 {
-  showFiller = false;
-
-  constructor() { }
-
+  constructor(private service : AuthService) { }
+  link(event : any)
+  {
+    const allItems = document.querySelectorAll(".nav__item");
+    allItems.forEach(element =>
+    {
+      element.classList.remove('active');
+    });
+    const daItem = document.querySelector(event);
+    daItem.classList.add('active');
+  }
+  deconnexion()
+  {
+    this.service.deconnecter();
+  }
   ngOnInit(): void
   {
-
   }
-
 }

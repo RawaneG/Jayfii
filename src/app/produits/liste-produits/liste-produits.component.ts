@@ -11,7 +11,7 @@ import { HttpClientService } from 'src/app/services.service';
 export class ListeProduitsComponent implements OnInit
 {
   panelOpenState = false;
-  mesProduits : any;
+  mesProduits : any[] = [];
   mesCategories : any;
   pageSlice : any;
   category : any;
@@ -38,6 +38,9 @@ export class ListeProduitsComponent implements OnInit
       {
         element.etat = true;
         this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id, element);
+        setTimeout(() => {
+        }, 500);
+        location.reload();
       });
     }
     else
@@ -46,6 +49,10 @@ export class ListeProduitsComponent implements OnInit
       {
         this.isChecked.etat = true;
         this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.isChecked.id), this.isChecked);
+        setTimeout(() => {
+
+        }, 500);
+        location.reload();
       }
     }
   }
@@ -75,13 +82,23 @@ export class ListeProduitsComponent implements OnInit
   {
     this.category = event.nom;
   }
+  selectLimite()
+  {
+    this.category = 0;
+  }
   ngOnInit(): void
   {
     this.httpService.getUrl(this.httpService.produitUrl).subscribe
     (
       (reponse) =>
       {
-        this.mesProduits = reponse;
+        reponse.forEach((element : any) =>
+        {
+            if(element.etat === false)
+            {
+              this.mesProduits.push(element);
+            }
+        });
         this.pageSlice = this.mesProduits.slice(0 , 5);
       }
     );

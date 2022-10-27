@@ -48,12 +48,20 @@
     justify-content: space-evenly;
     color:#9C9C9C;
 }
+.second-container
+{
+    width: 23%;
+    display: flex;
+    justify-content: space-around;
+}
 .final-container
 {
+    width: 30%;
     color:#000;
     margin: 1em 0 0 2em;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     .box-n-stuff
     {
         display: flex;
@@ -61,9 +69,13 @@
         justify-content: space-evenly;
         width: 100%;
     }
+    .text
+    {
+        width: 50%;
+    }
     .box
     {
-        background: rgb(0, 115, 255);
+        border: 2px solid rgb(0, 115, 255);
         padding: 2em;
         border-radius: 5px;
         cursor: pointer;

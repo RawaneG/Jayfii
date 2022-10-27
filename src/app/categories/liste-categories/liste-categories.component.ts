@@ -9,8 +9,10 @@ import { HttpClientService } from 'src/app/services.service';
 })
 export class ListeCategoriesComponent implements OnInit
 {
-  mesCategories : any;
+  mesCategories : any = [];
   pageSlice: any;
+  isSelected !: boolean;
+  isChecked : any = 'decochee';
   constructor(private httpService : HttpClientService) { }
 
   onPageChange(event : PageEvent)
@@ -23,14 +25,68 @@ export class ListeCategoriesComponent implements OnInit
     }
     this.pageSlice = this.mesCategories.slice(startIndex, endIndex);
   }
+  toTrash()
+  {
+    if(this.isSelected == true)
+    {
+      this.mesCategories.forEach((element : any) =>
+      {
+        element.etat = true;
+        this.httpService.putUrl(this.httpService.categorieUrl + '/' + element.id, element);
+        setTimeout(() => {
 
+        }, 500);
+        location.reload();
+      });
+    }
+    else
+    {
+      if(this.isChecked !== 'decochee')
+      {
+        this.isChecked.etat = true;
+        this.httpService.putUrl(this.httpService.categorieUrl + '/' + (+this.isChecked.id), this.isChecked);
+        setTimeout(() => {
+
+        }, 500);
+        location.reload();
+      }
+    }
+  }
+  check(event : any)
+  {
+    if(event.checked === true)
+    {
+      this.isSelected = true;
+    }
+    else
+    {
+      this.isSelected = false;
+    }
+  }
+  coche(event : any, produit : any)
+  {
+    if(event.checked == true)
+    {
+      this.isChecked = produit;
+    }
+    else
+    {
+      this.isChecked = 'decochee';
+    }
+  }
   ngOnInit(): void
   {
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
     (
       (reponse) =>
       {
-        this.mesCategories = reponse;
+        reponse.forEach((element : any) =>
+        {
+            if(element.etat === false)
+            {
+              this.mesCategories.push(element);
+            }
+        });
         this.pageSlice = this.mesCategories.slice(0 , 5);
       }
     );

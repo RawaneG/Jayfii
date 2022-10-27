@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
 button
 {
     border: none;
@@ -9,30 +10,136 @@ button
 {
     background-color: #002978;
     color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-  .example-container
+.example-container
+{
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    background: rgba(221, 221, 221, 0);
+}
+nav
+{
+  z-index: 1;
+  position: absolute;
+  display: flex;
+  width: 60px;
+  height: 100%;
+  background-color: #002978;
+  overflow-x: hidden;
+  transition: width 300ms ease;
+  &:hover
   {
-      position: absolute;
-      width: 150px;
-      height: 100%;
-      background: rgba(221, 221, 221, 0);
+    width: 300px;
+    .nav__item.active
+    {
+      .nav__item-icon,
+      .nav__item-name
+      {
+        box-shadow: 0px 0px 15px 5px #0005;
+      }
+    }
   }
-
-  .example-sidenav-content
+  .nav__container
   {
     display: flex;
+    width: 100%;
     height: 100%;
     align-items: center;
-    justify-content: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-direction: column;
   }
-
-  .example-sidenav
-  {
-    width: 100%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  mat-icon{
+    color:white;
   }
-  .link
+  .nav__item
   {
     cursor: pointer;
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 60px;
+    flex-shrink: 0;
+    transition: all 300ms ease-in-out;
+    margin-top: 2em;
+    margin-bottom: 5px;
+    &.active
+    {
+      padding-left: 10px;
+      &::after,
+      &::before
+      {
+        transition: opacity 300ms 150ms ease-in-out;
+        opacity: 1;
+      }
+      *
+      {
+        color: #009688;
+        font-weight: 900;
+      }
+      .nav__item-icon
+      {
+        background-color: #eceff1;
+        border-radius: 10px;
+      }
+      .nav__item-name
+      {
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        background-color: #eceff1;
+        margin-left: 10px;
+      }
+    }
+    &::before,
+    &::after
+    {
+      position: absolute;
+      right: 0;
+      width: 30px;
+      height: 30px;
+      content: "";
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 100ms ease-in-out;
+    }
+    &::before
+    {
+      top: -30px;
+      box-shadow: 15px 15px 0px 0px #eceff1;
+    }
+    &::after
+    {
+      bottom: -30px;
+      box-shadow: 15px -15px 0px 0px #eceff1;
+    }
   }
+  .nav__item-name
+  {
+    display: flex;
+    flex-grow: 1;
+    height: 60px;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 15px;
+    color: #fff;
+    flex-shrink: 0;
+    transition: all 300ms ease-in-out;
+  }
+  .nav__item-icon
+  {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: space-around;
+    flex-shrink: 0;
+    transition: all 300ms ease-in-out;
+    ion-icon
+    {
+      font-size: 1.5em;
+      color: #fff;
+    }
+  }
+}

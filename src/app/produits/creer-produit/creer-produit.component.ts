@@ -55,11 +55,15 @@ export class CreerProduitComponent implements OnInit
             "id" : +this.ajouterProduit.value.categorie
         }
       ],
+      "limite" : +this.ajouterProduit.value.limite,
       "nom": this.ajouterProduit.value.nom,
       "description": this.ajouterProduit.value.description,
       "couleur": this.ajouterProduit.value.couleur
     }
     this.httpService.postUrl(this.httpService.produitUrl,this.body);
+    setTimeout(() => {
+      location.reload();
+    }, 500);
     this.route.navigateByUrl('produits');
   }
   ngOnInit(): void
@@ -80,6 +84,7 @@ export class CreerProduitComponent implements OnInit
         "compose": new FormControl(""),
         "SKU": new FormControl(""),
         "categorie": new FormControl(""),
+        "limite" : new FormControl("")
       })
   }
 }

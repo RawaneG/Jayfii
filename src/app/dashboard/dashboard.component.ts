@@ -50,6 +50,13 @@ export class DashboardComponent implements OnInit
       data =>
       {
         this.filtrer = data;
+        data.forEach((element : any) =>
+        {
+            if(element.etat === false)
+            {
+              this.filtrer.push(element);
+            }
+        });
         this.pageSlice = this.filtrer.slice(0 , 5);
         this.filtrer.forEach((commande : any) =>
         {

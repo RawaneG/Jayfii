@@ -12,15 +12,53 @@ import { AuthGuard } from './auth.guard';
 
 const routes: Routes =
 [
-  {path: '', component: LoginComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'dashboard', component: DashboardComponent},
-  {path: 'poc', component: PosteDeVenteComponent},
-  {path: 'produits/add', component: CreerProduitComponent},
-  {path: 'categories/add', component: CreerCategorieComponent},
-  {path: 'produits', component: ListeProduitsComponent},
-  {path: 'categories', component: ListeCategoriesComponent},
+  {
+    path: '',
+    component: LoginComponent,
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'poc',
+    component: PosteDeVenteComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'produits/add',
+    component: CreerProduitComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'categories/add',
+    component: CreerCategorieComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'produits',
+    component: ListeProduitsComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'categories',
+    component: ListeCategoriesComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: '**',
+    redirectTo : 'login'
+  }
 ];
 
 @NgModule({

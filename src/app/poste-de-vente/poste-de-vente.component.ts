@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-poste-de-vente',
@@ -25,6 +25,7 @@ export class PosteDeVenteComponent implements OnInit
   tabCommandes : any = [];
   intermediaire : any = [];
   tabEntier : any = [];
+  produit !: { quantiteEnStock: any; };
 
   constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
 
@@ -77,6 +78,19 @@ export class PosteDeVenteComponent implements OnInit
       },
       "ligneDeCommandes": this.getProduct()
     }
+    this.httpService.items$.subscribe((value : any) =>
+    {
+      this.mesProduits = value;
+      this.mesProduits.forEach((element : any) =>
+      {
+        this.produit =
+        {
+          "quantiteEnStock" : element.quantiteEnStock
+        }
+        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id ,this.produit);
+      });
+    }
+    )
     this.httpService.postUrl(this.httpService.commandeUrl,this.body);
     localStorage.removeItem('panier');
     alert("Vente effectué avec succès");
@@ -98,10 +112,6 @@ export class PosteDeVenteComponent implements OnInit
       this.confirmer = false;
     }
   }
-  logout()
-  {
-    this.serviceAuth.deconnecter();
-  }
   closeAll()
   {
     this.httpService.items$.subscribe(
@@ -119,10 +129,18 @@ export class PosteDeVenteComponent implements OnInit
       value =>
       {
         this.ajoutee = value.find(prod => prod.id === produit.id);
+
         if (this.ajoutee === undefined)
         {
-          this.httpService.addToCart(produit);
-          this.monTotal = this.httpService.sousTotal();
+          if(produit.quantiteEnStock == 0)
+          {
+            return;
+          }
+          else
+          {
+            this.httpService.addToCart(produit);
+            this.monTotal = this.httpService.sousTotal();
+          }
         }
         else
         {

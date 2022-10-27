@@ -62,15 +62,12 @@
 .first-contayner
 {
     width: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 .second-contayner
 {
     width: 60%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
 }
 .third-parent
@@ -93,6 +90,12 @@
 .autre-mini
 {
     width: 60%;
+    span
+    {
+        width: 20%;
+        display: flex;
+        justify-content: center;
+    }
 }
 .firste-container
 {
