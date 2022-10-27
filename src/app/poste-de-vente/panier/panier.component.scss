@@ -7,11 +7,17 @@
   padding: 2em;
   button
   {
-    border-radius: 50%;
-    color:white;
-    background-color: black;
+    border-radius: 250px;
+    color:black;
+    border: 1px solid black;
+    background: none;
     cursor:pointer;
-    border: none;
+    transition: 0.5s ease-in-out;
+  }
+  button:hover
+  {
+    color:white;
+    background: black;
   }
   span
   {

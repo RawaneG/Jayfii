@@ -98,7 +98,7 @@ export class HttpClientService
       map((productsParam) =>
       {
         productParam.quantite = 1;
-        console.log(productParam.quantiteEnStock--);
+        productParam.quantiteEnStock--;
         productsParam.push(productParam);
         this.monTotalService = this.sousTotal();
         localStorage.setItem('panier', JSON.stringify(productsParam));

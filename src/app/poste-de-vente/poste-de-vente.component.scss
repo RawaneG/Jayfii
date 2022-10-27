@@ -1,3 +1,4 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css");
 /************************ Produits *******************************/
 html, body
 {
@@ -275,7 +276,8 @@ html, body
   }
 }
 
-.popup-container {
+.popup-container
+{
     transition: all 0.3s ease-in-out;
     position: fixed;
     z-index: 1;
@@ -287,7 +289,8 @@ html, body
     display: flex;
     align-items: center;
 }
-.popup-content {
+.popup-content,.popup-content-receive
+{
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
@@ -295,6 +298,96 @@ html, body
     width: 90%;
     height: 90%;
 }
+/***** Debut Popup Reçu *****/
+.popup-content-receive
+{
+  width: 50%;
+  min-height: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.first-line,.third-line
+{
+  min-height: 15%;
+}
+.first-line
+{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .child
+  {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+.second-line
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  min-height: 65%;
+  .first-child
+  {
+    min-height: 80%;
+    .the_header
+    {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      min-height: 10%;
+      border-bottom: 1px solid black;
+    }
+    .the_main
+    {
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      height: 90%;
+      .child_o_the_main
+      {
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin: 1em 0;
+      }
+      h3
+      {
+        width: 30%;
+        text-align: center;
+      }
+    }
+  }
+  .second-child
+  {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    min-height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+}
+.third-line
+{
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  div
+  {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    h3
+    {
+      width: 50%;
+      text-align: center;
+    }
+  }
+}
+/***** Fin Popup Reçu *****/
 .close
 {
   .fas
@@ -407,4 +500,105 @@ html, body
   100% {
     box-shadow: 0 0 0 10px #fbb32f01;
   }
+}
+
+.propositions
+{
+  width: 100%;
+  margin: 4em 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  div
+  {
+    border: 2px solid #0056FD;
+    background-color:  #0054fd62;
+    padding: 1.5em;
+    cursor: pointer;
+  }
+  div:hover
+  {
+    animation: pulse 1000ms infinite ;
+  }
+}
+
+.modal#statusSuccessModal .modal-content,
+.modal#statusErrorsModal .modal-content {
+	border-radius: 30px;
+}
+.modal#statusSuccessModal .modal-content svg,
+.modal#statusErrorsModal .modal-content svg {
+	width: 100px;
+	display: block;
+	margin: 0 auto;
+}
+.modal#statusSuccessModal .modal-content .path,
+.modal#statusErrorsModal .modal-content .path {
+	stroke-dasharray: 1000;
+	stroke-dashoffset: 0;
+}
+.modal#statusSuccessModal .modal-content .path.circle,
+.modal#statusErrorsModal .modal-content .path.circle {
+	-webkit-animation: dash 0.9s ease-in-out;
+	animation: dash 0.9s ease-in-out;
+}
+.modal#statusSuccessModal .modal-content .path.line,
+.modal#statusErrorsModal .modal-content .path.line {
+	stroke-dashoffset: 1000;
+	-webkit-animation: dash 0.95s 0.35s ease-in-out forwards;
+	animation: dash 0.95s 0.35s ease-in-out forwards;
+}
+.modal#statusSuccessModal .modal-content .path.check,
+.modal#statusErrorsModal .modal-content .path.check {
+	stroke-dashoffset: -100;
+	-webkit-animation: dash-check 0.95s 0.35s ease-in-out forwards;
+	animation: dash-check 0.95s 0.35s ease-in-out forwards;
+}
+
+@-webkit-keyframes dash {
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+@keyframes dash {
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100%{
+		stroke-dashoffset: 0;
+	}
+}
+@-webkit-keyframes dash {
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+@keyframes dash {
+	0% {
+		stroke-dashoffset: 1000;}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+@-webkit-keyframes dash-check {
+	0% {
+		stroke-dashoffset: -100;
+	}
+	100% {
+		stroke-dashoffset: 900;
+	}
+}
+@keyframes dash-check {
+	0% {
+		stroke-dashoffset: -100;
+	}
+	100% {
+		stroke-dashoffset: 900;
+	}
 }

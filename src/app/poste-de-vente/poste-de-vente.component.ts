@@ -14,7 +14,7 @@ export class PosteDeVenteComponent implements OnInit
   maQuantite : any;
   ajoutee: any;
   monPanier :any[] = [];
-  mesProduits : any;
+  mesProduits : any[] = [];
   monTotal !: number;
   show: boolean = false;
   form !: FormGroup;
@@ -26,6 +26,7 @@ export class PosteDeVenteComponent implements OnInit
   intermediaire : any = [];
   tabEntier : any = [];
   produit !: { quantiteEnStock: any; };
+  receipt: any = [];
 
   constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
 
@@ -48,7 +49,8 @@ export class PosteDeVenteComponent implements OnInit
             "prix" : element.prix,
             "produit" :
             {
-                "id" : element.id
+                "id" : element.id,
+                "nom" : element.nom
             }
           }
           this.tabEntier.push(this.intermediaire);
@@ -78,6 +80,7 @@ export class PosteDeVenteComponent implements OnInit
       },
       "ligneDeCommandes": this.getProduct()
     }
+    localStorage.setItem('reçu',JSON.stringify(this.body));
     this.httpService.items$.subscribe((value : any) =>
     {
       this.mesProduits = value;
@@ -94,9 +97,7 @@ export class PosteDeVenteComponent implements OnInit
     this.httpService.postUrl(this.httpService.commandeUrl,this.body);
     localStorage.removeItem('panier');
     alert("Vente effectué avec succès");
-    setTimeout(() => {
-      location.reload();
-    }, 1000);
+    location.reload();
   }
   ecriture()
   {
@@ -167,18 +168,36 @@ export class PosteDeVenteComponent implements OnInit
   }
   ngOnInit(): void
   {
+    this.receipt = JSON.parse(localStorage.getItem('reçu') || '[]');
+    this.monTotal = this.httpService.sousTotal();
+    this.httpService.getUrl(this.httpService.commandeUrl).subscribe
+    (
+      reponse =>
+      {
+        this.receipt.date = reponse[reponse.length - 1].date;
+        this.receipt.methodePaiement = reponse[reponse.length - 1].methodePaiement.valeur;
+      }
+    )
     this.form = this.formBuilder.group(
     {
       montant: [""]
     });
-    this.monTotal = this.httpService.sousTotal();
     this.httpService.items$.subscribe(value =>
-      {
-        this.monPanier = value;
-      });
+    {
+      this.monPanier = value;
+    });
     this.httpService.getUrl(this.httpService.produitUrl).subscribe
     (
-      (reponse) => {this.mesProduits = reponse}
+      (reponse) =>
+      {
+        reponse.forEach((element : any) =>
+        {
+          if(element.etat == false)
+          {
+            this.mesProduits.push(element);
+          }
+        });
+      }
     );
   }
 }
