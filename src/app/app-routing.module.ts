@@ -14,16 +14,31 @@ const routes: Routes =
 [
   {
     path: '',
-    component: LoginComponent,
+    children :
+    [
+      {
+        path: '',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      }
+    ]
   },
   {
     path: 'login',
-    component: LoginComponent,
-  },
-  {
-    path: 'register',
-    component: RegisterComponent,
-    canActivate : [AuthGuard]
+    children :
+    [
+      {
+        path: '',
+        component: LoginComponent
+      },
+      {
+        path: 'register',
+        component: RegisterComponent
+      }
+    ]
   },
   {
     path: 'dashboard',
@@ -48,6 +63,11 @@ const routes: Routes =
   {
     path: 'produits',
     component: ListeProduitsComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'produits/modifier/:id',
+    component: CreerProduitComponent,
     canActivate : [AuthGuard]
   },
   {

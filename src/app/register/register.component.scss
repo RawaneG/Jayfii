@@ -1,0 +1,140 @@
+.background
+{
+    background-image: url("https://img.freepik.com/free-photo/interior-has-armchair-empty-white-wall_41470-1722.jpg?w=1380&t=st=1665514489~exp=1665515089~hmac=c41610ab04d9fefed424ee1c3eb53a9d3c5adfa328da58aa8d5d91d052bd644d");
+    background-size: cover;
+    height: 100%;
+    position: relative;
+}
+.social-login img
+{
+  width: 24px;
+}
+a
+{
+  text-decoration: none;
+}
+.card
+{
+  position: absolute;
+  top:10%;
+  right: 15%;
+  font-family: sans-serif;
+  width: 450px;
+  border-radius: 10px;
+  background-color: #ffff;
+  opacity: 75%;
+  padding: 1.8rem;
+  box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.1);
+}
+.title
+{
+  font-size: 3em;
+  margin: 1em 0;
+}
+.btn-text
+{
+  margin: 0;
+}
+.social-login
+{
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  margin: 2em 0;
+}
+.google-btn
+{
+  cursor: pointer;
+  width: 50%;
+  background: #E9F1FF;
+  color:#4285F4;
+  border: solid 2px rgb(245 239 239);
+  border-radius: 8px;
+  font-weight: bold;
+  display: flex;
+  flex: auto;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.fb-btn
+{
+  cursor: pointer;
+  width: 20%;
+  background: #fff;
+  border: none;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.email-login
+{
+  display: flex;
+  flex-direction: column;
+  margin: 1em 0;
+}
+input[type="email"],
+input[type="text"]
+{
+  padding: 15px 20px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+.fullName
+{
+  display: flex;
+  justify-content: space-between;
+  label
+  {
+    display: block;
+  }
+  div
+  {
+    .name
+    {
+      width: 100%;
+    }
+  }
+}
+.cta-btn
+{
+  background-color: #779341;
+  font-weight: bold;
+  color: white;
+  padding: 18px 20px;
+  width: 50%;
+  border-radius: 10px;
+  border: none;
+  margin-left: 52%;
+  cursor: pointer;
+}
+.footer
+{
+  display: flex;
+  justify-content: space-between;
+}
+.account
+{
+  color: #779341;
+}
+.forgot-mdp
+{
+  color: #4285F4;
+}
+.cta-btn:hover
+{
+    animation: pulse 1500ms infinite ;
+}
+@keyframes pulse
+{
+  0% {
+    box-shadow: 0 0 0 0 rgba(119, 147, 65, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 10px #fbb32f01;
+  }
+}

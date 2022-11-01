@@ -16,7 +16,7 @@
   .card
   {
     position: absolute;
-    top:10%;
+    top:15%;
     right: 15%;
     font-family: sans-serif;
     width: 400px;
@@ -108,6 +108,7 @@
   .forgot-mdp
   {
     color: #4285F4;
+    cursor: pointer;
   }
   .cta-btn:hover
   {

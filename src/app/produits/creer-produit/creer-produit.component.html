@@ -9,10 +9,10 @@
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Catégorie</mat-label>
-          <mat-select formControlName="categorie">
+          <mat-select formControlName="categorie" [(value)]="value">
             <mat-option
               *ngFor="let categorie of mesCategories"
-              value="{{ categorie.id }}"
+              [value]="categorie?.id"
             >
               {{ categorie.nom }}
             </mat-option>
@@ -39,7 +39,7 @@
       <div class="container1">
         <mat-form-field class="example-input">
           <mat-label>Produit Composé</mat-label>
-          <mat-select formControlName="compose">
+          <mat-select formControlName="compose" [(value)]="composee">
             <mat-option value="true"> Oui </mat-option>
             <mat-option value="false"> Non </mat-option>
           </mat-select>
@@ -65,54 +65,48 @@
     <div class="second-section">
       <div class="container2">
         <h1>Illustration du produit</h1>
-        <mat-accordion>
-          <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-          >
-            <mat-expansion-panel-header>
-              <mat-panel-title> Représentation par Couleur </mat-panel-title>
-            </mat-expansion-panel-header>
-            <mat-radio-group
-              aria-label="Select an option"
-              class="radio-group"
-              formControlName="couleur"
-            >
-              <div class="parent">
-                <mat-radio-button value="blue" class="radio">
-                  <div class="box"></div>
-                </mat-radio-button>
-              </div>
-              <div class="parent">
-                <mat-radio-button value="red" class="radio">
-                  <div class="box red"></div>
-                </mat-radio-button>
-              </div>
-              <div class="parent">
-                <mat-radio-button value="green" class="radio">
-                  <div class="box green"></div>
-                </mat-radio-button>
-              </div>
-              <div class="parent">
-                <mat-radio-button value="purple" class="radio">
-                  <div class="box purple"></div>
-                </mat-radio-button>
-              </div>
-              <div class="parent">
-                <mat-radio-button value="black" class="radio">
-                  <div class="box black"></div>
-                </mat-radio-button>
-              </div>
-            </mat-radio-group>
-          </mat-expansion-panel>
-        </mat-accordion>
+        <h3>Représentation par couleur</h3>
+        <mat-radio-group
+          aria-label="Select an option"
+          class="radio-group"
+          formControlName="couleur"
+        >
+          <div class="parent">
+            <mat-radio-button value="blue" class="radio">
+              <div class="box"></div>
+            </mat-radio-button>
+          </div>
+          <div class="parent">
+            <mat-radio-button value="red" class="radio">
+              <div class="box red"></div>
+            </mat-radio-button>
+          </div>
+          <div class="parent">
+            <mat-radio-button value="green" class="radio">
+              <div class="box green"></div>
+            </mat-radio-button>
+          </div>
+          <div class="parent">
+            <mat-radio-button value="purple" class="radio">
+              <div class="box purple"></div>
+            </mat-radio-button>
+          </div>
+          <div class="parent">
+            <mat-radio-button value="black" class="radio">
+              <div class="box black"></div>
+            </mat-radio-button>
+          </div>
+        </mat-radio-group>
+
         <mat-accordion class="accordion">
           <mat-expansion-panel
             (opened)="panelOpenState = true"
             (closed)="panelOpenState = false"
           >
             <mat-expansion-panel-header>
-              <mat-panel-title> Représentation par Image </mat-panel-title>
+              <mat-panel-title class="panel-title">
+                Représentation par Image
+              </mat-panel-title>
             </mat-expansion-panel-header>
             <label for="image" class="input-file">
               <i class="fas fa-upload"></i>
@@ -133,6 +127,7 @@
   </div>
   <div class="final-boutons">
     <button>Annuler</button>
-    <button class="valider">Enregistrer</button>
+    <button class="valider" [hidden]="showMe">Enregistrer</button>
+    <button class="valider" [hidden]="!showMe">Modifier</button>
   </div>
 </form>
