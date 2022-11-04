@@ -14,6 +14,8 @@ export class HttpClientService
   produitUrl = "https://127.0.0.1:8000/api/produits";
   categorieUrl = "https://127.0.0.1:8000/api/categories";
   commandeUrl = "https://127.0.0.1:8000/api/commandes";
+  shopUrl = "https://127.0.0.1:8000/api/shops";
+  boutiquierUrl = "https://127.0.0.1:8000/api/boutiquiers";
 
   monTotalService : any = 0;
   quantite : number = 1;
@@ -106,35 +108,35 @@ export class HttpClientService
     ).subscribe();
   }
 /**************************************** Incrémentation *************************************************/
-incremente(element : any)
-{
-  this.items$.pipe(
-    take(1),
-    map((productsParam) =>
-    {
-      this.produit = productsParam.findIndex((param : any) => param.id === element.id)
-      productsParam[this.produit].quantite++;
-      productsParam[this.produit].quantiteEnStock--;
-      this.monTotalService = this.sousTotal();
-      localStorage.setItem('panier', JSON.stringify(productsParam));
-    }),
-  ).subscribe();
-}
+  incremente(element : any)
+  {
+    this.items$.pipe(
+      take(1),
+      map((productsParam) =>
+      {
+        this.produit = productsParam.findIndex((param : any) => param.id === element.id)
+        productsParam[this.produit].quantite++;
+        productsParam[this.produit].quantiteEnStock--;
+        this.monTotalService = this.sousTotal();
+        localStorage.setItem('panier', JSON.stringify(productsParam));
+      }),
+    ).subscribe();
+  }
 /**************************************** Décrementation *************************************************/
-decremente(element : any)
-{
-  this.items$.pipe(
-    take(1),
-    map((productsParam) =>
-    {
-      this.produit = productsParam.findIndex((param : any) => param.id === element.id)
-      productsParam[this.produit].quantite--;
-      productsParam[this.produit].quantiteEnStock++;
-      this.monTotalService = this.sousTotal();
-      localStorage.setItem('panier', JSON.stringify(productsParam));
-    }),
-  ).subscribe();
-}
+  decremente(element : any)
+  {
+    this.items$.pipe(
+      take(1),
+      map((productsParam) =>
+      {
+        this.produit = productsParam.findIndex((param : any) => param.id === element.id)
+        productsParam[this.produit].quantite--;
+        productsParam[this.produit].quantiteEnStock++;
+        this.monTotalService = this.sousTotal();
+        localStorage.setItem('panier', JSON.stringify(productsParam));
+      }),
+    ).subscribe();
+  }
 /****************************************** Sous-Total *************************************************/
   sousTotal()
   {

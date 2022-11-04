@@ -3,6 +3,14 @@
 </mat-toolbar>
 <nav>
   <div class="nav__container">
+    <!-- ========== Profil ========== -->
+    <a id="o" class="nav__item" routerLink="profile" (click)="link('#o')">
+      <div class="nav__item-icon">
+        <mat-icon>person</mat-icon>
+      </div>
+      <div class="nav__item-name">Profil</div>
+    </a>
+    <!-- ========== Dashboard ========== -->
     <a
       id="a"
       class="nav__item active"
@@ -14,24 +22,28 @@
       </div>
       <div class="nav__item-name">Dashboard</div>
     </a>
+    <!-- ========== Produits ========== -->
     <a id="b" class="nav__item" routerLink="produits" (click)="link('#b')">
       <div class="nav__item-icon">
         <mat-icon>shopping_basket</mat-icon>
       </div>
       <div class="nav__item-name">Produits</div>
     </a>
+    <!-- ========== Catégories ========== -->
     <a id="c" class="nav__item" routerLink="categories" (click)="link('#c')">
       <div class="nav__item-icon">
         <mat-icon>bubble_chart</mat-icon>
       </div>
       <div class="nav__item-name">Catégories</div>
     </a>
+    <!-- ========== PDV ========== -->
     <a id="d" class="nav__item" routerLink="poc" (click)="link('#d')">
       <div class="nav__item-icon">
         <mat-icon>add_shopping_cart</mat-icon>
       </div>
       <div class="nav__item-name">PDV</div>
     </a>
+    <!-- ========== Déconnexion ========== -->
     <a id="e" class="nav__item" (click)="deconnexion()" (click)="link('#e')">
       <div class="nav__item-icon">
         <mat-icon name="log-out-outline" fontIcon="logout"></mat-icon>

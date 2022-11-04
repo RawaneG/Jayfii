@@ -38,6 +38,9 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { ProfileComponent } from './profile/profile.component';
+import { CreateShopComponent } from './profile/create-shop/create-shop.component';
+import { ListShopsComponent } from './profile/list-shops/list-shops.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     CreerProduitComponent,
     CreerCategorieComponent,
     PanierComponent,
+    ProfileComponent,
+    CreateShopComponent,
+    ListShopsComponent,
   ],
   imports:
   [

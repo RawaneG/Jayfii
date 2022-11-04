@@ -18,6 +18,8 @@ export class AuthService
   public deconnecter()
   {
     localStorage.removeItem('ACCESS_TOKEN');
+    localStorage.removeItem('reçu');
+    localStorage.removeItem('panier');
     this.route.navigateByUrl('/login');
   }
   getRole()

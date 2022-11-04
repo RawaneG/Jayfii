@@ -1,0 +1,50 @@
+<section>
+  <div class="box">
+    <div class="square" style="--i: 0"></div>
+    <div class="square" style="--i: 1"></div>
+    <div class="square" style="--i: 2"></div>
+    <div class="square" style="--i: 3"></div>
+    <div class="square" style="--i: 4"></div>
+    <div class="square" style="--i: 5"></div>
+    <div class="container">
+      <div class="form">
+        <h2>Créer une boutique</h2>
+        <form [formGroup]="shopCreation" (submit)="creation()">
+          <div class="inputBx">
+            <input type="text" required="required" formControlName="nom" />
+            <span>Nom de votre boutique</span>
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="inputBx">
+            <input type="text" required="required" formControlName="link" />
+            <span>Lien de votre boutique</span>
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="inputBx">
+            <input
+              type="password"
+              name="password"
+              required="required"
+              formControlName="adresse"
+            />
+            <span>Adresse de votre boutique</span>
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="inputBx">
+            <input
+              type="password"
+              name="password"
+              required="required"
+              formControlName="image"
+            />
+            <span>Image de votre boutique</span>
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="inputBx">
+            <input type="submit" value="Enregistrer" disabled />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

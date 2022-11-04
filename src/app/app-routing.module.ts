@@ -9,6 +9,8 @@ import { CreerProduitComponent } from './produits/creer-produit/creer-produit.co
 import { ListeCategoriesComponent } from './categories/liste-categories/liste-categories.component';
 import { ListeProduitsComponent } from './produits/liste-produits/liste-produits.component';
 import { AuthGuard } from './auth.guard';
+import { ProfileComponent } from './profile/profile.component';
+import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 
 const routes: Routes =
 [
@@ -39,6 +41,16 @@ const routes: Routes =
         component: RegisterComponent
       }
     ]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/add',
+    component: CreateShopComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'dashboard',

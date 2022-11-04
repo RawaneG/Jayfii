@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="body">
+    <div class="profile-card">
+      <div class="top-section">
+        <i class="message fas fa-repeat"></i>
+        <i class="notif fas fa-sign-out"></i>
+        <div class="pic">
+          <img
+            src="https://fadzrinmadu.github.io/hosted-assets/awesome-profile-card-using-only-html-and-css/pic.png"
+            alt="picture"
+          />
+        </div>
+        <div class="name">Rawane Meissa Sow</div>
+      </div>
+      <div class="bottom-section">
+        <div class="social-media">
+          <a routerLink="add"><i class="fas fa-plus"></i></a>
+        </div>
+        <div class="videos">
+          <span>Ajouter une boutique</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ========== Mes Boutiques ========== -->
+  <div class="boutique">
+    <h1>Mes Boutiques</h1>
+    <div class="cards">
+      <div class="card" *ngFor="let boutique of shops">
+        <div class="image">
+          <img src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}" />
+        </div>
+        <div class="content">
+          <h3>{{ boutique?.nomBoutique }}</h3>
+          <h3>{{ boutique?.adresse }}</h3>
+          <h3>{{ boutique?.lienBoutique }}</h3>
+          <button (click)="switch(boutique)">Choisir</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
