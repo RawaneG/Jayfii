@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { HttpClientService } from 'src/app/services.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-liste-categories',
@@ -13,6 +14,8 @@ export class ListeCategoriesComponent implements OnInit
   pageSlice: any;
   isSelected !: boolean;
   isChecked : any = 'decochee';
+  currentStore: any;
+  currentShop: any;
   constructor(private httpService : HttpClientService) { }
 
   onPageChange(event : PageEvent)
@@ -76,16 +79,18 @@ export class ListeCategoriesComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.httpService.getUrl(this.httpService.categorieUrl).subscribe
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
     (
       (reponse) =>
       {
-        reponse.forEach((element : any) =>
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop.categories.forEach((element : any) =>
         {
-            if(element.etat === false)
-            {
-              this.mesCategories.push(element);
-            }
+          if(element.etat == false)
+          {
+            this.mesCategories.push(element);
+          }
         });
         this.pageSlice = this.mesCategories.slice(0 , 5);
       }

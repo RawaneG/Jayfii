@@ -3,7 +3,7 @@ import { HttpClientService } from '../services.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-poste-de-vente',
   templateUrl: './poste-de-vente.component.html',
@@ -27,9 +27,10 @@ export class PosteDeVenteComponent implements OnInit
   tabEntier : any = [];
   produit !: { quantiteEnStock: any; };
   receipt: any = [];
+  currentStore: any;
+  currentShop: any;
 
-  constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService) {}
-
+  constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService, public location: Location) {}
   messageRecu(event : any)
   {
     this.monTotal = event;
@@ -168,8 +169,16 @@ export class PosteDeVenteComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.receipt = JSON.parse(localStorage.getItem('reçu') || '[]');
+    this.form = this.formBuilder.group(
+    {
+      montant: [""]
+    });
+
+    // -- Mise à Jour du Sous total du panier
     this.monTotal = this.httpService.sousTotal();
+
+    // -- Gestion du reçu
+    this.receipt = JSON.parse(localStorage.getItem('reçu') || '[]');
     this.httpService.getUrl(this.httpService.commandeUrl).subscribe
     (
       reponse =>
@@ -178,19 +187,19 @@ export class PosteDeVenteComponent implements OnInit
         this.receipt.methodePaiement = reponse[reponse.length - 1].methodePaiement.valeur;
       }
     )
-    this.form = this.formBuilder.group(
-    {
-      montant: [""]
-    });
     this.httpService.items$.subscribe(value =>
     {
       this.monPanier = value;
     });
-    this.httpService.getUrl(this.httpService.produitUrl).subscribe
+
+    // -- Liste des produits de la boutique courrante
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
     (
       (reponse) =>
       {
-        reponse.forEach((element : any) =>
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop.produit.forEach((element : any) =>
         {
           if(element.etat == false)
           {

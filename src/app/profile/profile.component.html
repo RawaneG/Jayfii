@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="body">
     <div class="profile-card">
       <div class="top-section">
@@ -22,21 +22,27 @@
       </div>
     </div>
   </div>
-  <!-- ========== Mes Boutiques ========== -->
+
   <div class="boutique">
     <h1>Mes Boutiques</h1>
     <div class="cards">
       <div class="card" *ngFor="let boutique of shops">
-        <div class="image">
-          <img src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}" />
-        </div>
-        <div class="content">
-          <h3>{{ boutique?.nomBoutique }}</h3>
-          <h3>{{ boutique?.adresse }}</h3>
-          <h3>{{ boutique?.lienBoutique }}</h3>
-          <button (click)="switch(boutique)">Choisir</button>
+        <img
+          src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}"
+          class="card-img-top"
+          alt="Fissure in Sandstone"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ boutique?.nomBoutique }}</h5>
+          <p class="card-text">
+            {{ boutique?.adresse }}
+          </p>
+          <p class="card-text">
+            {{ boutique?.lienBoutique }}
+          </p>
+          <a (click)="switch(boutique)" class="btn btn-primary">Button</a>
         </div>
       </div>
     </div>
   </div>
-</div>
+</div> -->

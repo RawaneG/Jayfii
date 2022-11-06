@@ -17,6 +17,8 @@ export class ListeProduitsComponent implements OnInit
   category : any;
   isSelected !: boolean;
   isChecked : any = 'decochee';
+  currentStore: any;
+  currentShop: any;
 
   constructor(private httpService : HttpClientService) { }
 
@@ -88,16 +90,18 @@ export class ListeProduitsComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.httpService.getUrl(this.httpService.produitUrl).subscribe
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
     (
       (reponse) =>
       {
-        reponse.forEach((element : any) =>
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop.produit.forEach((element : any) =>
         {
-            if(element.etat === false)
-            {
-              this.mesProduits.push(element);
-            }
+          if(element.etat == false)
+          {
+            this.mesProduits.push(element);
+          }
         });
         this.pageSlice = this.mesProduits.slice(0 , 5);
       }

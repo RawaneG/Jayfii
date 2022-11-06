@@ -20,6 +20,7 @@ export class PanierComponent implements OnInit
   monTotal !: number;
 
   constructor(private httpService : HttpClientService) { }
+
   incremente(element : any)
   {
     this.quantite++;

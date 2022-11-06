@@ -23,6 +23,7 @@ export class CreerProduitComponent implements OnInit
   maCategorie: any;
   value: any;
   composee !: any;
+  currentStore: any;
   constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute) { }
 
   readUrl(event:any)
@@ -69,7 +70,11 @@ export class CreerProduitComponent implements OnInit
             "limite" : +this.ajouterProduit.value.limite,
             "nom": this.ajouterProduit.value.nom,
             "description": this.ajouterProduit.value.description,
-            "couleur": this.ajouterProduit.value.couleur
+            "couleur": this.ajouterProduit.value.couleur,
+            "shop" :
+            {
+              "id" : this.currentStore.id
+            }
           }
           this.httpService.postUrl(this.httpService.produitUrl,this.body);
           setTimeout(() => {
@@ -104,7 +109,11 @@ export class CreerProduitComponent implements OnInit
             "limite" : +this.ajouterProduit.value.limite,
             "nom": this.ajouterProduit.value.nom,
             "description": this.ajouterProduit.value.description,
-            "couleur": this.ajouterProduit.value.couleur
+            "couleur": this.ajouterProduit.value.couleur,
+            "shop" :
+            {
+              "id" : this.currentStore.id
+            }
           }
           console.log(this.body);
           this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.link),this.body);
@@ -118,6 +127,7 @@ export class CreerProduitComponent implements OnInit
   }
   ngOnInit(): void
   {
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
     (
       (reponse) =>
