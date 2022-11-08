@@ -2,8 +2,6 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { HttpClientService } from '../services.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort} from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-dashboard',
@@ -12,6 +10,19 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class DashboardComponent implements OnInit
 {
+  derniereVente !: number;
+  nombreVentes : number = 0;
+  totalVente : number = 0;
+  totalCout : number = 0;
+  echantillonDate !: string | null;
+  venteTotale : number = 0;
+  coutTotal: number = 0;
+  mesVentes : any[] = [];
+  maVente!: { date: any; vente: number; cout : number; nombreVentes : number};
+  currentSeller: any;
+  currentUser: any;
+  shops: any;
+  currentShop: any;
   constructor( private datePipe : DatePipe, private httpService : HttpClientService, private formBuilder : FormBuilder) { }
   form !: FormGroup;
   // -- Variables pour la liste des ventes
@@ -33,7 +44,7 @@ export class DashboardComponent implements OnInit
     {
       endIndex = this.filtrer.length;
     }
-    this.pageSlice = this.filtrer.slice(startIndex, endIndex);
+    this.pageSlice = this.mesVentes.slice(startIndex, endIndex);
   }
   dateChange(event : any)
   {
@@ -49,15 +60,9 @@ export class DashboardComponent implements OnInit
     this.httpService.getUrl(this.httpService.commandeUrl).subscribe(
       data =>
       {
+        // -- Liste des ventes
         this.filtrer = data;
-        data.forEach((element : any) =>
-        {
-            if(element.etat === false)
-            {
-              this.filtrer.push(element);
-            }
-        });
-        this.pageSlice = this.filtrer.slice(0 , 5);
+        // -- Calcul des couts totaux
         this.filtrer.forEach((commande : any) =>
         {
           let total = 0;
@@ -68,6 +73,92 @@ export class DashboardComponent implements OnInit
           this.couts.push(total);
           commande.cout = this.couts[this.couts.length - 1];
         });
+
+        // -- Calcul des ventes qui ont été faites dans la journée
+        this.echantillonDate = this.datePipe.transform(this.filtrer[0].date,'yyyy-MM-dd');
+        this.filtrer.forEach((element : any) =>
+        {
+          if(this.echantillonDate == this.datePipe.transform(element.date,'yyyy-MM-dd'))
+          {
+            if(this.mesVentes.filter(e => e.date === this.echantillonDate).length > 0)
+            {
+              this.nombreVentes += 1;
+              this.venteTotale += element.prixCommande;
+              this.coutTotal += element.cout;
+              let index = this.mesVentes.findIndex(vente => vente.date === this.echantillonDate);
+              this.mesVentes[index].vente = this.venteTotale;
+              this.mesVentes[index].cout = this.coutTotal;
+              this.mesVentes[index].nombreVentes = this.nombreVentes;
+            }
+            else
+            {
+              this.nombreVentes += 1;
+              this.venteTotale += element.prixCommande;
+              this.coutTotal += element.cout;
+              this.maVente =
+              {
+                "date" : this.echantillonDate,
+                "vente" : this.venteTotale,
+                "cout" : this.coutTotal,
+                "nombreVentes" : this.nombreVentes
+              }
+              this.mesVentes.push(this.maVente)
+            }
+          }
+          else
+          {
+            this.nombreVentes = 0;
+            this.venteTotale = 0
+            this.coutTotal = 0
+            this.echantillonDate = this.datePipe.transform(element.date,'yyyy-MM-dd');
+            if(this.mesVentes.filter(e => e.date === this.echantillonDate).length > 0)
+            {
+              this.nombreVentes += 1;
+              this.venteTotale += element.prixCommande;
+              this.coutTotal += element.cout;
+              let index = this.mesVentes.findIndex(vente => vente.date === this.echantillonDate);
+              this.mesVentes[index].vente = this.venteTotale;
+              this.mesVentes[index].cout = this.coutTotal;
+              this.mesVentes[index].nombreVentes = this.nombreVentes;
+            }
+            else
+            {
+              this.nombreVentes += 1;
+              this.venteTotale += element.prixCommande;
+              this.coutTotal += element.cout;
+              this.maVente =
+              {
+                "date" : this.echantillonDate,
+                "vente" : this.venteTotale,
+                "cout" : this.coutTotal,
+                "nombreVentes" : this.nombreVentes
+              }
+              this.mesVentes.push(this.maVente)
+            }
+          }
+        });
+
+        // -- Calcul de la somme des ventees effectuées
+        this.mesVentes.forEach(element =>
+        {
+          this.totalVente += element.vente;
+          this.totalCout += element.cout;
+        });
+        // -- Pagination
+        this.pageSlice = this.mesVentes.slice(0 , 5);
+
+        this.derniereVente = this.mesVentes[this.mesVentes.length - 1].nombreVentes;
+      }
+    );
+
+    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    this.currentShop = JSON.parse(localStorage.getItem('boutique') || '[]');
+
+    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+      value =>
+      {
+        this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
+        this.shops = this.currentSeller.shop.length;
       }
     );
   }

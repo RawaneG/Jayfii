@@ -16,7 +16,6 @@ export class PosteDeVenteComponent implements OnInit
   monPanier :any[] = [];
   mesProduits : any[] = [];
   monTotal !: number;
-  show: boolean = false;
   form !: FormGroup;
   montant !: number;
   reste : number = 0;
@@ -31,6 +30,22 @@ export class PosteDeVenteComponent implements OnInit
   currentShop: any;
 
   constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService, public location: Location) {}
+  open()
+  {
+    document.querySelector('.first-popup')?.classList.remove('hidden');
+  }
+  ouvre()
+  {
+    document.querySelector('.second-popup')?.classList.remove('hidden');
+  }
+  ferme()
+  {
+    document.querySelector('.first-popup')?.classList.add('hidden');
+  }
+  close()
+  {
+    document.querySelector('.second-popup')?.classList.add('hidden');
+  }
   messageRecu(event : any)
   {
     this.monTotal = event;
@@ -79,7 +94,11 @@ export class PosteDeVenteComponent implements OnInit
       {
         "id" : 1
       },
-      "ligneDeCommandes": this.getProduct()
+      "ligneDeCommandes": this.getProduct(),
+      "shop" :
+      {
+        "id" : this.currentStore.id
+      }
     }
     localStorage.setItem('reçu',JSON.stringify(this.body));
     this.httpService.items$.subscribe((value : any) =>
@@ -97,8 +116,12 @@ export class PosteDeVenteComponent implements OnInit
     )
     this.httpService.postUrl(this.httpService.commandeUrl,this.body);
     localStorage.removeItem('panier');
-    alert("Vente effectué avec succès");
+    setTimeout(() =>
+    {
+
+    }, 500);
     location.reload();
+    this.ouvre();
   }
   ecriture()
   {
@@ -158,14 +181,6 @@ export class PosteDeVenteComponent implements OnInit
         }
       }
     );
-  }
-  paiement()
-  {
-    this.show = true;
-  }
-  ferme()
-  {
-    this.show = false;
   }
   ngOnInit(): void
   {

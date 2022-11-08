@@ -1,4 +1,4 @@
-<div class="body">
+<div class="body" (click)="close()">
   <div class="first-parent">
     <!-- ========== Produits ========== -->
     <div class="container">
@@ -50,13 +50,13 @@
       </div>
     </div>
     <div class="p-footer">
-      <div class="payment" (click)="paiement()">
+      <div class="payment" (click)="open()">
         <span class="payment-title">Valider la commande</span>
       </div>
     </div>
   </div>
   <!-- ========== Pop Up Paiement ========== -->
-  <div [hidden]="show == false">
+  <div class="first-popup hidden">
     <div class="popup-container">
       <div class="popup-content">
         <div class="popup">
@@ -96,7 +96,10 @@
           <!-- ========== Boutons de confirmation ========== -->
           <div class="boutons">
             <p (click)="ferme()">Annuler le paiement</p>
-            <p *ngIf="confirmer" (click)="confirmerPaiement()">
+            <p
+              *ngIf="confirmer"
+              (click)="confirmerPaiement(); ferme(); ouvre()"
+            >
               Valider le paiement
             </p>
           </div>
@@ -105,7 +108,7 @@
     </div>
   </div>
   <!-- ========== Pop Up Reçu ========== -->
-  <!-- <div>
+  <div class="second-popup hidden">
     <div class="popup-container">
       <div class="popup-content-receive">
         <div class="first-line">
@@ -153,5 +156,5 @@
         </div>
       </div>
     </div>
-  </div> -->
+  </div>
 </div>

@@ -1,38 +1,75 @@
-<div class="container">
-  <h2>Récapitulatif des ventes</h2>
-  <ul class="responsive-table">
-    <form [formGroup]="form">
-      <mat-form-field appearance="fill">
-        <mat-label>Choose a date</mat-label>
-        <input
-          matInput
-          [matDatepicker]="picker"
-          formControlName="date"
-          (dateChange)="dateChange($event)"
-        />
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-    </form>
-    <li class="table-header">
-      <div class="col col-2">Date</div>
-      <div class="col col-2">Ventes Brutes</div>
-      <div class="col col-4">Coût des marchandises</div>
-      <div class="col col-5">Marge</div>
-    </li>
-    <li class="table-row" *ngFor="let vente of pageSlice | filter: filtreDate">
-      <div class="col col-2">{{ vente.date | date: "fullDate" }}</div>
-      <div class="col col-2">{{ vente.prixCommande }} FCFA</div>
-      <div class="col col-4">{{ vente.cout }} FCFA</div>
-      <div class="col col-5">{{ vente.prixCommande - vente.cout }} FCFA</div>
-    </li>
-  </ul>
-  <mat-paginator
-    [length]="filtrer.length"
-    [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 25, 50]"
-    showFirstLastButtons
-    (page)="onPageChange($event)"
-  >
-  </mat-paginator>
+<div class="conteneur">
+  <div class="A">
+    <div class="a">
+      <h3>Ventes Totales</h3>
+      <div class="a-1">
+        <i class="fas fa-money-bill-wave"></i>
+        <span>{{ totalVente }} FCFA</span>
+      </div>
+    </div>
+    <div class="a">
+      <h3>Nombre de boutiques</h3>
+      <div class="a-1">
+        <i class="fas fa-store"></i>
+        <span>{{ shops }}</span>
+      </div>
+    </div>
+    <!-- <div class="a">
+      <h3>Nombre de ventes dans la journée</h3>
+      <div class="a-1">
+        <i class="fas fa-calendar-days"></i>
+        <span>{{ derniereVente }}</span>
+      </div>
+    </div> -->
+    <div class="a">
+      <h3>Marge totale</h3>
+      <div class="a-1">
+        <i class="fas fa-wallet"></i>
+        <span>{{ totalVente - totalCout }} FCFA</span>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <ul class="responsive-table">
+      <form [formGroup]="form">
+        <mat-form-field appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="date"
+            (dateChange)="dateChange($event)"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+      <li class="table-header">
+        <div class="col col-2">Date</div>
+        <div class="col col-2">Ventes Brutes</div>
+        <div class="col col-4">Coût des marchandises</div>
+        <div class="col col-5">Marge</div>
+      </li>
+      <li
+        class="table-row"
+        *ngFor="let vente of pageSlice | filter: filtreDate"
+      >
+        <div class="col col-2">{{ vente.date | date: "fullDate" }}</div>
+        <div class="col col-2">{{ vente.vente }} FCFA</div>
+        <div class="col col-4">{{ vente.cout }} FCFA</div>
+        <div class="col col-5">{{ vente.vente - vente.cout }} FCFA</div>
+      </li>
+    </ul>
+    <mat-paginator
+      [length]="filtrer.length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+      (page)="onPageChange($event)"
+    >
+    </mat-paginator>
+  </div>
 </div>

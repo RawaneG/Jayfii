@@ -299,6 +299,17 @@ html, body
     width: 90%;
     height: 90%;
 }
+.first-popup,.second-popup
+{
+  transition: 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+.hidden
+{
+  transform: scale(0);
+}
 /***** Debut Popup Reçu *****/
 .popup-content-receive
 {
