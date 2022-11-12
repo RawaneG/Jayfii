@@ -41,6 +41,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 import { ListShopsComponent } from './profile/list-shops/list-shops.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { ListShopsComponent } from './profile/list-shops/list-shops.component';
     ProfileComponent,
     CreateShopComponent,
     ListShopsComponent,
+    ResetPasswordComponent,
   ],
   imports:
   [

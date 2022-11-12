@@ -19,10 +19,10 @@ export class HeaderComponent implements OnInit
         this.route.navigate([currentUrl]);
     });
   }
-  currentUser: any;
-  currentSeller: any;
-  shops: any;
-  currentStore: any;
+  currentUser?: any;
+  currentSeller?: any;
+  shops?: any;
+  currentStore?: any;
   constructor(private service : AuthService, private httpService : HttpClientService, public route : Router, public location: Location) { }
 
   switch(shop : any)
@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit
       value =>
       {
         this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-        this.shops = this.currentSeller.shop;
+        this.shops = this.currentSeller?.shop;
       }
     );
   }

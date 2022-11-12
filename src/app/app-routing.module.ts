@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PosteDeVenteComponent } from './poste-de-vente/poste-de-vente.component';
 import { CreerCategorieComponent } from './categories/creer-categorie/creer-categorie.component';
 import { CreerProduitComponent } from './produits/creer-produit/creer-produit.component';
@@ -25,6 +26,10 @@ const routes: Routes =
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'reset',
+        component: ResetPasswordComponent
       }
     ]
   },
@@ -39,6 +44,10 @@ const routes: Routes =
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'reset',
+        component: ResetPasswordComponent
       }
     ]
   },

@@ -218,7 +218,7 @@ export class PosteDeVenteComponent implements OnInit
         {
           if(element.etat == false)
           {
-            this.mesProduits.push(element);
+            this.mesProduits?.push(element);
           }
         });
       }

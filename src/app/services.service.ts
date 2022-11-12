@@ -2,147 +2,131 @@ import { Injectable, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { Router } from '@angular/router';
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 
-@Injectable(
-{
-    providedIn: 'root'
+@Injectable({
+  providedIn: 'root',
 })
 export class HttpClientService
 {
-  loginUrl = "https://127.0.0.1:8000/api/login";
-  produitUrl = "https://127.0.0.1:8000/api/produits";
-  categorieUrl = "https://127.0.0.1:8000/api/categories";
-  commandeUrl = "https://127.0.0.1:8000/api/commandes";
-  shopUrl = "https://127.0.0.1:8000/api/shops";
-  boutiquierUrl = "https://127.0.0.1:8000/api/boutiquiers";
+  loginUrl = 'http://127.0.0.1:8000/api/login';
+  produitUrl = 'http://127.0.0.1:8000/api/produits';
+  categorieUrl = 'http://127.0.0.1:8000/api/categories';
+  commandeUrl = 'http://127.0.0.1:8000/api/commandes';
+  shopUrl = 'http://127.0.0.1:8000/api/shops';
+  boutiquierUrl = 'http://127.0.0.1:8000/api/boutiquiers';
 
-  monTotalService : any = 0;
-  quantite : number = 1;
+  monTotalService: any = 0;
+  quantite: number = 1;
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();
-  tab !: any[];
+  tab!: any[];
   myUser: any;
   user: any;
   produit: any;
 
-  constructor(private http : HttpClient, private route : Router)
-  {
+  constructor(private http: HttpClient, private route: Router) {
     let existingCartItems = JSON.parse(localStorage.getItem('panier') || '[]');
-    if (!existingCartItems)
-    {
+    if (!existingCartItems) {
       existingCartItems = [];
     }
     this.itemsSubject.next(existingCartItems);
   }
-/**************************************** Authentification ******** **************************/
-  login(body : any)
-  {
-    this.http.post(this.loginUrl, body).subscribe
-    (
-      token =>
-      {
-        this.myUser = this.getDecodedAccessToken(JSON.stringify(token));
-        if(this.myUser != undefined)
-        {
-          localStorage.setItem('ACCESS_TOKEN', JSON.stringify(this.myUser));
-          this.route.navigateByUrl('poc');
-        }
+  /**************************************** Authentification ******** **************************/
+  login(body: any) {
+    this.http.post(this.loginUrl, body).subscribe((token) => {
+      this.myUser = this.getDecodedAccessToken(JSON.stringify(token));
+      if (this.myUser != undefined) {
+        localStorage.setItem('ACCESS_TOKEN', JSON.stringify(this.myUser));
+        this.route.navigateByUrl('poc');
       }
-    )
+    });
   }
-/**************************************** Obtenir le token d'authentification **************************/
-  getDecodedAccessToken(token: string): any
-  {
-    try
-    {
+  /**************************************** Obtenir le token d'authentification **************************/
+  getDecodedAccessToken(token: string): any {
+    try {
       return jwt_decode(token);
-    }
-    catch(Error)
-    {
+    } catch (Error) {
       return null;
     }
   }
-/**************************************** Récupération des Observables ******** **************************/
-  putUrl(url : any, body : any)
-  {
+  /**************************************** Récupération des Observables ******** **************************/
+  putUrl(url: any, body: any) {
     this.http.put(url, body).subscribe();
   }
-/**************************************** Récupération des Observables ******** **************************/
-  postUrl(url : any, body : any)
-  {
+  /**************************************** Récupération des Observables ******** **************************/
+  postUrl(url: any, body: any) {
     this.http.post(url, body).subscribe();
   }
-/**************************************** Récupération des Observables ******** **************************/
-  getUrl(url : any) : Observable<any>
-  {
+  /**************************************** Récupération des Observables ******** **************************/
+  getUrl(url: any): Observable<any> {
     return this.http.get<any[]>(url);
   }
-/**************************************** Transition Observable en tableau *****************************/
-  obsToTab(observable : any)
-  {
-    this.getUrl(observable).subscribe
-    (
-      value => {this.tab = value}
-    )
+  /**************************************** Transition Observable en tableau *****************************/
+  obsToTab(observable: any) {
+    this.getUrl(observable).subscribe((value) => {
+      this.tab = value;
+    });
     return this.tab;
   }
-/**************************************** Recherche d'un produit par Id ****** **************************/
-  getElementById(id : number, tableau : any)
-  {
-    return tableau.find((param : any) => param.id === id);
+  /**************************************** Recherche d'un produit par Id ****** **************************/
+  getElementById(id: number, tableau: any) {
+    return tableau.find((param: any) => param.id === id);
   }
-/**************************************** Ajouter au panier ****** **********************************/
-  addToCart(productParam: any)
-  {
-    this.items$.pipe(
-      take(1),
-      map((productsParam) =>
-      {
-        productParam.quantite = 1;
-        productParam.quantiteEnStock--;
-        productsParam.push(productParam);
-        this.monTotalService = this.sousTotal();
-        localStorage.setItem('panier', JSON.stringify(productsParam));
-      }),
-    ).subscribe();
+  /**************************************** Ajouter au panier ****** **********************************/
+  addToCart(productParam: any) {
+    this.items$
+      .pipe(
+        take(1),
+        map((productsParam) => {
+          productParam.quantite = 1;
+          productParam.quantiteEnStock--;
+          productsParam.push(productParam);
+          this.monTotalService = this.sousTotal();
+          localStorage.setItem('panier', JSON.stringify(productsParam));
+        })
+      )
+      .subscribe();
   }
-/**************************************** Incrémentation *************************************************/
-  incremente(element : any)
-  {
-    this.items$.pipe(
-      take(1),
-      map((productsParam) =>
-      {
-        this.produit = productsParam.findIndex((param : any) => param.id === element.id)
-        productsParam[this.produit].quantite++;
-        productsParam[this.produit].quantiteEnStock--;
-        this.monTotalService = this.sousTotal();
-        localStorage.setItem('panier', JSON.stringify(productsParam));
-      }),
-    ).subscribe();
+  /**************************************** Incrémentation *************************************************/
+  incremente(element: any) {
+    this.items$
+      .pipe(
+        take(1),
+        map((productsParam) => {
+          this.produit = productsParam.findIndex(
+            (param: any) => param.id === element.id
+          );
+          productsParam[this.produit].quantite++;
+          productsParam[this.produit].quantiteEnStock--;
+          this.monTotalService = this.sousTotal();
+          localStorage.setItem('panier', JSON.stringify(productsParam));
+        })
+      )
+      .subscribe();
   }
-/**************************************** Décrementation *************************************************/
-  decremente(element : any)
-  {
-    this.items$.pipe(
-      take(1),
-      map((productsParam) =>
-      {
-        this.produit = productsParam.findIndex((param : any) => param.id === element.id)
-        productsParam[this.produit].quantite--;
-        productsParam[this.produit].quantiteEnStock++;
-        this.monTotalService = this.sousTotal();
-        localStorage.setItem('panier', JSON.stringify(productsParam));
-      }),
-    ).subscribe();
+  /**************************************** Décrementation *************************************************/
+  decremente(element: any) {
+    this.items$
+      .pipe(
+        take(1),
+        map((productsParam) => {
+          this.produit = productsParam.findIndex(
+            (param: any) => param.id === element.id
+          );
+          productsParam[this.produit].quantite--;
+          productsParam[this.produit].quantiteEnStock++;
+          this.monTotalService = this.sousTotal();
+          localStorage.setItem('panier', JSON.stringify(productsParam));
+        })
+      )
+      .subscribe();
   }
-/****************************************** Sous-Total *************************************************/
-  sousTotal()
-  {
+  /****************************************** Sous-Total *************************************************/
+  sousTotal() {
     let total = 0;
-    this.items$.subscribe(
-    valeur => valeur.forEach(element => total += element.quantite * element.prix)
+    this.items$.subscribe((valeur) =>
+      valeur.forEach((element) => (total += element.quantite * element.prix))
     );
     return total;
   }
