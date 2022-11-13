@@ -11,7 +11,9 @@ import { HttpClientService } from '../services.service';
 })
 export class RegisterComponent implements OnInit
 {
-  loginForm !: FormGroup;
+  registerForm !: FormGroup;
+  body : any;
+  nouveauBoutiquier: any;
 
   constructor(
     private httpService : HttpClientService,
@@ -22,14 +24,31 @@ export class RegisterComponent implements OnInit
 
   submitted()
   {
-
+    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+      boutiquier =>
+      {
+        this.nouveauBoutiquier = boutiquier.find((user : any) => user.email == this.registerForm.value.email);
+        if(this.nouveauBoutiquier == undefined)
+        {
+          this.body =
+          {
+            "email" : this.registerForm.value.email ,
+            "password" : this.registerForm.value.password,
+            "nomComplet" : this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
+            "telephone" : +this.registerForm.value.telephone
+          }
+          this.httpService.postUrl(this.httpService.boutiquierUrl, this.body);
+        }
+      }
+    );
   }
 
   ngOnInit(): void
   {
-    this.loginForm  =  this.formBuilder.group(
+    this.registerForm  =  this.formBuilder.group(
       {
         email: ['', Validators.required],
+        password: ['', Validators.required],
         prenom: ['', Validators.required],
         nom: ['', Validators.required],
         telephone: ['', Validators.required],

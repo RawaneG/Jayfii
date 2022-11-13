@@ -9,12 +9,12 @@ import jwt_decode from 'jwt-decode';
 })
 export class HttpClientService
 {
-  loginUrl = 'http://127.0.0.1:8000/api/login';
-  produitUrl = 'http://127.0.0.1:8000/api/produits';
-  categorieUrl = 'http://127.0.0.1:8000/api/categories';
-  commandeUrl = 'http://127.0.0.1:8000/api/commandes';
-  shopUrl = 'http://127.0.0.1:8000/api/shops';
-  boutiquierUrl = 'http://127.0.0.1:8000/api/boutiquiers';
+  loginUrl = 'https://127.0.0.1:8000/api/login';
+  produitUrl = 'https://127.0.0.1:8000/api/produits';
+  categorieUrl = 'https://127.0.0.1:8000/api/categories';
+  commandeUrl = 'https://127.0.0.1:8000/api/commandes';
+  shopUrl = 'https://127.0.0.1:8000/api/shops';
+  boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
 
   monTotalService: any = 0;
   quantite: number = 1;

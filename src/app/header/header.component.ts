@@ -19,10 +19,10 @@ export class HeaderComponent implements OnInit
         this.route.navigate([currentUrl]);
     });
   }
-  currentUser?: any;
-  currentSeller?: any;
-  shops?: any;
-  currentStore?: any;
+  currentUser: any;
+  currentSeller: any;
+  shops: any;
+  currentStore: any;
   constructor(private service : AuthService, private httpService : HttpClientService, public route : Router, public location: Location) { }
 
   switch(shop : any)
@@ -52,6 +52,7 @@ export class HeaderComponent implements OnInit
   deconnexion()
   {
     this.service.deconnecter();
+    this.refresh();
   }
 
   ngOnInit(): void
@@ -62,8 +63,15 @@ export class HeaderComponent implements OnInit
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
       value =>
       {
-        this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-        this.shops = this.currentSeller?.shop;
+        if(this.currentUser.shop)
+        {
+          this.shops = this.currentUser.shop;
+        }
+        else
+        {
+          this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
+          this.shops = this.currentSeller.shop;
+        }
       }
     );
   }

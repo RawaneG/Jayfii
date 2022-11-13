@@ -29,7 +29,7 @@ export class PosteDeVenteComponent implements OnInit
   currentStore: any;
   currentShop: any;
 
-  constructor(private formBuilder: FormBuilder,private route : Router, private httpService : HttpClientService,private serviceAuth : AuthService, public location: Location) {}
+  constructor(private formBuilder: FormBuilder, private httpService : HttpClientService,private serviceAuth : AuthService, public location: Location) {}
   open()
   {
     document.querySelector('.first-popup')?.classList.remove('hidden');
@@ -218,7 +218,7 @@ export class PosteDeVenteComponent implements OnInit
         {
           if(element.etat == false)
           {
-            this.mesProduits?.push(element);
+            this.mesProduits.push(element);
           }
         });
       }

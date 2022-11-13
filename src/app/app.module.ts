@@ -1,3 +1,4 @@
+import * as fr from '@angular/common/locales/fr';
 import { NgModule, OnInit, LOCALE_ID } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -29,7 +30,6 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 import { PanierComponent } from './poste-de-vente/panier/panier.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { registerLocaleData, DatePipe } from '@angular/common';
-import * as fr from '@angular/common/locales/fr';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -42,7 +42,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 import { ListShopsComponent } from './profile/list-shops/list-shops.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
-
+import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,6 +64,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
   ],
   imports:
   [
+    SocialLoginModule,
     Ng2SearchPipeModule,
     MatProgressSpinnerModule,
     MatTableModule,
@@ -95,6 +97,27 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
   [
     { provide: LOCALE_ID, useValue: 'fr-FR'},
     DatePipe,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '50262491662-7rmnq8d035t9pofletlkp5dsn6maqldn.apps.googleusercontent.com'
+            )
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId')
+          }
+        ],
+        onError: (err : any) => {
+          console.error(err);
+        }
+      } as SocialAuthServiceConfig,
+    }
   ],
   bootstrap: [AppComponent]
 })
