@@ -59,6 +59,9 @@
         <mat-form-field class="example-input">
           <mat-label>Stock faible</mat-label>
           <input matInput placeholder="Ex. 5" formControlName="limite" />
+          <mat-icon class="info-icon" matSuffix (click)="openSnackBar()"
+            >info</mat-icon
+          >
         </mat-form-field>
       </div>
     </div>
@@ -126,7 +129,7 @@
     </div>
   </div>
   <div class="final-boutons">
-    <button>Annuler</button>
+    <button routerLink="/produits">Annuler</button>
     <button class="valider" [hidden]="showMe">Enregistrer</button>
     <button class="valider" [hidden]="!showMe">Modifier</button>
   </div>

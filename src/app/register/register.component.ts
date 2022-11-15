@@ -38,6 +38,7 @@ export class RegisterComponent implements OnInit
             "telephone" : +this.registerForm.value.telephone
           }
           this.httpService.postUrl(this.httpService.boutiquierUrl, this.body);
+          this.route.navigate(['']);
         }
       }
     );

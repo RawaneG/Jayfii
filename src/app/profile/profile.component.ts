@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit
   currentUser: any;
   currentSeller: any;
   shops: any;
+  currentStore: any;
 
   constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router ) { }
 
@@ -27,13 +28,22 @@ export class ProfileComponent implements OnInit
 
   ngOnInit(): void
   {
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
 
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
       value =>
       {
-        this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-        this.shops = this.currentSeller.shop;
+        if(this.currentUser.shop)
+        {
+          this.currentSeller = this.currentUser;
+          this.shops = this.currentUser.shop;
+        }
+        else
+        {
+          this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
+          this.shops = this.currentSeller.shop;
+        }
       }
     );
 

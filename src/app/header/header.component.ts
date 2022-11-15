@@ -52,7 +52,6 @@ export class HeaderComponent implements OnInit
   deconnexion()
   {
     this.service.deconnecter();
-    this.refresh();
   }
 
   ngOnInit(): void

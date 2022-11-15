@@ -62,27 +62,25 @@
   </div>
 </nav>
 
-<div>
-  <div class="popup-container hidden">
-    <div class="popup-content">
-      <div class="close" (click)="close()">
-        <i class="fas fa-close"></i>
-      </div>
-      <div class="title">
-        <h1>Veuillez choisir une boutique</h1>
-      </div>
-      <div class="content-child">
-        <div class="card" *ngFor="let boutique of shops">
-          <img
-            src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}"
-            class="card-img-top"
-          />
-          <div class="card-body">
-            <h2 class="card-title">{{ boutique?.nomBoutique }}</h2>
-            <a (click)="switch(boutique); close()" class="btn btn-outline-dark"
-              >Choisir cette boutique</a
-            >
-          </div>
+<div class="popup-container hidden">
+  <div class="popup-content">
+    <div class="close" (click)="close()">
+      <i class="fas fa-close"></i>
+    </div>
+    <div class="title">
+      <h1>Veuillez choisir une boutique</h1>
+    </div>
+    <div class="content-child">
+      <div class="card" *ngFor="let boutique of shops">
+        <img
+          src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}"
+          class="card-img-top"
+        />
+        <div class="card-body">
+          <h2 class="card-title">{{ boutique?.nomBoutique }}</h2>
+          <a (click)="switch(boutique); close()" class="btn btn-outline-dark"
+            >Choisir cette boutique</a
+          >
         </div>
       </div>
     </div>

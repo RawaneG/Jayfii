@@ -11,37 +11,35 @@
         <h2>Créer une boutique</h2>
         <form [formGroup]="shopCreation" (submit)="creation()">
           <div class="inputBx">
-            <input type="text" required="required" formControlName="nom" />
+            <input type="text" formControlName="nom" />
             <span>Nom de votre boutique</span>
             <i class="fas fa-user-circle"></i>
           </div>
           <div class="inputBx">
-            <input type="text" required="required" formControlName="link" />
+            <input type="text" formControlName="link" />
             <span>Lien de votre boutique</span>
             <i class="fas fa-user-circle"></i>
           </div>
           <div class="inputBx">
-            <input
-              type="password"
-              name="password"
-              required="required"
-              formControlName="adresse"
-            />
+            <input type="text" name="password" formControlName="adresse" />
             <span>Adresse de votre boutique</span>
             <i class="fas fa-user-circle"></i>
           </div>
           <div class="inputBx">
             <input
-              type="password"
-              name="password"
-              required="required"
+              id="image"
+              class="input"
+              type="file"
+              name="upload"
+              class="image"
+              (change)="readUrl($event)"
               formControlName="image"
             />
             <span>Image de votre boutique</span>
             <i class="fas fa-user-circle"></i>
           </div>
           <div class="inputBx">
-            <input type="submit" value="Enregistrer" disabled />
+            <input type="submit" value="Enregistrer" />
           </div>
         </form>
       </div>

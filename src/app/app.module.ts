@@ -42,6 +42,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 import { ListShopsComponent } from './profile/list-shops/list-shops.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 @NgModule({
@@ -64,6 +65,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
   ],
   imports:
   [
+    MatSnackBarModule,
     SocialLoginModule,
     Ng2SearchPipeModule,
     MatProgressSpinnerModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { HttpClientService } from 'src/app/services.service';
 
@@ -24,7 +25,16 @@ export class CreerProduitComponent implements OnInit
   value: any;
   composee !: any;
   currentStore: any;
-  constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute) { }
+  durationInSeconds = 5;
+
+  constructor(private _snackBar: MatSnackBar, private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute) { }
+
+  openSnackBar()
+  {
+    let message = 'Représente la quantité limite pour pouvoir alerter une rupture de stock ou un stock proche de la rupture';
+    let action = 'Fermer';
+    this._snackBar.open(message, action);
+  }
 
   readUrl(event:any)
   {
@@ -38,6 +48,7 @@ export class CreerProduitComponent implements OnInit
       reader.readAsDataURL(event.target.files[0]);
     }
   }
+
   submit()
   {
     this.navigate.paramMap.subscribe(a =>
@@ -115,7 +126,6 @@ export class CreerProduitComponent implements OnInit
               "id" : this.currentStore.id
             }
           }
-          console.log(this.body);
           this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.link),this.body);
           setTimeout(() => {
             location.reload();

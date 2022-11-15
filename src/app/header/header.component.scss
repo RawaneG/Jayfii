@@ -143,7 +143,7 @@ nav
 {
     transition: all 0.3s ease-in-out;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     left: 0;
     top: 0;
     width: 100%;
@@ -157,7 +157,7 @@ nav
 {
     background-color: #fefefe;
     width: 80%;
-    min-height: 60%;
+    min-height: 80%;
     border-radius: 2em;
     transition: 0.5s ease-in-out;
     display: flex;
@@ -182,6 +182,7 @@ nav
 }
 .content-child
 {
+  min-height: 45vh;
   width: 100%;
   display:flex;
   justify-content: space-evenly;

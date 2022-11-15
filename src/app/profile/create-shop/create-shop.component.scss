@@ -108,9 +108,10 @@ section {
 }
 
 .container {
+  text-align: center;
   position: relative;
   padding: 50px;
-  width: 260px;
+  width: 100%x;
   min-height: 380px;
   display: flex;
   justify-content: center;
@@ -148,7 +149,7 @@ section {
   .inputBx {
     position: relative;
     width: 100%;
-    margin-bottom: 20px;
+    margin: 2em auto;
 
     input {
       width: 80%;
@@ -211,7 +212,8 @@ section {
 
     span {
         position: absolute;
-        left: 30px;
+        top: -0.5em;
+        left: 20%;
         padding: 10px;
         display: inline-block;
         color: #fff;

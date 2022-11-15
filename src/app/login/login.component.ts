@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit
       {
         this.user = user;
         this.loggedIn = (user != null);
+
         if(this.user != null)
         {
           this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(

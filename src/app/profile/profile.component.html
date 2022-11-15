@@ -1,4 +1,4 @@
-<!-- <div class="container">
+<div class="container-fluid">
   <div class="body">
     <div class="profile-card">
       <div class="top-section">
@@ -10,7 +10,8 @@
             alt="picture"
           />
         </div>
-        <div class="name">Rawane Meissa Sow</div>
+        <div class="name">{{ currentSeller.nomComplet | titlecase }}</div>
+        <div class="name">Téléphone : {{ currentSeller.telephone }}</div>
       </div>
       <div class="bottom-section">
         <div class="social-media">
@@ -33,16 +34,18 @@
           alt="Fissure in Sandstone"
         />
         <div class="card-body">
-          <h5 class="card-title">{{ boutique?.nomBoutique }}</h5>
+          <h2 class="card-title">{{ boutique?.nomBoutique }}</h2>
           <p class="card-text">
             {{ boutique?.adresse }}
           </p>
           <p class="card-text">
             {{ boutique?.lienBoutique }}
           </p>
-          <a (click)="switch(boutique)" class="btn btn-primary">Button</a>
+          <a (click)="switch(boutique)" class="btn btn-outline-light"
+            >Choisir cette boutique</a
+          >
         </div>
       </div>
     </div>
   </div>
-</div>   -->
+</div>

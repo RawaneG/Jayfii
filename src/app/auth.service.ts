@@ -19,9 +19,10 @@ export class AuthService
   {
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('reçu');
+    localStorage.removeItem('promo');
     localStorage.removeItem('panier');
     localStorage.removeItem('boutique');
-    this.route.navigateByUrl('/login');
+    this.route.navigateByUrl('/');
   }
   getRole()
   {
