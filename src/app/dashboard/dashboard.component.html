@@ -31,22 +31,7 @@
   </div>
   <div class="container">
     <ul class="responsive-table">
-      <form [formGroup]="form">
-        <mat-form-field appearance="fill">
-          <mat-label>Choose a date</mat-label>
-          <input
-            matInput
-            [matDatepicker]="picker"
-            formControlName="date"
-            (dateChange)="dateChange($event)"
-          />
-          <mat-datepicker-toggle
-            matSuffix
-            [for]="picker"
-          ></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </form>
+      <!-- Date Picker -->
       <li class="table-header">
         <div class="col col-2">Date</div>
         <div class="col col-2">Ventes Brutes</div>

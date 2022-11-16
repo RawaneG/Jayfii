@@ -3,6 +3,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClientService } from '../services.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { FormBuilder, FormGroup } from '@angular/forms';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -21,7 +22,7 @@ export class DashboardComponent implements OnInit
   maVente!: { date: any; vente: number; cout : number; nombreVentes : number};
   currentSeller: any;
   currentUser: any;
-  shops: any;
+  shops ?: any;
   currentShop: any;
   constructor( private datePipe : DatePipe, private httpService : HttpClientService, private formBuilder : FormBuilder) { }
   form !: FormGroup;
@@ -46,37 +47,33 @@ export class DashboardComponent implements OnInit
     }
     this.pageSlice = this.mesVentes.slice(startIndex, endIndex);
   }
-  dateChange(event : any)
-  {
-    this.filtreDate = this.datePipe.transform(event.value,'yyyy-MM-dd');
-  }
+
   ngOnInit(): void
   {
+    //-- Affichage de la boutique en cours d'utilisation
+    this.currentShop = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.form = this.formBuilder.group(
       {
-        date : ['']
+        start : [''],
+        end : ['']
       }
     )
-    this.httpService.getUrl(this.httpService.commandeUrl).subscribe(
-      data =>
-      {
-        // -- Liste des ventes
-        this.filtrer = data;
-        // -- Calcul des couts totaux
-        this.filtrer.forEach((commande : any) =>
+    // -- Liste des ventes
+    this.filtrer = this.currentShop.commande;
+    // -- Calcul des couts totaux
+    this.filtrer.forEach((commande : any) =>
+    {
+      let total = 0;
+      commande.ligneDeCommandes.forEach((ligne : any) =>
         {
-          let total = 0;
-          commande.ligneDeCommandes.forEach((ligne : any) =>
-          {
-            total += ligne.produit.cout;
-          });
-          this.couts.push(total);
-          commande.cout = this.couts[this.couts.length - 1];
+          total += ligne.produit.cout;
         });
-
-        // -- Calcul des ventes qui ont été faites dans la journée
-        this.echantillonDate = this.datePipe.transform(this.filtrer[0].date,'yyyy-MM-dd');
-        this.filtrer.forEach((element : any) =>
+      this.couts.push(total);
+      commande.cout = this.couts[this.couts.length - 1];
+    });
+    // -- Calcul des ventes qui ont été faites dans la journée
+    this.echantillonDate = this.datePipe.transform(this.filtrer[0].date,'yyyy-MM-dd');
+    this.filtrer.forEach((element : any) =>
         {
           if(this.echantillonDate == this.datePipe.transform(element.date,'yyyy-MM-dd'))
           {
@@ -136,30 +133,14 @@ export class DashboardComponent implements OnInit
               this.mesVentes.push(this.maVente)
             }
           }
-        });
-
-        // -- Calcul de la somme des ventees effectuées
-        this.mesVentes.forEach(element =>
-        {
-          this.totalVente += element.vente;
-          this.totalCout += element.cout;
-        });
-        // -- Pagination
-        this.pageSlice = this.mesVentes.slice(0 , 5);
-
-        this.derniereVente = this.mesVentes[this.mesVentes.length - 1].nombreVentes;
-      }
-    );
-
-    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-    this.currentShop = JSON.parse(localStorage.getItem('boutique') || '[]');
-
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-      value =>
-      {
-        this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-        this.shops = this.currentSeller.shop.length;
-      }
-    );
-  }
+    });
+    // -- Calcul de la somme des ventees effectuées
+    this.mesVentes.forEach(element =>
+    {
+      this.totalVente += element.vente;
+      this.totalCout += element.cout;
+    });
+    // -- Pagination
+      this.pageSlice = this.mesVentes.slice(0 , 5);
+    }
 }

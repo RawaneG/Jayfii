@@ -45,6 +45,8 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,6 +67,7 @@ import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-s
   ],
   imports:
   [
+    FormsModule,
     MatSnackBarModule,
     SocialLoginModule,
     Ng2SearchPipeModule,
