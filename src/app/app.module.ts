@@ -46,6 +46,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
+import { AdminComponent } from './admin/admin.component';
+import {MatRippleModule} from '@angular/material/core';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -64,9 +67,12 @@ import { FormsModule } from '@angular/forms';
     CreateShopComponent,
     ListShopsComponent,
     ResetPasswordComponent,
+    AdminComponent,
   ],
   imports:
   [
+    BsDatepickerModule,
+    MatRippleModule,
     FormsModule,
     MatSnackBarModule,
     SocialLoginModule,

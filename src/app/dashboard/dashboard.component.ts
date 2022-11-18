@@ -24,6 +24,10 @@ export class DashboardComponent implements OnInit
   currentUser: any;
   shops ?: any;
   currentShop: any;
+  month !: number;
+  year !: number;
+  weekStart !: any;
+  weekEnd !: any;
   constructor( private datePipe : DatePipe, private httpService : HttpClientService, private formBuilder : FormBuilder) { }
   form !: FormGroup;
   // -- Variables pour la liste des ventes
@@ -36,7 +40,101 @@ export class DashboardComponent implements OnInit
   pageSlice : any;
   // -- Variables pour le filtre
   filtreDate : any;
+  dateDebut : any;
+  dateFin : any;
+  mesVentesFiltrees : any = [];
 
+  //--Filtre par date spécifique
+  filterByDate()
+  {
+    if(this.form.value.start == null || this.form.value.end === null)
+    {
+      console.log('Entrez une date valide');
+    }
+    else
+    {
+      this.totalVente = 0;
+      this.totalCout = 0;
+      this.dateDebut = this.datePipe.transform(this.form.value.start,'yyyy-MM-dd');
+      this.dateFin = this.datePipe.transform(this.form.value.end,'yyyy-MM-dd');
+      this.mesVentes.forEach(vente =>
+      {
+        if(vente.date >= this.dateDebut && vente.date <= this.dateFin)
+        {
+          this.mesVentesFiltrees.push(vente);
+        }
+      });
+      this.mesVentesFiltrees.forEach((element : any) =>
+        {
+          this.totalVente += element.vente;
+          this.totalCout += element.cout;
+        });
+      this.pageSlice = this.mesVentesFiltrees.slice(0,5);
+      this.mesVentesFiltrees = [];
+    }
+  }
+  //--Filtre par semaine, mois et année
+  filtering(title : string)
+  {
+    this.totalVente = 0;
+    this.totalCout = 0;
+    switch (title)
+    {
+      case 'week':
+        this.weekEnd = new Date(this.dateActuelle);
+        this.weekStart = this.datePipe.transform(this.weekEnd.setDate(this.weekEnd.getDate() - 7),'yyyy-MM-dd');
+        this.mesVentes.forEach(vente =>
+          {
+            if(vente.date >= this.weekStart && vente.date <= this.dateActuelle)
+            {
+              this.mesVentesFiltrees.push(vente);
+            }
+          });
+        this.mesVentesFiltrees.forEach((element : any) =>
+        {
+          this.totalVente += element.vente;
+          this.totalCout += element.cout;
+        });
+        this.pageSlice = this.mesVentesFiltrees.slice(0 , 5);
+        this.mesVentesFiltrees = [];
+        break;
+      case 'month':
+        this.month = new Date(this.dateActuelle).getMonth();
+        this.mesVentes.forEach(vente =>
+          {
+            if(new Date(vente.date).getMonth() === this.month)
+            {
+              this.mesVentesFiltrees.push(vente);
+            }
+          });
+        this.mesVentesFiltrees.forEach((element : any) =>
+        {
+          this.totalVente += element.vente;
+          this.totalCout += element.cout;
+        });
+        this.pageSlice = this.mesVentesFiltrees.slice(0 , 5);
+        this.mesVentesFiltrees = [];
+        break;
+      case 'year':
+        this.year = new Date(this.dateActuelle).getFullYear();
+        this.mesVentes.forEach(vente =>
+          {
+            if(new Date(vente.date).getFullYear() === this.year)
+            {
+              this.mesVentesFiltrees.push(vente);
+            }
+          });
+        this.mesVentesFiltrees.forEach((element : any) =>
+        {
+          this.totalVente += element.vente;
+          this.totalCout += element.cout;
+        });
+        this.pageSlice = this.mesVentesFiltrees.slice(0 , 5);
+        this.mesVentesFiltrees = [];
+        break;
+    }
+  }
+  //--Pagination
   onPageChange(event : PageEvent)
   {
     const startIndex = event.pageIndex * event.pageSize;

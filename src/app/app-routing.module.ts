@@ -12,6 +12,7 @@ import { ListeProduitsComponent } from './produits/liste-produits/liste-produits
 import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes =
 [
@@ -50,6 +51,11 @@ const routes: Routes =
         component: ResetPasswordComponent
       }
     ]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    canActivate : [AuthGuard]
   },
   {
     path: 'profile',

@@ -35,12 +35,10 @@ export class LoginComponent implements OnInit
     ngOnInit(): void
     {
       this.serviceAuth.deconnecter();
-
       this.authService.authState.subscribe((user) =>
       {
         this.user = user;
         this.loggedIn = (user != null);
-
         if(this.user != null)
         {
           this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
@@ -55,7 +53,6 @@ export class LoginComponent implements OnInit
             })
         }
       });
-
       this.loginForm  =  this.formBuilder.group(
         {
           email: ['', Validators.required],

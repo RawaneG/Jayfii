@@ -8,20 +8,6 @@
       </div>
     </div>
     <div class="a">
-      <h3>Nombre de boutiques</h3>
-      <div class="a-1">
-        <i class="fas fa-store"></i>
-        <span>{{ shops }}</span>
-      </div>
-    </div>
-    <!-- <div class="a">
-      <h3>Nombre de ventes dans la journée</h3>
-      <div class="a-1">
-        <i class="fas fa-calendar-days"></i>
-        <span>{{ derniereVente }}</span>
-      </div>
-    </div> -->
-    <div class="a">
       <h3>Marge totale</h3>
       <div class="a-1">
         <i class="fas fa-wallet"></i>
@@ -32,6 +18,60 @@
   <div class="container">
     <ul class="responsive-table">
       <!-- Date Picker -->
+      <h1 class="text-center">Mes Ventes</h1>
+      <form class="date" [formGroup]="form" (submit)="filterByDate()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Date de Début</mat-label>
+          <input
+            matInput
+            [matDatepicker]="picker"
+            class="input"
+            formControlName="start"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="picker" class="icon">
+          </mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Date de Fin</mat-label>
+          <input
+            matInput
+            [matDatepicker]="pickerr"
+            class="input"
+            formControlName="end"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="pickerr" class="icon">
+          </mat-datepicker-toggle>
+          <mat-datepicker #pickerr></mat-datepicker>
+        </mat-form-field>
+
+        <input type="submit" class="filtre mat-elevation-z4" value="Filtrer" />
+      </form>
+
+      <div class="date-filters">
+        <div
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          (click)="filtering('week')"
+        >
+          Cette Semaine
+        </div>
+        <div
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          (click)="filtering('month')"
+        >
+          Ce Mois
+        </div>
+        <div
+          class="example-ripple-container mat-elevation-z4"
+          matRipple
+          (click)="filtering('year')"
+        >
+          Cette année
+        </div>
+      </div>
       <li class="table-header">
         <div class="col col-2">Date</div>
         <div class="col col-2">Ventes Brutes</div>

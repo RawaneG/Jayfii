@@ -11,6 +11,49 @@
       text-align: center;
     }
   }
+  .date
+  {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .example-full-width
+  {
+    width: 30%;
+    padding: 0;
+    mat-label
+    {
+      display: inline;
+    }
+    .input
+    {
+      display: inline;
+      width: 50%;
+    }
+    .icon
+    {
+      float: right;
+      display: inline;
+    }
+  }
+  .example-ripple-container,.filtre
+  {
+    cursor: pointer;
+    text-align: center;
+    width: 20%;
+    line-height: 50px;
+    user-select: none;
+  }
+  .filtre
+  {
+    width: 15%;
+  }
+  .date-filters
+  {
+    display:flex;
+    justify-content: space-evenly;
+    padding: 2em 0;
+  }
   .conteneur
   {
     height: 100vh;
