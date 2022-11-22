@@ -10,6 +10,7 @@ import jwt_decode from 'jwt-decode';
 export class HttpClientService
 {
   loginUrl = 'https://127.0.0.1:8000/api/login';
+  cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
   produitUrl = 'https://127.0.0.1:8000/api/produits';
   categorieUrl = 'https://127.0.0.1:8000/api/categories';
   commandeUrl = 'https://127.0.0.1:8000/api/commandes';

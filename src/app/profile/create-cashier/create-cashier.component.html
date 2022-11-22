@@ -1,0 +1,51 @@
+<section>
+  <div class="box">
+    <div class="square" style="--i: 0"></div>
+    <div class="square" style="--i: 1"></div>
+    <div class="square" style="--i: 2"></div>
+    <div class="square" style="--i: 3"></div>
+    <div class="square" style="--i: 4"></div>
+    <div class="square" style="--i: 5"></div>
+    <div class="container">
+      <div class="form">
+        <h2>Inscrire un Caissier</h2>
+        <form [formGroup]="cashierCreation" (submit)="creation()">
+          <div class="inputBx">
+            <input type="text" formControlName="nomComplet" />
+            <span>Nom Complet</span>
+          </div>
+          <div class="inputBx">
+            <input type="email" formControlName="email" />
+            <span>Email</span>
+          </div>
+          <div class="inputBx">
+            <input type="password" name="password" formControlName="password" />
+            <span>Mot de passe</span>
+          </div>
+          <div class="inputBx">
+            <input type="text" name="password" formControlName="adresse" />
+            <span>Adresse</span>
+          </div>
+          <div class="inputBx">
+            <input type="text" name="password" formControlName="telephone" />
+            <span>Numéro de Téléphone</span>
+          </div>
+          <div class="inputBx">
+            <select name="password" formControlName="shop">
+              <option value="">Affecter une boutique</option>
+              <option
+                value="{{ boutique.id }}"
+                *ngFor="let boutique of currentUser?.shop"
+              >
+                {{ boutique.nomBoutique }}
+              </option>
+            </select>
+          </div>
+          <div class="inputBx">
+            <input type="submit" value="Enregistrer" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

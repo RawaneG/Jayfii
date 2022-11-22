@@ -7,13 +7,15 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
+  currentUser: any;
   constructor(private serviceAuth : AuthService, private router : Router) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree
     {
       let url = state.url;
-      return this.authUser(route, url);
+      this.authUser(route, url);
+      return this.connexion(route, url);
     }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
@@ -41,6 +43,19 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     else
     {
       this.router.navigate(['/login']);
+      return false;
+    }
+  }
+  connexion(route : ActivatedRouteSnapshot, url : any) : boolean
+  {
+    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    if(this.currentUser.roles[0] == 'ROLE_BOUTIQUIER')
+    {
+      return true;
+    }
+    else
+    {
+      this.router.navigate(['/poc']);
       return false;
     }
   }

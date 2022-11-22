@@ -35,7 +35,8 @@ export class RegisterComponent implements OnInit
             "email" : this.registerForm.value.email ,
             "password" : this.registerForm.value.password,
             "nomComplet" : this.registerForm.value.prenom + ' ' + this.registerForm.value.nom,
-            "telephone" : +this.registerForm.value.telephone
+            "telephone" : +this.registerForm.value.telephone,
+            "adresse" : this.registerForm.value.adresse
           }
           this.httpService.postUrl(this.httpService.boutiquierUrl, this.body);
           this.route.navigate(['']);
@@ -53,6 +54,7 @@ export class RegisterComponent implements OnInit
         prenom: ['', Validators.required],
         nom: ['', Validators.required],
         telephone: ['', Validators.required],
+        adresse: ['', Validators.required]
       });
   }
 }

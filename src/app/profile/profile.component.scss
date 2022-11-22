@@ -170,6 +170,8 @@
   top: -30px;
   left: 0;
   z-index: 1;
+  display: flex;
+  justify-content: space-around;
 }
 
 .social-media i {
@@ -201,4 +203,11 @@
 .social-media i:hover::after {
   transform: scale(1.4);
   opacity: 0;
+}
+.videos
+{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }

@@ -28,6 +28,8 @@ export class PosteDeVenteComponent implements OnInit
   receipt: any = [];
   currentStore: any;
   currentShop: any;
+  currentUser: any;
+  currentCashier: any;
 
   constructor(private formBuilder: FormBuilder, private httpService : HttpClientService,private serviceAuth : AuthService, public location: Location) {}
   open()
@@ -206,6 +208,19 @@ export class PosteDeVenteComponent implements OnInit
     {
       this.monPanier = value;
     });
+
+    // -- Affichage de la boutique affectée au caissier
+    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    if(this.currentUser.roles[0] == 'ROLE_CAISSIER')
+    {
+      this.httpService.getUrl(this.httpService.cashierUrl).subscribe(
+        (caissier) =>
+        {
+          this.currentCashier = caissier.find((param : any) => param.email === this.currentUser.username)
+          this.mesProduits = this?.currentCashier?.shop?.produit;
+        }
+      )
+    }
 
     // -- Liste des produits de la boutique courrante
     this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');

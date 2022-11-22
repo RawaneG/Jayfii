@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { AuthService } from '../auth.service';
 import { HttpClientService } from '../services.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -23,13 +23,14 @@ export class HeaderComponent implements OnInit
   currentSeller: any;
   shops: any;
   currentStore: any;
-  constructor(private service : AuthService, private httpService : HttpClientService, public route : Router, public location: Location) { }
+  constructor(private router : ActivatedRoute,private service : AuthService, private httpService : HttpClientService, public route : Router, public location: Location) { }
 
   switch(shop : any)
   {
     localStorage.setItem('boutique', JSON.stringify(shop));
-    this.refresh();
+    localStorage.removeItem('panier');
     this.ngOnInit();
+    location.reload();
   }
   link(event : any)
   {
@@ -62,14 +63,14 @@ export class HeaderComponent implements OnInit
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
       value =>
       {
-        if(this.currentUser.shop)
+        if(this.currentUser?.shop)
         {
-          this.shops = this.currentUser.shop;
+          this.shops = this.currentUser?.shop;
         }
         else
         {
           this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-          this.shops = this.currentSeller.shop;
+          this.shops = this.currentSeller?.shop;
         }
       }
     );

@@ -6,13 +6,13 @@
         <div class="product-header" (click)="panier(produit)">
           <img
             class="product-picture"
-            src="{{ 'data:image/png;base64,' + produit.image }}"
+            src="{{ 'data:image/png;base64,' + produit?.image }}"
           />
         </div>
         <div class="card-details" (click)="panier(produit)">
-          <h3 class="product-name">{{ produit.nom }}</h3>
+          <h3 class="product-name">{{ produit?.nom }}</h3>
           <div class="bottom-row">
-            <p class="price">{{ produit.prix }} FCFA</p>
+            <p class="price">{{ produit?.prix }} FCFA</p>
             <button class="add-cart"><i class="fas fa-plus"></i></button>
           </div>
         </div>
@@ -129,9 +129,9 @@
                 class="child_o_the_main"
                 *ngFor="let article of receipt?.ligneDeCommandes"
               >
-                <h3>{{ article.produit?.nom }}</h3>
-                <h3>{{ article.quantite }}</h3>
-                <h3>{{ article.prix }} FCFA</h3>
+                <h3>{{ article?.produit?.nom }}</h3>
+                <h3>{{ article?.quantite }}</h3>
+                <h3>{{ article?.prix }} FCFA</h3>
               </div>
             </div>
           </div>

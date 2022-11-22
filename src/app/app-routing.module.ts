@@ -13,6 +13,7 @@ import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 import { AdminComponent } from './admin/admin.component';
+import { CreateCashierComponent } from './profile/create-cashier/create-cashier.component';
 
 const routes: Routes =
 [
@@ -55,7 +56,7 @@ const routes: Routes =
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate : [AuthGuard]
+    canActivate : [AuthGuard],
   },
   {
     path: 'profile',
@@ -63,8 +64,13 @@ const routes: Routes =
     canActivate : [AuthGuard]
   },
   {
-    path: 'profile/add',
+    path: 'profile/addShop',
     component: CreateShopComponent,
+    canActivate : [AuthGuard]
+  },
+  {
+    path: 'profile/addCashier',
+    component: CreateCashierComponent,
     canActivate : [AuthGuard]
   },
   {
@@ -75,7 +81,6 @@ const routes: Routes =
   {
     path: 'poc',
     component: PosteDeVenteComponent,
-    canActivate : [AuthGuard]
   },
   {
     path: 'produits/add',

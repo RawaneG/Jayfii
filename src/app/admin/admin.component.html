@@ -1,37 +1,34 @@
-<div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource">
-    <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <th mat-header-cell *matHeaderCellDef>No.</th>
-      <td mat-cell *matCellDef="let element">{{ element.position }}</td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.name }}</td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <th mat-header-cell *matHeaderCellDef>Weight</th>
-      <td mat-cell *matCellDef="let element">{{ element.weight }}</td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <th mat-header-cell *matHeaderCellDef>Symbol</th>
-      <td mat-cell *matCellDef="let element">{{ element.symbol }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <mat-paginator
-    [pageSizeOptions]="[5, 10, 20]"
-    showFirstLastButtons
-    aria-label="Select page of periodic elements"
-  >
-  </mat-paginator>
-</div>
+<h1>Mes Boutiquiers</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Nom Complet</th>
+      <th>Email</th>
+      <th>Numéro de téléphone</th>
+      <th>Adresse</th>
+      <th>Statut</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let boutiquier of boutiquiers">
+      <td>{{ boutiquier?.nomComplet }}</td>
+      <td>{{ boutiquier?.email }}</td>
+      <td>{{ boutiquier?.telephone }}</td>
+      <td>{{ boutiquier?.adresse }}</td>
+      <td>{{ boutiquier?.status }}</td>
+      <td class="action">
+        <i
+          class="fas fa-check"
+          title="activer"
+          (click)="activer(boutiquier?.id)"
+        ></i>
+        <i
+          class="fas fa-remove"
+          title="desactiver"
+          (click)="desactiver(boutiquier?.id)"
+        ></i>
+      </td>
+    </tr>
+  </tbody>
+</table>

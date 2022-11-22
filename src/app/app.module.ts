@@ -49,6 +49,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import {MatRippleModule} from '@angular/material/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { CreateCashierComponent } from './profile/create-cashier/create-cashier.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ListShopsComponent,
     ResetPasswordComponent,
     AdminComponent,
+    CreateCashierComponent,
   ],
   imports:
   [

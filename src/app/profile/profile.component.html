@@ -10,15 +10,20 @@
             alt="picture"
           />
         </div>
-        <div class="name">{{ currentSeller.nomComplet | titlecase }}</div>
-        <div class="name">Téléphone : {{ currentSeller.telephone }}</div>
+        <div class="name">{{ currentSeller?.nomComplet | titlecase }}</div>
+        <div class="name">Téléphone : {{ currentSeller?.telephone }}</div>
+        <div class="name">
+          Adresse : {{ currentSeller?.adresse | titlecase }}
+        </div>
       </div>
       <div class="bottom-section">
         <div class="social-media">
-          <a routerLink="add"><i class="fas fa-plus"></i></a>
+          <a routerLink="addShop"><i class="fas fa-store"></i></a>
+          <a routerLink="addCashier"><i class="fas fa-person"></i></a>
         </div>
         <div class="videos">
           <span>Ajouter une boutique</span>
+          <span>Ajouter un opérateur</span>
         </div>
       </div>
     </div>
