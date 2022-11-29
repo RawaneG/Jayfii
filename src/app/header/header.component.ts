@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit
         this.route.navigate([currentUrl]);
     });
   }
-  currentUser: any;
+  currentUser: any = {};
   currentSeller: any;
   shops: any;
   currentStore: any;
@@ -57,9 +57,16 @@ export class HeaderComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    const allItems = document.querySelectorAll(".nav__item");
+    allItems.forEach(element =>
+    {
+      element.classList.remove('active');
+    });
+    const path = this.router.snapshot.routeConfig?.path;
+    const daItem = document.querySelector(`[href*=${path}]`);
+    daItem?.classList.add('active');
 
+    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
       value =>
       {

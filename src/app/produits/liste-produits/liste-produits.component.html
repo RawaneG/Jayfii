@@ -1,3 +1,4 @@
+<app-header></app-header>
 <!-- ========== First Parent ========== -->
 <div class="container">
   <div class="first-parent">
@@ -14,7 +15,7 @@
       <mat-form-field>
         <mat-label>Catégorie</mat-label>
         <mat-select>
-          <mat-option value="one">Tous les produits</mat-option>
+          <!-- <mat-option value="one">Tous les produits</mat-option> -->
           <mat-option
             *ngFor="let categorie of mesCategories"
             (click)="selectCategorie(categorie)"
@@ -26,7 +27,7 @@
       <mat-form-field>
         <mat-label>Alerte de Stock</mat-label>
         <mat-select>
-          <mat-option value="one">Tous les produits</mat-option>
+          <!-- <mat-option value="one">Tous les produits</mat-option> -->
           <mat-option value="two" (click)="selectLimite()"
             >En Rupture</mat-option
           >

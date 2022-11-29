@@ -21,6 +21,12 @@ export class CreateShopComponent implements OnInit
 
   constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router ) { }
 
+  retour()
+  {
+    this.route.navigate(['../profile']);
+  }
+
+
   readUrl(event:any)
   {
     if (event.target.files && event.target.files[0])
@@ -48,7 +54,7 @@ export class CreateShopComponent implements OnInit
       }
     };
     this.httpService.postUrl(this.httpService.shopUrl  , this.body);
-    this.route.navigate(['/profile']);
+    this.httpService.openSnackBar('Boutique créee avec succès','/profile');
   }
 
   ngOnInit(): void

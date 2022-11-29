@@ -148,8 +148,8 @@ section {
     position: relative;
     width: 100%;
     margin: 2em auto;
-
-    input,select {
+    display: flex;
+    input,select,.submit {
       width: 100%;
       outline: none;
       border: none;
@@ -188,8 +188,12 @@ section {
       top: 13px;
       left: 13px;
     }
-
-    input[type="submit"] {
+    .submit
+    {
+      border: none;
+    }
+    input[type="submit"],.submit
+    {
       background: #fff;
       color: #111;
       min-width: 10%;
@@ -200,7 +204,7 @@ section {
       transition: 1.5s;
     }
 
-    input[type="submit"]:hover {
+    input[type="submit"]:hover,.submit:hover {
       background: linear-gradient(115deg,
         rgba(0,0,0,0.10),
         rgba(255,255,255,0.25));

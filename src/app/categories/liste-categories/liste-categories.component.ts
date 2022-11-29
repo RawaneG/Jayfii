@@ -85,7 +85,7 @@ export class ListeCategoriesComponent implements OnInit
       (reponse) =>
       {
         this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop.categories.forEach((element : any) =>
+        this.currentShop?.categories.forEach((element : any) =>
         {
           if(element.etat == false)
           {

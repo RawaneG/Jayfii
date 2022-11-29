@@ -29,6 +29,11 @@ export class CreerProduitComponent implements OnInit
 
   constructor(private _snackBar: MatSnackBar, private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute) { }
 
+  retour()
+  {
+    this.route.navigate(['../produits']);
+  }
+
   openSnackBar()
   {
     let message = 'Représente la quantité limite pour pouvoir alerter une rupture de stock ou un stock proche de la rupture';
@@ -88,10 +93,7 @@ export class CreerProduitComponent implements OnInit
             }
           }
           this.httpService.postUrl(this.httpService.produitUrl,this.body);
-          setTimeout(() => {
-            location.reload();
-          }, 500);
-          this.route.navigateByUrl('produits');
+          this.httpService.openSnackBar('Article enregistrée avec succès','produits');
         }
         else
         {
@@ -127,10 +129,7 @@ export class CreerProduitComponent implements OnInit
             }
           }
           this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.link),this.body);
-          setTimeout(() => {
-            location.reload();
-          }, 500);
-          this.route.navigateByUrl('produits');
+          this.httpService.openSnackBar('Article modifiée avec succès','produits');
         }
       }
     )

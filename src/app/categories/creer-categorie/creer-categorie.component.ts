@@ -15,6 +15,11 @@ export class CreerCategorieComponent implements OnInit
   body : any = {};
   currentStore: any;
   constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router) { }
+
+  retour()
+  {
+    this.route.navigate(['../categories']);
+  }
   submit()
   {
     this.body =
@@ -22,10 +27,13 @@ export class CreerCategorieComponent implements OnInit
       "nom" : this.ajouterCategorie.value.nom,
       "description" : this.ajouterCategorie.value.description,
       "couleur" : this.ajouterCategorie.value.couleur,
-      "shop" : this.currentStore.id
+      "shop" :
+      {
+        "id" : this.currentStore.id
+      }
     }
     this.httpService.postUrl(this.httpService.categorieUrl,this.body);
-    this.route.navigateByUrl('categories');
+    this.httpService.openSnackBar('Catégorie enregistrée avec succès', 'categories');
   }
   ngOnInit(): void
   {

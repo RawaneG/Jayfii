@@ -1,3 +1,4 @@
+<app-header *ngIf="currentCashier == undefined"></app-header>
 <div class="body" (click)="close()">
   <div class="first-parent">
     <!-- ========== Produits ========== -->
@@ -80,14 +81,14 @@
                   formControlName="montant"
                 />
               </mat-form-field>
-              <div class="propositions">
+              <!-- <div class="propositions">
                 <div>1000 FCFA</div>
                 <div>2000 FCFA</div>
                 <div>3000 FCFA</div>
                 <div>4000 FCFA</div>
                 <div>5000 FCFA</div>
                 <div>10000 FCFA</div>
-              </div>
+              </div> -->
             </form>
             <div class="reste">
               <h3>Reste : {{ reste }} FCFA</h3>
@@ -96,10 +97,7 @@
           <!-- ========== Boutons de confirmation ========== -->
           <div class="boutons">
             <p (click)="ferme()">Annuler le paiement</p>
-            <p
-              *ngIf="confirmer"
-              (click)="confirmerPaiement(); ferme(); ouvre()"
-            >
+            <p *ngIf="confirmer" (click)="confirmerPaiement()">
               Valider le paiement
             </p>
           </div>
@@ -108,7 +106,7 @@
     </div>
   </div>
   <!-- ========== Pop Up Reçu ========== -->
-  <div class="second-popup hidden">
+  <div class="second-popup cache">
     <div class="popup-container">
       <div class="popup-content-receive">
         <div class="first-line">
@@ -143,7 +141,7 @@
         <div class="third-line">
           <div>
             <h3><strong>Méthode de paiement</strong></h3>
-            <h3>{{ receipt?.methodePaiement | titlecase }}</h3>
+            <h3>{{ receipt?.methodePaiement }}</h3>
           </div>
           <div>
             <h3><strong>Montant</strong></h3>

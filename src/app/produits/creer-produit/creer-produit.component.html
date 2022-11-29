@@ -129,7 +129,7 @@
     </div>
   </div>
   <div class="final-boutons">
-    <button routerLink="/produits">Annuler</button>
+    <button (click)="retour()">Annuler</button>
     <button class="valider" [hidden]="showMe">Enregistrer</button>
     <button class="valider" [hidden]="!showMe">Modifier</button>
   </div>

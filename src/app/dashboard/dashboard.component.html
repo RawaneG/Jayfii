@@ -1,3 +1,4 @@
+<app-header></app-header>
 <div class="conteneur">
   <div class="A">
     <div class="a">
@@ -89,7 +90,7 @@
       </li>
     </ul>
     <mat-paginator
-      [length]="filtrer.length"
+      [length]="taillePage"
       [pageSize]="5"
       [pageSizeOptions]="[5, 10, 25, 50]"
       showFirstLastButtons

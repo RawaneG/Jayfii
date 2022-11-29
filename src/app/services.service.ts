@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
@@ -26,12 +27,34 @@ export class HttpClientService
   user: any;
   produit: any;
 
-  constructor(private http: HttpClient, private route: Router) {
+  constructor(private http: HttpClient, private route: Router, private _snackBar: MatSnackBar)
+  {
     let existingCartItems = JSON.parse(localStorage.getItem('panier') || '[]');
     if (!existingCartItems) {
       existingCartItems = [];
     }
     this.itemsSubject.next(existingCartItems);
+  }
+  openSnackBar(message : any, navigation : string = '')
+  {
+    let t = 2000;
+    this._snackBar.open(message, '',
+    {
+      duration : t
+    });
+    if(navigation == '')
+    {
+      setTimeout(() => {
+        location.reload()
+      }, 2200)
+    }
+    else
+    {
+      setTimeout(() =>
+      {
+        this.route.navigateByUrl(navigation);
+      }, 2200);
+    }
   }
   /**************************************** Authentification ******** **************************/
   login(body: any) {

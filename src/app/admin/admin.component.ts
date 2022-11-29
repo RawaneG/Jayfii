@@ -12,6 +12,7 @@ export class AdminComponent implements OnInit
   boutiquiers : any = [];
   body !: {};
   constructor(private httpService : HttpClientService) {}
+
   activer(id : number)
   {
     this.body =
@@ -19,7 +20,7 @@ export class AdminComponent implements OnInit
       "status" : "Actif"
     }
     this.httpService.putUrl(this.httpService.boutiquierUrl + '/' + id, this.body);
-    location.reload();
+    this.httpService.openSnackBar('Statut Modifié avec succès');
   }
   desactiver(id : number)
   {
@@ -28,7 +29,7 @@ export class AdminComponent implements OnInit
       "status" : "Inactif"
     }
     this.httpService.putUrl(this.httpService.boutiquierUrl + '/' + id, this.body);
-    location.reload();
+    this.httpService.openSnackBar('Statut Modifié avec succès');
   }
 
   ngOnInit(): void

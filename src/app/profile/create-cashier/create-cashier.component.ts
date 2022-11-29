@@ -18,7 +18,10 @@ export class CreateCashierComponent implements OnInit
   currentStore: any;
 
   constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router ) { }
-
+  retour()
+  {
+    this.route.navigate(['../profile']);
+  }
   creation()
   {
     this.body =
@@ -38,7 +41,7 @@ export class CreateCashierComponent implements OnInit
       }
     };
     this.httpService.postUrl(this.httpService.cashierUrl  , this.body);
-    this.route.navigate(['/profile']);
+    this.httpService.openSnackBar('Caissier inscrit avec succès','/profile');
   }
   ngOnInit(): void
   {

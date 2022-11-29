@@ -96,7 +96,7 @@ export class ListeProduitsComponent implements OnInit
       (reponse) =>
       {
         this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop.produit.forEach((element : any) =>
+        this.currentShop?.produit.forEach((element : any) =>
         {
           if(element.etat == false)
           {
