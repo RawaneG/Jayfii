@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit
     localStorage.setItem('boutique', JSON.stringify(shop));
     localStorage.removeItem('panier');
     this.ngOnInit();
-    location.reload();
+    this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès');
   }
   link(event : any)
   {
@@ -54,7 +54,6 @@ export class HeaderComponent implements OnInit
   {
     this.service.deconnecter();
   }
-
   ngOnInit(): void
   {
     const allItems = document.querySelectorAll(".nav__item");
@@ -67,6 +66,7 @@ export class HeaderComponent implements OnInit
     daItem?.classList.add('active');
 
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    this.currentStore= JSON.parse(localStorage.getItem('boutique') || '[]');
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
       value =>
       {

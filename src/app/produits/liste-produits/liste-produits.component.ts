@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClientService } from 'src/app/services.service';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-liste-produits',
@@ -20,8 +22,15 @@ export class ListeProduitsComponent implements OnInit
   currentStore: any;
   currentShop: any;
 
-  constructor(private httpService : HttpClientService) { }
+  constructor(private httpService : HttpClientService, public route : Router, public location: Location) { }
 
+  refresh()
+  {
+    let currentUrl = this.route.url;
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+        this.route.navigate([currentUrl]);
+    });
+  }
   onPageChange(event : PageEvent)
   {
     const startIndex = event.pageIndex * event.pageSize;
@@ -84,9 +93,27 @@ export class ListeProduitsComponent implements OnInit
   {
     this.category = event.nom;
   }
-  selectLimite()
+  filtreStock()
   {
-    this.category = 0;
+    this.mesProduits = [];
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
+    (
+      (reponse) =>
+      {
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop?.produit.forEach((element : any) =>
+        {
+          if(element.etat == false)
+          {
+            if(element.quantiteEnStock <= element.limite)
+            {
+              this.mesProduits.push(element);
+            }
+          }
+        });
+        this.pageSlice = this.mesProduits.slice(0 , 5);
+      }
+    );
   }
   ngOnInit(): void
   {

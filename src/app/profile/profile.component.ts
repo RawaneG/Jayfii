@@ -23,7 +23,9 @@ export class ProfileComponent implements OnInit
   switch(shop : any)
   {
     localStorage.setItem('boutique', JSON.stringify(shop));
-    alert("Vous êtes positionné sur " + shop.nomBoutique + ".");
+    localStorage.removeItem('panier');
+    this.ngOnInit();
+    this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès');
   }
 
   ngOnInit(): void

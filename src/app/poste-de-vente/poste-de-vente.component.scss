@@ -15,11 +15,79 @@ html, body
 .first-parent
 {
   width: 65%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   max-height: 100vh;
   overflow: auto;
+}
+.search-box
+{
+  position: absolute;
+  margin: 2em 0 0 22%;
+  height: 60px;
+  background: #353535;
+  line-height:40px;
+  padding: 10px;
+  border-radius: 60px;
+}
+.search-input
+{
+  background: #353535;
+  color: #fff;
+  outline: none;
+  border: none;
+  line-height:40px;
+  width: 0px;
+  float: left;
+  font-size:14px;
+  transition: 0.7s ease;
+  font-family:sans-serif;
+}
+.vide
+{
+  margin: 5em 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  img
+  {
+    max-width: 50%;
+  }
+  span
+  {
+    font-size: 2em;
+  }
+}
+.search-btn
+{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration:none;
+  background: #353535;
+  padding: 12px;
+  border-radius: 50%;
+  // float: right;
+  color: #ff5722;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+.search-box:hover > .search-input
+{
+  width: 300px;
+  margin: 0px 8px;
+}
+.search-input
+{
+  width: 300px;
+  margin: 0px 8px;
+}
+.search-box:hover > .search-btn
+{
+  background: #fff;
+}
+.search-input:focus + .search-btn
+{
+  background: #fff;
 }
 .example-form
 {
@@ -38,9 +106,9 @@ html, body
 }
 .container
 {
-  margin: 2em 0 0 5em;
+  margin: 12em 0 0 5em;
   width: 90%;
-  height: 100%;
+  // height: 100%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;

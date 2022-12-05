@@ -9,11 +9,18 @@
         <mat-icon>store</mat-icon>
       </div>
       <div class="nav__item-name">
-        {{ currentStore?.nomBoutique }} (en Cours)
+        En activité :
+        {{ currentStore?.nomBoutique }}
       </div>
     </a>
     <!-- ========== Admin ========== -->
-    <a id="b" class="nav__item" routerLink="../admin" (click)="link('#b')">
+    <a
+      id="b"
+      class="nav__item"
+      routerLink="../admin"
+      (click)="link('#b')"
+      *ngIf="currentUser.role == ['ROLE_ADMIN']"
+    >
       <div class="nav__item-icon">
         <mat-icon>account_circle</mat-icon>
       </div>

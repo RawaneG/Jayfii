@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
@@ -32,6 +32,8 @@ export class PosteDeVenteComponent implements OnInit
   currentUser: any;
   currentCashier: any;
   currentSeller: any;
+  product : any;
+  search !: string;
 
   constructor(private formBuilder: FormBuilder, private httpService : HttpClientService, private serviceAuth : AuthService, public location: Location) {}
 
@@ -82,46 +84,68 @@ export class PosteDeVenteComponent implements OnInit
   }
   confirmerPaiement()
   {
-    this.body =
+    if(this.currentCashier == undefined)
     {
-      "prixCommande": this.monTotal,
-      "montant": this.montant,
-      "reste": this.reste,
-      "methodePaiement":
+      console.log(this.currentCashier?.id);
+      this.body =
       {
-        "id" : 1
-      },
-      "client":
-      {
-        "id" : 3
-      },
-      "boutiquier":
-      {
-        "id" : this.currentUser?.id
-      },
-      "ligneDeCommandes": this.getProduct(),
-      "shop" :
-      {
-        "id" : this.currentStore?.id
-      },
-      "caissier" :
-      {
-        "id" : this.currentCashier?.id
+        "prixCommande": this.monTotal,
+        "montant": this.montant,
+        "reste": this.reste,
+        "methodePaiement":
+        {
+          "id" : 1
+        },
+        "boutiquier":
+        {
+          "id" : this.currentUser?.id
+        },
+        "ligneDeCommandes": this.getProduct(),
+        "shop" :
+        {
+          "id" : this.currentStore?.id
+        }
       }
     }
-    this.httpService.postUrl(this.httpService.commandeUrl,this.body);
-    localStorage.removeItem('panier');
-    this.ferme();
-    localStorage.setItem('reçu',JSON.stringify(this.body));
-    this.mesProduits.forEach((element : any) =>
+    else
     {
-      this.produit =
+      this.body =
       {
-        "quantiteEnStock" : element.quantiteEnStock
+        "prixCommande": this.monTotal,
+        "montant": this.montant,
+        "reste": this.reste,
+        "methodePaiement":
+        {
+          "id" : 1
+        },
+        "boutiquier":
+        {
+          "id" : this.currentCashier?.boutiquier?.id
+        },
+        "ligneDeCommandes": this.getProduct(),
+        "shop" :
+        {
+          "id" : this.currentCashier?.shop?.id
+        },
+        "caissier" :
+        {
+          "id" : this.currentCashier?.id
+        }
       }
-      this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id ,this.produit);
-    })
-    this.httpService.openSnackBar('Vente effectuée avec succès');
+    }
+      this.httpService.postUrl(this.httpService.commandeUrl,this.body);
+      localStorage.removeItem('panier');
+      this.ferme();
+      localStorage.setItem('reçu',JSON.stringify(this.body));
+      this.mesProduits.forEach((element : any) =>
+      {
+        this.produit =
+        {
+          "quantiteEnStock" : element.quantiteEnStock
+        }
+        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id ,this.produit);
+      })
+      this.httpService.openSnackBar('Vente effectuée avec succès');
   }
   ecriture()
   {
@@ -184,6 +208,23 @@ export class PosteDeVenteComponent implements OnInit
   }
   ngOnInit(): void
   {
+    // -- Liste des produits du caissier
+    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    if(this.currentUser.roles[0] == 'ROLE_CAISSIER')
+    {
+      this.httpService.getUrl(this.httpService.cashierUrl).subscribe(
+      (caissier) =>
+      {
+        this.currentCashier = caissier.find((param : any) => param.email === this.currentUser.username)
+        this?.currentCashier?.shop?.produit.forEach((element : any) =>
+        {
+          if(element.etat == false)
+          {
+            this.mesProduits.push(element);
+          }
+        });
+      })
+    }
     // -- Liste des produits de la boutique courrante
     this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.httpService.getUrl(this.httpService.shopUrl).subscribe
@@ -197,21 +238,9 @@ export class PosteDeVenteComponent implements OnInit
           {
             this.mesProduits.push(element);
           }
-          });
+        });
       }
     );
-    // -- Affichage de la boutique affectée au caissier
-    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-        if(this.currentUser.roles[0] == 'ROLE_CAISSIER')
-        {
-          this.httpService.getUrl(this.httpService.cashierUrl).subscribe(
-            (caissier) =>
-            {
-              this.currentCashier = caissier.find((param : any) => param.email === this.currentUser.username)
-              this.mesProduits = this?.currentCashier?.shop?.produit;
-            }
-          )
-        }
 
     this.form = this.formBuilder.group(
     {

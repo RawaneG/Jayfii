@@ -15,7 +15,9 @@
       <mat-form-field>
         <mat-label>Catégorie</mat-label>
         <mat-select>
-          <!-- <mat-option value="one">Tous les produits</mat-option> -->
+          <mat-option value="one" (click)="refresh()"
+            >Tous les produits</mat-option
+          >
           <mat-option
             *ngFor="let categorie of mesCategories"
             (click)="selectCategorie(categorie)"
@@ -27,8 +29,10 @@
       <mat-form-field>
         <mat-label>Alerte de Stock</mat-label>
         <mat-select>
-          <!-- <mat-option value="one">Tous les produits</mat-option> -->
-          <mat-option value="two" (click)="selectLimite()"
+          <mat-option value="one" (click)="refresh()"
+            >Tous les produits</mat-option
+          >
+          <mat-option value="two" (click)="filtreStock()"
             >En Rupture</mat-option
           >
         </mat-select>
@@ -51,7 +55,7 @@
   <!-- ========== Third Parent ========== -->
   <div
     class="third-parent"
-    *ngFor="let produit of pageSlice | filter: category"
+    *ngFor="let produit of pageSlice | filter : category"
   >
     <div class="mini-parent">
       <div class="firste-container">

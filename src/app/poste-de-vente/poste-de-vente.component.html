@@ -2,8 +2,24 @@
 <div class="body" (click)="close()">
   <div class="first-parent">
     <!-- ========== Produits ========== -->
+    <div class="search-box">
+      <input
+        type="text"
+        placeholder="Rechercher un produit"
+        class="search-input"
+        [(ngModel)]="search"
+      />
+      <i class="search-btn fas fa-search"></i>
+    </div>
     <div class="container">
-      <div class="product-card card" *ngFor="let produit of mesProduits">
+      <div class="vide" *ngIf="mesProduits?.length == 0">
+        <img src="./assets/bx.png" alt="Aucun produit" />
+        <span>Aucun produit disponible</span>
+      </div>
+      <div
+        class="product-card card"
+        *ngFor="let produit of mesProduits | filter : search"
+      >
         <div class="product-header" (click)="panier(produit)">
           <img
             class="product-picture"
@@ -112,7 +128,7 @@
         <div class="first-line">
           <div class="child">
             <h1>Reçu du paiement</h1>
-            <h1>Date d'achat : {{ receipt?.date | date: "fullDate" }}</h1>
+            <h1>Date d'achat : {{ receipt?.date | date : "fullDate" }}</h1>
           </div>
         </div>
         <div class="second-line">
