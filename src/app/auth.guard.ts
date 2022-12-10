@@ -49,7 +49,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   connexion(route : ActivatedRouteSnapshot, url : any) : boolean
   {
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-    if(this.currentUser.roles[0] == 'ROLE_BOUTIQUIER')
+    if(this.currentUser.roles[0] == 'ROLE_BOUTIQUIER' || this.currentUser.roles[0] == 'ROLE_ADMIN')
     {
       return true;
     }

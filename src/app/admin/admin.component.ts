@@ -9,6 +9,7 @@ import { Location } from '@angular/common';
 })
 export class AdminComponent implements OnInit
 {
+  spin : boolean = true;
   boutiquiers : any = [];
   body !: {};
   constructor(private httpService : HttpClientService) {}
@@ -35,7 +36,11 @@ export class AdminComponent implements OnInit
   ngOnInit(): void
   {
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-      user => this.boutiquiers = user
+      user =>
+      {
+        this.boutiquiers = user;
+        this.spin = false;
+      }
     )
   }
 }

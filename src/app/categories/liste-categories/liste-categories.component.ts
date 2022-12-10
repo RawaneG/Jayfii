@@ -10,6 +10,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class ListeCategoriesComponent implements OnInit
 {
+  spin : boolean = true;
   mesCategories : any = [];
   pageSlice: any;
   isSelected !: boolean;
@@ -93,6 +94,7 @@ export class ListeCategoriesComponent implements OnInit
           }
         });
         this.pageSlice = this.mesCategories.slice(0 , 5);
+        this.spin = false;
       }
     );
   }

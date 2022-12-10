@@ -51,6 +51,8 @@ import { MatRippleModule } from '@angular/material/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CreateCashierComponent } from './profile/create-cashier/create-cashier.component';
 import { MonIntercepteurInterceptor } from './mon-intercepteur.interceptor';
+import { SpinnerComponent } from './spinner/spinner.component';
+import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
 
 @NgModule({
   declarations: [
@@ -71,6 +73,8 @@ import { MonIntercepteurInterceptor } from './mon-intercepteur.interceptor';
     ResetPasswordComponent,
     AdminComponent,
     CreateCashierComponent,
+    SpinnerComponent,
+    ConfirmPasswordComponent,
   ],
   imports:
   [

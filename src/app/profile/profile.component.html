@@ -1,13 +1,12 @@
+<app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
 <div class="container-fluid">
   <div class="body">
     <div class="profile-card">
       <div class="top-section">
-        <i class="message fas fa-repeat"></i>
-        <i class="notif fas fa-sign-out"></i>
         <div class="pic">
           <img
-            src="https://fadzrinmadu.github.io/hosted-assets/awesome-profile-card-using-only-html-and-css/pic.png"
+            src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG.png"
             alt="picture"
           />
         </div>
@@ -25,31 +24,6 @@
         <div class="videos">
           <span>Ajouter une boutique</span>
           <span>Ajouter un opérateur</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="boutique">
-    <h1>Mes Boutiques</h1>
-    <div class="cards">
-      <div class="card" *ngFor="let boutique of shops">
-        <img
-          src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}"
-          class="card-img-top"
-          alt="Fissure in Sandstone"
-        />
-        <div class="card-body">
-          <h2 class="card-title">{{ boutique?.nomBoutique }}</h2>
-          <p class="card-text">
-            {{ boutique?.adresse }}
-          </p>
-          <p class="card-text">
-            {{ boutique?.lienBoutique }}
-          </p>
-          <a (click)="switch(boutique)" class="btn btn-outline-light"
-            >Choisir cette boutique</a
-          >
         </div>
       </div>
     </div>

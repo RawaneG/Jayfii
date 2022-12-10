@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import jwt_decode from 'jwt-decode';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +10,7 @@ import jwt_decode from 'jwt-decode';
 export class AuthService
 {
   user: any;
-  constructor(private route : Router) { }
+  constructor(private route : Router, private authService : SocialAuthService) { }
 
   public estConnecte()
   {
@@ -17,6 +18,7 @@ export class AuthService
   }
   public deconnecter()
   {
+    this.authService.signOut();
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('reçu');
     localStorage.removeItem('promo');

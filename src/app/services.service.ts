@@ -35,6 +35,14 @@ export class HttpClientService
     }
     this.itemsSubject.next(existingCartItems);
   }
+  alert(message : any)
+  {
+    let t = 2000;
+    this._snackBar.open(message, '',
+    {
+      duration : t
+    });
+  }
   openSnackBar(message : any, navigation : string = '')
   {
     let t = 2000;
@@ -60,9 +68,49 @@ export class HttpClientService
   login(body: any) {
     this.http.post(this.loginUrl, body).subscribe((token) => {
       this.myUser = this.getDecodedAccessToken(JSON.stringify(token));
-      if (this.myUser != undefined) {
-        localStorage.setItem('ACCESS_TOKEN', JSON.stringify(this.myUser));
-        this.route.navigateByUrl('poc');
+      if (this.myUser != undefined)
+      {
+        if(this.myUser?.roles[0] == 'ROLE_BOUTIQUIER' || this.myUser?.roles[0] == 'ROLE_ADMIN')
+        {
+          this.getUrl(this.boutiquierUrl).subscribe(
+            boutiquier =>
+            {
+              let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
+              if(monBoutiquier != undefined)
+              {
+                if(monBoutiquier.status == "Actif")
+                {
+                  localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
+                  this.openSnackBar('Connexion réussie','poc');
+                }
+                else
+                {
+                  this.openSnackBar('Connexion non autorisée');
+                }
+              }
+            })
+        }
+        else
+        {
+          this.getUrl(this.cashierUrl).subscribe(
+            boutiquier =>
+            {
+              let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
+              if(monBoutiquier != undefined)
+              {
+                localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
+                this.openSnackBar('Connexion réussie','poc');
+              }
+              else
+              {
+                this.openSnackBar('Connexion non autorisée');
+              }
+            })
+        }
+      }
+      else
+      {
+        this.openSnackBar('Connexion non autorisée');
       }
     });
   }
@@ -81,6 +129,11 @@ export class HttpClientService
   /**************************************** Récupération des Observables ******** **************************/
   postUrl(url: any, body: any) {
     this.http.post(url, body).subscribe();
+  }
+  /**************************************** Récupération des Observables ******** **************************/
+  patchUrl(url: any, body: any)
+  {
+      this.http.patch(url, body).subscribe();
   }
   /**************************************** Récupération des Observables ******** **************************/
   getUrl(url: any): Observable<any> {
@@ -121,6 +174,17 @@ export class HttpClientService
           this.produit = productsParam.findIndex(
             (param: any) => param.id === element.id
           );
+          if(productsParam[this.produit].quantiteEnStock <= productsParam[this.produit].limite)
+          {
+            if(productsParam[this.produit].quantiteEnStock - 1 == 0)
+            {
+              this.alert('Le stock du produit est épuisé');
+            }
+            else
+            {
+              this.alert('Attention : Il reste ' + (productsParam[this.produit].quantiteEnStock - 1) + ' en stock')
+            }
+          }
           productsParam[this.produit].quantite++;
           productsParam[this.produit].quantiteEnStock--;
           this.monTotalService = this.sousTotal();

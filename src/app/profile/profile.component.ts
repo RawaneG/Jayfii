@@ -11,7 +11,7 @@ import { HttpClientService } from '../services.service';
 })
 export class ProfileComponent implements OnInit
 {
-
+  spin : boolean = true;
   shopCreation !: FormGroup;
   currentUser: any;
   currentSeller: any;
@@ -40,18 +40,20 @@ export class ProfileComponent implements OnInit
         {
           this.currentSeller = this.currentUser;
           this.shops = this.currentUser.shop;
+          this.spin = false;
         }
         else
         {
           this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
           this.shops = this.currentSeller.shop;
+          this.spin = false;
         }
       }
     );
 
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe(
-      value => value
-    );
+    // this.httpService.getUrl(this.httpService.shopUrl).subscribe(
+    //   value => value
+    // );
     this.shopCreation  =  this.formBuilder.group(
       {
         nom: ['', Validators.required],

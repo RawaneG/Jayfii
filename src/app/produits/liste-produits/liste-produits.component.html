@@ -1,3 +1,4 @@
+<app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
 <!-- ========== First Parent ========== -->
 <div class="container">
@@ -8,7 +9,7 @@
         <p class="ajout">AJOUTER UN PRODUIT</p>
       </button>
       <div (click)="toTrash()">
-        <i class="fas fa-trash" style="font-size: 20px"></i>
+        <i class="fas fa-trash" style="font-size: 20px" title="Supprimer"></i>
       </div>
     </div>
     <div class="second-container">
@@ -60,7 +61,11 @@
     <div class="mini-parent">
       <div class="firste-container">
         <mat-checkbox [checked]="isSelected" (change)="coche($event, produit)">
-          <span style="margin: 0 1em" [routerLink]="['modifier', produit.id]">
+          <span
+            style="margin: 0 1em"
+            [routerLink]="['modifier', produit.id]"
+            title="Modifier"
+          >
             <i class="fas fa-edit" style="font-size: 20px"></i>
           </span>
           <span style="margin: 0 0 0 1em">{{ produit?.nom }}</span>

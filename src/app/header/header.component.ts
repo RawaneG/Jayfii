@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent implements OnInit
 {
+  monRole: any;
   refresh() : void
   {
     let currentUrl = this.route.url;
@@ -66,7 +67,9 @@ export class HeaderComponent implements OnInit
     daItem?.classList.add('active');
 
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+    this.monRole = this.currentUser?.roles[0];
     this.currentStore= JSON.parse(localStorage.getItem('boutique') || '[]');
+
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
       value =>
       {

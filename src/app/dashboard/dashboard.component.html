@@ -81,9 +81,9 @@
       </li>
       <li
         class="table-row"
-        *ngFor="let vente of pageSlice | filter: filtreDate"
+        *ngFor="let vente of pageSlice | filter : filtreDate"
       >
-        <div class="col col-2">{{ vente.date | date: "fullDate" }}</div>
+        <div class="col col-2">{{ vente.date | date : "fullDate" }}</div>
         <div class="col col-2">{{ vente.vente }} FCFA</div>
         <div class="col col-4">{{ vente.cout }} FCFA</div>
         <div class="col col-5">{{ vente.vente - vente.cout }} FCFA</div>

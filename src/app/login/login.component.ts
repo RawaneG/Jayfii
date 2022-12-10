@@ -34,29 +34,36 @@ export class LoginComponent implements OnInit
 
     ngOnInit(): void
     {
-      this.serviceAuth.deconnecter();
-      this.authService.authState.subscribe((user) =>
-      {
-        this.user = user;
-        this.loggedIn = (user != null);
-        if(this.user != null)
-        {
-          this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-            boutiquier =>
-            {
-              this.monBoutiquier = boutiquier.find((user : any) => user.email === this.user.email);
-              if(this.monBoutiquier != undefined)
-              {
-                localStorage.setItem('ACCESS_TOKEN', JSON.stringify(this.monBoutiquier));
-                this.route.navigateByUrl('poc');
-              }
-            })
-        }
-      });
       this.loginForm  =  this.formBuilder.group(
         {
           email: ['', Validators.required],
           password: ['', Validators.required]
+        });
+
+        this.authService.authState.subscribe((user) =>
+        {
+          this.user = user;
+          this.loggedIn = (user != null);
+          if(this.loggedIn)
+          {
+            this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+              boutiquier =>
+              {
+                this.monBoutiquier = boutiquier.find((user : any) => user.email === this.user.email);
+                if(this.monBoutiquier != undefined)
+                {
+                  if(this.monBoutiquier.status == "Actif")
+                  {
+                    localStorage.setItem('ACCESS_TOKEN', JSON.stringify(this.monBoutiquier));
+                    this.httpService.openSnackBar('Connexion réussie','poc');
+                  }
+                  else
+                  {
+                    this.httpService.openSnackBar('Connexion non autorisée');
+                  }
+                }
+              })
+          }
         });
     }
 }

@@ -37,7 +37,7 @@ section {
 
 .box {
   position: relative;
-
+  width: 30%;
   .square {
     position: absolute;
     background: rgba(255, 255, 255, 0.1);
@@ -148,7 +148,8 @@ section {
     width: 100%;
     margin: 2em auto;
     display:flex;
-    input,.submit {
+    input,.submit, label {
+      cursor: pointer;
       width: 100%;
       outline: none;
       border: none;
@@ -161,7 +162,10 @@ section {
       font-size: 16px;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     }
-
+    label
+    {
+      text-align: start;
+    }
     .password-control {
       position: absolute;
       top: 11px;

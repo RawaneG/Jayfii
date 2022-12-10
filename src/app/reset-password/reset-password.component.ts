@@ -22,27 +22,29 @@ export class ResetPasswordComponent implements OnInit
   {
     if(this.resetForm.value.email == '')
     {
+      this.httpService.alert('Veuillez entrer votre email');
     }
     else
     {
-      setTimeout(() =>
-      {
-        this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-          observables =>
+      this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+        observables =>
+        {
+          this.mySeller = observables.find((user : any) => user.email === this.resetForm.value.email)
+          if(this.mySeller == undefined)
           {
-            this.mySeller = observables.find((user : any) => user.email === this.resetForm.value.email)
-            if(this.mySeller == undefined)
-            {
-
-            }
-            else
-            {
-              console.log(this.mySeller.id);
-            }
+            this.httpService.openSnackBar('Email invalide');
           }
-        )
-      }, 2000);
-      // this.mesBoutiquiers.find((email : any) => email.id === this.resetForm.value.email);
+          else
+          {
+            this.body =
+            {
+              "refreshToken" : "string"
+            }
+            this.httpService.patchUrl(this.httpService.boutiquierUrl + '/' + this.mySeller.id, this.body);
+            this.httpService.alert('Veuillez consulter votre adresse mail');
+          }
+        }
+      )
     }
   }
 

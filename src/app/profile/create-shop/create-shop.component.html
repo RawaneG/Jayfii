@@ -27,6 +27,7 @@
             <i class="fas fa-user"></i>
           </div>
           <div class="inputBx">
+            <label for="image">Choisir une image</label>
             <input
               id="image"
               class="input"
@@ -35,6 +36,7 @@
               class="image"
               (change)="readUrl($event)"
               formControlName="image"
+              hidden
             />
             <span>Image de votre boutique</span>
             <i class="fas fa-facebook"></i>

@@ -39,7 +39,11 @@ export class RegisterComponent implements OnInit
             "adresse" : this.registerForm.value.adresse
           }
           this.httpService.postUrl(this.httpService.boutiquierUrl, this.body);
-          this.route.navigate(['']);
+          this.httpService.openSnackBar('Inscription effectuée avec succès', 'login');
+        }
+        else
+        {
+          this.httpService.openSnackBar('Cet email existe déjà, Veuillez vous connecter');
         }
       }
     );

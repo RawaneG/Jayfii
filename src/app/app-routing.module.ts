@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 import { AdminComponent } from './admin/admin.component';
 import { CreateCashierComponent } from './profile/create-cashier/create-cashier.component';
+import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
 
 const routes: Routes =
 [
@@ -107,6 +108,11 @@ const routes: Routes =
     component: ListeCategoriesComponent,
     canActivate : [AuthGuard]
   },
+  {
+    path: 'confirm/:id',
+    component: ConfirmPasswordComponent
+  }
+  ,
   {
     path: '**',
     redirectTo : 'login'

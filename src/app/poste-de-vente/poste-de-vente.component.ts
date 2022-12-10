@@ -12,6 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class PosteDeVenteComponent implements OnInit
 {
+  spin : boolean = true;
   maQuantite : any;
   ajoutee: any;
   monPanier :any[] = [];
@@ -215,14 +216,15 @@ export class PosteDeVenteComponent implements OnInit
       this.httpService.getUrl(this.httpService.cashierUrl).subscribe(
       (caissier) =>
       {
-        this.currentCashier = caissier.find((param : any) => param.email === this.currentUser.username)
+        this.currentCashier = caissier.find((param : any) => param.email === this.currentUser.email);
         this?.currentCashier?.shop?.produit.forEach((element : any) =>
         {
           if(element.etat == false)
           {
-            this.mesProduits.push(element);
+            this.mesProduits?.push(element);
           }
         });
+      this.spin = false;
       })
     }
     // -- Liste des produits de la boutique courrante
@@ -239,6 +241,7 @@ export class PosteDeVenteComponent implements OnInit
             this.mesProduits.push(element);
           }
         });
+        this.spin = false;
       }
     );
 

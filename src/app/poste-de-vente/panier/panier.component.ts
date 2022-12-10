@@ -46,6 +46,7 @@ export class PanierComponent implements OnInit
         this.monTotal = this.httpService.sousTotal();
         this.message.emit(this.monTotal);
         localStorage.setItem('panier', JSON.stringify(this.monPanier));
+        location.reload();
       }
     );
   }

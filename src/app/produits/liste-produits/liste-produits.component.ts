@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 })
 export class ListeProduitsComponent implements OnInit
 {
+  spin : boolean = true;
   panelOpenState = false;
   mesProduits : any[] = [];
   mesCategories : any;
@@ -131,6 +132,7 @@ export class ListeProduitsComponent implements OnInit
           }
         });
         this.pageSlice = this.mesProduits.slice(0 , 5);
+        this.spin = false;
       }
     );
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
