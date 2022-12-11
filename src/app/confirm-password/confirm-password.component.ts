@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { HttpClientService } from '../services.service';
 
@@ -17,7 +17,7 @@ export class ConfirmPasswordComponent implements OnInit
   body : any;
   mySeller: any;
 
-  constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router) { }
+  constructor(private snap: ActivatedRoute, private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router) { }
 
   modifier()
   {
@@ -27,7 +27,40 @@ export class ConfirmPasswordComponent implements OnInit
     }
     else
     {
-      // console.log(this.snap);
+      this.body =
+      {
+        "password" : this.resetForm.value.password
+      }
+      const path = this.snap.snapshot.params['id'];
+      this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+        (element : any) =>
+        {
+          this.mySeller = element.find((boutiquier : any) => boutiquier.id === +path);
+          if(this.mySeller === undefined)
+          {
+            this.httpService.getUrl(this.httpService.cashierUrl).subscribe(
+              (element : any) =>
+              {
+                this.mySeller = element.find((caissier : any) => caissier.id === +path);
+                if(this.mySeller === undefined)
+                {
+                  this.httpService.openSnackBar('Utilisateur invalide','login');
+                }
+                else
+                {
+                  this.httpService.putUrl(this.httpService.cashierUrl + "/" + path, this.body);
+                  this.httpService.openSnackBar('Mot de passe modifié avec succès','login');
+                }
+              }
+            )
+          }
+          else
+          {
+            this.httpService.putUrl(this.httpService.boutiquierUrl + "/" + path, this.body);
+            this.httpService.openSnackBar('Mot de passe modifié avec succès','login');
+          }
+        }
+      )
     }
   }
 
