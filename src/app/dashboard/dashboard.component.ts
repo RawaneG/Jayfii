@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit
   {
     if(this.form.value.start == null || this.form.value.end === null)
     {
-      console.log('Entrez une date valide');
+      this.httpService.openSnackBar('Veuillez choisir un intervalle de date valide');
     }
     else
     {

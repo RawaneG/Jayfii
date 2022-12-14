@@ -85,68 +85,74 @@ export class PosteDeVenteComponent implements OnInit
   }
   confirmerPaiement()
   {
-    if(this.currentCashier == undefined)
+    if(this.monTotal == 0)
     {
-      console.log(this.currentCashier?.id);
-      this.body =
-      {
-        "prixCommande": this.monTotal,
-        "montant": this.montant,
-        "reste": this.reste,
-        "methodePaiement":
-        {
-          "id" : 1
-        },
-        "boutiquier":
-        {
-          "id" : this.currentUser?.id
-        },
-        "ligneDeCommandes": this.getProduct(),
-        "shop" :
-        {
-          "id" : this.currentStore?.id
-        }
-      }
+      this.httpService.alert("Veuillez selectionner au moins un produit");
     }
     else
     {
-      this.body =
+      if(this.currentCashier == undefined)
       {
-        "prixCommande": this.monTotal,
-        "montant": this.montant,
-        "reste": this.reste,
-        "methodePaiement":
+        this.body =
         {
-          "id" : 1
-        },
-        "boutiquier":
-        {
-          "id" : this.currentCashier?.boutiquier?.id
-        },
-        "ligneDeCommandes": this.getProduct(),
-        "shop" :
-        {
-          "id" : this.currentCashier?.shop?.id
-        },
-        "caissier" :
-        {
-          "id" : this.currentCashier?.id
+          "prixCommande": this.monTotal,
+          "montant": this.montant,
+          "reste": this.reste,
+          "methodePaiement":
+          {
+            "id" : 1
+          },
+          "boutiquier":
+          {
+            "id" : this.currentUser?.id
+          },
+          "ligneDeCommandes": this.getProduct(),
+          "shop" :
+          {
+            "id" : this.currentStore?.id
+          }
         }
       }
-    }
-      this.httpService.postUrl(this.httpService.commandeUrl,this.body);
-      localStorage.removeItem('panier');
-      this.ferme();
-      localStorage.setItem('reçu',JSON.stringify(this.body));
-      this.mesProduits.forEach((element : any) =>
+      else
       {
-        this.produit =
+        this.body =
         {
-          "quantiteEnStock" : element.quantiteEnStock
+          "prixCommande": this.monTotal,
+          "montant": this.montant,
+          "reste": this.reste,
+          "methodePaiement":
+          {
+            "id" : 1
+          },
+          "boutiquier":
+          {
+            "id" : this.currentCashier?.boutiquier?.id
+          },
+          "ligneDeCommandes": this.getProduct(),
+          "shop" :
+          {
+            "id" : this.currentCashier?.shop?.id
+          },
+          "caissier" :
+          {
+            "id" : this.currentCashier?.id
+          }
         }
-        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id ,this.produit);
-      })
-      this.httpService.openSnackBar('Vente effectuée avec succès');
+      }
+        this.httpService.postUrl(this.httpService.commandeUrl,this.body);
+        localStorage.removeItem('panier');
+        this.ferme();
+        localStorage.setItem('reçu',JSON.stringify(this.body));
+        this.mesProduits.forEach((element : any) =>
+        {
+          this.produit =
+          {
+            "quantiteEnStock" : element.quantiteEnStock
+          }
+          this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id ,this.produit);
+        })
+        this.httpService.openSnackBar('Vente effectuée avec succès');
+    }
   }
   ecriture()
   {

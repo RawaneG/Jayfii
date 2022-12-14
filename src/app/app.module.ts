@@ -130,10 +130,7 @@ import { ConfirmPasswordComponent } from './confirm-password/confirm-password.co
             id: FacebookLoginProvider.PROVIDER_ID,
             provider: new FacebookLoginProvider('clientId')
           }
-        ],
-        onError: (err : any) => {
-          console.error(err);
-        }
+        ]
       } as SocialAuthServiceConfig,
     },
     { provide: HTTP_INTERCEPTORS, useClass: MonIntercepteurInterceptor, multi:true }

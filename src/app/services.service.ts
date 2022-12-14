@@ -66,7 +66,8 @@ export class HttpClientService
   }
   /**************************************** Authentification ******** **************************/
   login(body: any) {
-    this.http.post(this.loginUrl, body).subscribe((token) => {
+    this.http.post(this.loginUrl, body).subscribe((token) =>
+    {
       this.myUser = this.getDecodedAccessToken(JSON.stringify(token));
       if (this.myUser != undefined)
       {
@@ -112,7 +113,15 @@ export class HttpClientService
       {
         this.openSnackBar('Connexion non autorisée');
       }
-    });
+    },
+    (error) =>
+    {
+      if(error.status === 401)
+      {
+        this.openSnackBar('Votre email ou mot de passe est incorrect');
+      }
+    })
+    ;
   }
   /**************************************** Obtenir le token d'authentification **************************/
   getDecodedAccessToken(token: string): any {
