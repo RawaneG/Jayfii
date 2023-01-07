@@ -53,6 +53,7 @@ import { CreateCashierComponent } from './profile/create-cashier/create-cashier.
 import { MonIntercepteurInterceptor } from './mon-intercepteur.interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -133,7 +134,8 @@ import { ConfirmPasswordComponent } from './confirm-password/confirm-password.co
         ]
       } as SocialAuthServiceConfig,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: MonIntercepteurInterceptor, multi:true }
+    { provide: HTTP_INTERCEPTORS, useClass: MonIntercepteurInterceptor, multi:true },
+    {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]
 })

@@ -10,13 +10,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class HttpClientService
 {
-  loginUrl = 'https://127.0.0.1:8000/api/login';
-  cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
-  produitUrl = 'https://127.0.0.1:8000/api/produits';
-  categorieUrl = 'https://127.0.0.1:8000/api/categories';
-  commandeUrl = 'https://127.0.0.1:8000/api/commandes';
-  shopUrl = 'https://127.0.0.1:8000/api/shops';
-  boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
+  loginUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/login';
+  cashierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/caissiers';
+  produitUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/produits';
+  categorieUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/categories';
+  commandeUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/commandes';
+  shopUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/shops';
+  boutiquierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/boutiquiers';
 
   monTotalService: any = 0;
   quantite: number = 1;
