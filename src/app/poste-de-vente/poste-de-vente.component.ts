@@ -1,10 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Location } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-poste-de-vente',
   templateUrl: './poste-de-vente.component.html',
@@ -35,6 +34,7 @@ export class PosteDeVenteComponent implements OnInit
   currentSeller: any;
   product : any;
   search !: string;
+  public messaged !: string;
 
   constructor(private formBuilder: FormBuilder, private httpService : HttpClientService, private serviceAuth : AuthService, public location: Location) {}
 
@@ -173,8 +173,8 @@ export class PosteDeVenteComponent implements OnInit
     this.httpService.items$.subscribe(
       value =>
       {
-          localStorage.removeItem('panier');
-          location.reload();
+          this.monPanier = [];
+          localStorage.setItem('panier', JSON.stringify(this.monPanier));
           this.monTotal = this.httpService.sousTotal();
       }
     );
@@ -215,6 +215,10 @@ export class PosteDeVenteComponent implements OnInit
   }
   ngOnInit(): void
   {
+    setTimeout(() => {
+      this.spin = false;
+    }, 1000);
+
     // -- Liste des produits du caissier
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
     if(this.currentUser.roles[0] == 'ROLE_CAISSIER')
@@ -234,44 +238,19 @@ export class PosteDeVenteComponent implements OnInit
       })
     }
     // -- Liste des produits de la boutique courrante
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe
-    (
-      (reponse) =>
-      {
-        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop?.produit.forEach((element : any) =>
-        {
-          if(element.etat == false)
-          {
-            this.mesProduits.push(element);
-          }
-        });
-        this.spin = false;
-      }
-    );
+    this.mesProduits = JSON.parse(localStorage.getItem('mesProduits') || '[]');
 
     this.form = this.formBuilder.group(
     {
       montant: [""]
     });
 
-    // -- Mise à Jour du Sous total du panier
-    this.monTotal = this.httpService.sousTotal();
-
-    // -- Gestion du reçu
-    this.receipt = JSON.parse(localStorage.getItem('reçu') || '[]');
-    this.httpService.getUrl(this.httpService.commandeUrl).subscribe
-    (
-      reponse =>
-      {
-        this.receipt.date = reponse[reponse.length - 1].date;
-        this.receipt.methodePaiement = reponse[reponse.length - 1].methodePaiement.valeur;
-      }
-    )
     this.httpService.items$.subscribe(value =>
     {
       this.monPanier = value;
     });
+
+    // -- Mise à Jour du Sous total du panier
+    this.monTotal = this.httpService.sousTotal();
   }
 }

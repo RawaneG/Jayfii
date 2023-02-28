@@ -2,26 +2,17 @@
   <div class="card">
     <form [formGroup]="loginForm" (submit)="submitted()">
       <h1 class="title text-center">Connexion</h1>
-      <div class="social-login">
+      <!-- <div class="social-login">
         <button class="google-btn">
           <asl-google-signin-button class="google"></asl-google-signin-button>
           <p class="btn-text">Se connecter avec Google</p>
         </button>
-      </div>
-
+      </div> -->
       <div class="email-login">
         <label for="email"> <b>Identifiant</b></label>
-        <input
-          type="email"
-          formControlName="email"
-          placeholder="Veuillez entrer votre identifiant"
-        />
+        <input type="email" formControlName="email" placeholder="Veuillez entrer votre identifiant" />
         <label for="psw"><b>Mot de Passe</b></label>
-        <input
-          type="password"
-          formControlName="password"
-          placeholder="Veuillez entrer votre mot de passe"
-        />
+        <input type="password" formControlName="password" placeholder="Veuillez entrer votre mot de passe" />
       </div>
       <div class="footer">
         <div class="first-child">

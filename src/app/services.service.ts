@@ -1,22 +1,30 @@
-import { Injectable, Input } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpClientService
 {
-  loginUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/login';
-  cashierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/caissiers';
-  produitUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/produits';
-  categorieUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/categories';
-  commandeUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/commandes';
-  shopUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/shops';
-  boutiquierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/boutiquiers';
+  // loginUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/login';
+  // cashierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/caissiers';
+  // produitUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/produits';
+  // categorieUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/categories';
+  // commandeUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/commandes';
+  // shopUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/shops';
+  // boutiquierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/boutiquiers';
+
+  loginUrl = 'https://127.0.0.1:8000/api/login';
+  cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
+  produitUrl = 'https://127.0.0.1:8000/api/produits';
+  categorieUrl = 'https://127.0.0.1:8000/api/categories';
+  commandeUrl = 'https://127.0.0.1:8000/api/commandes';
+  shopUrl = 'https://127.0.0.1:8000/api/shops';
+  boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
 
   monTotalService: any = 0;
   quantite: number = 1;
@@ -26,6 +34,9 @@ export class HttpClientService
   myUser: any;
   user: any;
   produit: any;
+  shops: any;
+  currentSeller: any;
+  currentUser: any;
 
   constructor(private http: HttpClient, private route: Router, private _snackBar: MatSnackBar)
   {
@@ -35,6 +46,7 @@ export class HttpClientService
     }
     this.itemsSubject.next(existingCartItems);
   }
+
   alert(message : any)
   {
     let t = 2000;
@@ -43,6 +55,7 @@ export class HttpClientService
       duration : t
     });
   }
+
   openSnackBar(message : any, navigation : string = '')
   {
     let t = 2000;
@@ -73,7 +86,10 @@ export class HttpClientService
       {
         if(this.myUser?.roles[0] == 'ROLE_BOUTIQUIER' || this.myUser?.roles[0] == 'ROLE_ADMIN')
         {
-          this.getUrl(this.boutiquierUrl).subscribe(
+          this.getUrl(this.boutiquierUrl)
+          .pipe
+          (take(1))
+          .subscribe(
             boutiquier =>
             {
               let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
@@ -82,6 +98,9 @@ export class HttpClientService
                 if(monBoutiquier.status == "Actif")
                 {
                   localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
+                  this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+                  this.shops = this.currentUser?.shop;
+                  localStorage.setItem('mes_boutiques', JSON.stringify(this.shops));
                   this.openSnackBar('Connexion réussie','poc');
                 }
                 else
@@ -93,13 +112,19 @@ export class HttpClientService
         }
         else
         {
-          this.getUrl(this.cashierUrl).subscribe(
+          this.getUrl(this.cashierUrl)
+          .pipe
+          (take(1))
+          .subscribe(
             boutiquier =>
             {
               let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
               if(monBoutiquier != undefined)
               {
                 localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
+                this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
+                this.shops = this.currentUser?.shop;
+                localStorage.setItem('mes_boutiques', JSON.stringify(this.shops));
                 this.openSnackBar('Connexion réussie','poc');
               }
               else

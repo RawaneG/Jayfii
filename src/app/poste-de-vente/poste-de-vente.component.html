@@ -1,172 +1,162 @@
 <app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
-<div class="body" (click)="close()">
-  <div class="first-parent">
-    <!-- ========== Produits ========== -->
-    <div class="search-box">
-      <input
-        type="text"
-        placeholder="Rechercher un produit"
-        class="search-input"
-        [(ngModel)]="search"
-      />
-      <i class="search-btn fas fa-search"></i>
-    </div>
-    <div class="container">
-      <div class="vide" *ngIf="mesProduits?.length == 0">
-        <img src="./assets/bx.png" alt="Aucun produit" />
-        <span>Aucun produit disponible</span>
-      </div>
-      <div
-        class="product-card card"
-        *ngFor="let produit of mesProduits | filter : search"
-      >
-        <div class="product-header" (click)="panier(produit)">
-          <img
-            class="product-picture"
-            src="{{ 'data:image/png;base64,' + produit?.image }}"
-          />
-        </div>
-        <div class="card-details" (click)="panier(produit)">
-          <h3 class="product-name">{{ produit?.nom }}</h3>
-          <div class="bottom-row">
-            <p class="price">{{ produit?.prix }} FCFA</p>
-            <button class="add-cart"><i class="fas fa-plus"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="big-container d-flex flex-column align-items-center justify-content-evenly">
+  <div class="w-100 d-flex justify-content-evenly">
+    <mat-form-field appearance="outline" class="filterCategorie mt-5">
+      <mat-label>Veuillez selectionner une catégorie</mat-label>
+      <mat-select disableRipple>
+        <mat-option value="1">Option 1</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="filterCategorie mt-5">
+      <mat-label>Rechercher un produit</mat-label>
+      <input matInput placeholder="Veuillez entrer le nom du produit" [(ngModel)]="search">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
   </div>
-  <!-- ========== Panier ========== -->
-  <div class="second-parent">
-    <div class="p-middle">
-      <div class="myCard">
-        <div class="myCard-header">
-          <span>Produit</span>
-          <span>Quantité</span>
-          <span>Prix</span>
-          <span (click)="closeAll()"><i class="fas fa-trash"></i></span>
+  <div class="body" (click)="close()">
+    <div class="first-parent">
+      <!-- ========== Produits ========== -->
+      <div class="container">
+        <div class="vide" *ngIf="mesProduits?.length == 0">
+          <img src="./assets/bx.png" alt="Aucun produit" />
+          <span>Aucun produit disponible</span>
         </div>
-        <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-        <div class="myCard-empty" *ngIf="monTotal === 0">
-          <span>
-            <i class="fas fa-shopping-cart"></i>
-          </span>
-        </div>
-        <div class="myCard-content">
-          <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
-          <app-panier
-            *ngFor="let elus of monPanier"
-            [selected]="elus"
-            (message)="messageRecu($event)"
-          ></app-panier>
-        </div>
-        <div class="myCard-footer">
-          <span>Sous-Total</span>
-          <span>{{ monTotal }} FCFA</span>
-        </div>
-      </div>
-    </div>
-    <div class="p-footer">
-      <div class="payment" (click)="open()">
-        <span class="payment-title">Valider la commande</span>
-      </div>
-    </div>
-  </div>
-  <!-- ========== Pop Up Paiement ========== -->
-  <div class="first-popup hidden">
-    <div class="popup-container">
-      <div class="popup-content">
-        <div class="popup">
-          <h1>Méthode de paiement</h1>
-          <div class="popup-div-2">
-            <p>En espèce</p>
-            <!-- <p>Par carte</p> -->
+        <div class="product-card card" *ngFor="let produit of mesProduits | filter : search">
+          <div class="product-header" (click)="panier(produit)">
+            <img class="product-picture" src="{{ 'data:image/png;base64,' + produit?.image }}" />
           </div>
-          <div class="popup-div-1">
-            <h3>À Payer : {{ monTotal }} FCFA</h3>
-          </div>
-          <div class="form">
-            <!-- ========== Formulaire ========== -->
-            <form [formGroup]="form">
-              <mat-form-field class="example-full-width">
-                <mat-label>Entrez votre montant Ici (FCFA)</mat-label>
-                <input
-                  matInput
-                  class="input"
-                  (input)="ecriture()"
-                  formControlName="montant"
-                />
-              </mat-form-field>
-              <!-- <div class="propositions">
-                <div>1000 FCFA</div>
-                <div>2000 FCFA</div>
-                <div>3000 FCFA</div>
-                <div>4000 FCFA</div>
-                <div>5000 FCFA</div>
-                <div>10000 FCFA</div>
-              </div> -->
-            </form>
-            <div class="reste">
-              <h3>Reste : {{ reste }} FCFA</h3>
+          <div class="card-details" (click)="panier(produit)">
+            <h3 class="product-name">{{ produit?.nom }}</h3>
+            <div class="bottom-row">
+              <p class="price">{{ produit?.prix }} FCFA</p>
+              <button class="add-cart"><i class="fas fa-plus"></i></button>
             </div>
           </div>
-          <!-- ========== Boutons de confirmation ========== -->
-          <div class="boutons">
-            <p (click)="ferme()">Annuler le paiement</p>
-            <p *ngIf="confirmer" (click)="confirmerPaiement()">
-              Valider le paiement
-            </p>
-          </div>
         </div>
       </div>
     </div>
-  </div>
-  <!-- ========== Pop Up Reçu ========== -->
-  <div class="second-popup cache">
-    <div class="popup-container">
-      <div class="popup-content-receive">
-        <div class="first-line">
-          <div class="child">
-            <h1>Reçu du paiement</h1>
-            <h1>Date d'achat : {{ receipt?.date | date : "fullDate" }}</h1>
+    <!-- ========== Panier ========== -->
+    <div class="second-parent">
+      <div class="p-middle">
+        <div class="myCard">
+          <div class="myCard-header">
+            <span>Produit</span>
+            <span>Quantité</span>
+            <span>Prix</span>
+            <span (click)="closeAll()"><i class="fas fa-trash"></i></span>
           </div>
-        </div>
-        <div class="second-line">
-          <div class="first-child">
-            <div class="the_header">
-              <h3><strong>Nom du produit</strong></h3>
-              <h3><strong>Quantité</strong></h3>
-              <h3><strong>Prix du produit</strong></h3>
-            </div>
-            <div class="the_main">
-              <div
-                class="child_o_the_main"
-                *ngFor="let article of receipt?.ligneDeCommandes"
-              >
-                <h3>{{ article?.produit?.nom }}</h3>
-                <h3>{{ article?.quantite }}</h3>
-                <h3>{{ article?.prix }} FCFA</h3>
+          <div class="myCard-content">
+            <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
+            <div *ngIf="monTotal === 0" class="w-100 h-100 d-flex justify-content-center align-items-center">
+              <div class="myCard-empty d-flex justify-content-center align-items-center">
+                <span>
+                  <i class="fas fa-shopping-cart"></i>
+                </span>
               </div>
             </div>
+            <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
+            <app-panier *ngFor="let elus of monPanier" [selected]="elus" (message)="messageRecu($event)"></app-panier>
           </div>
-          <div class="second-child">
-            <h3><strong>Sous-Total</strong></h3>
-            <h3>{{ receipt?.prixCommande }} FCFA</h3>
+          <div class="myCard-footer">
+            <span>Sous-Total</span>
+            <span>{{ monTotal }} FCFA</span>
           </div>
         </div>
-        <div class="third-line">
-          <div>
-            <h3><strong>Méthode de paiement</strong></h3>
-            <h3>{{ receipt?.methodePaiement }}</h3>
+      </div>
+      <div class="p-footer">
+        <div class="payment" (click)="open()">
+          <span class="payment-title">Valider la commande</span>
+        </div>
+      </div>
+    </div>
+    <!-- ========== Pop Up Paiement ========== -->
+    <div class="first-popup hidden">
+      <div class="popup-container">
+        <div class="popup-content">
+          <div class="popup">
+            <h1>Méthode de paiement</h1>
+            <div class="popup-div-2">
+              <p>En espèce</p>
+              <!-- <p>Par carte</p> -->
+            </div>
+            <div class="popup-div-1">
+              <h3>À Payer : {{ monTotal }} FCFA</h3>
+            </div>
+            <div class="form">
+              <!-- ========== Formulaire ========== -->
+              <form [formGroup]="form">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Entrez votre montant Ici (FCFA)</mat-label>
+                  <input matInput class="input" (input)="ecriture()" formControlName="montant" />
+                </mat-form-field>
+                <!-- <div class="propositions">
+                  <div>1000 FCFA</div>
+                  <div>2000 FCFA</div>
+                  <div>3000 FCFA</div>
+                  <div>4000 FCFA</div>
+                  <div>5000 FCFA</div>
+                  <div>10000 FCFA</div>
+                </div> -->
+              </form>
+              <div class="reste">
+                <h3>Reste : {{ reste }} FCFA</h3>
+              </div>
+            </div>
+            <!-- ========== Boutons de confirmation ========== -->
+            <div class="boutons">
+              <p (click)="ferme()">Annuler le paiement</p>
+              <p *ngIf="confirmer" (click)="confirmerPaiement()">
+                Valider le paiement
+              </p>
+            </div>
           </div>
-          <div>
-            <h3><strong>Montant</strong></h3>
-            <h3>{{ receipt?.montant }} FCFA</h3>
+        </div>
+      </div>
+    </div>
+    <!-- ========== Pop Up Reçu ========== -->
+    <div class="second-popup cache">
+      <div class="popup-container">
+        <div class="popup-content-receive">
+          <div class="first-line">
+            <div class="child">
+              <h1>Reçu du paiement</h1>
+              <h1>Date d'achat : {{ receipt?.date | date : "fullDate" }}</h1>
+            </div>
           </div>
-          <div>
-            <h3><strong>Reste</strong></h3>
-            <h3>{{ receipt?.reste }} FCFA</h3>
+          <div class="second-line">
+            <div class="first-child">
+              <div class="the_header">
+                <h3><strong>Nom du produit</strong></h3>
+                <h3><strong>Quantité</strong></h3>
+                <h3><strong>Prix du produit</strong></h3>
+              </div>
+              <div class="the_main">
+                <div class="child_o_the_main" *ngFor="let article of receipt?.ligneDeCommandes">
+                  <h3>{{ article?.produit?.nom }}</h3>
+                  <h3>{{ article?.quantite }}</h3>
+                  <h3>{{ article?.prix }} FCFA</h3>
+                </div>
+              </div>
+            </div>
+            <div class="second-child">
+              <h3><strong>Sous-Total</strong></h3>
+              <h3>{{ receipt?.prixCommande }} FCFA</h3>
+            </div>
+          </div>
+          <div class="third-line">
+            <div>
+              <h3><strong>Méthode de paiement</strong></h3>
+              <h3>{{ receipt?.methodePaiement }}</h3>
+            </div>
+            <div>
+              <h3><strong>Montant</strong></h3>
+              <h3>{{ receipt?.montant }} FCFA</h3>
+            </div>
+            <div>
+              <h3><strong>Reste</strong></h3>
+              <h3>{{ receipt?.reste }} FCFA</h3>
+            </div>
           </div>
         </div>
       </div>

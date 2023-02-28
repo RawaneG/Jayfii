@@ -33,14 +33,12 @@ export class CreerProduitComponent implements OnInit
   {
     this.route.navigate(['../produits']);
   }
-
   openSnackBar()
   {
     let message = 'Représente la quantité limite pour pouvoir alerter une rupture de stock ou un stock proche de la rupture';
     let action = 'Fermer';
     this._snackBar.open(message, action);
   }
-
   readUrl(event:any)
   {
     if (event.target.files && event.target.files[0])
@@ -49,11 +47,11 @@ export class CreerProduitComponent implements OnInit
       reader.onload = (event: ProgressEvent) =>
       {
         this.url = (<FileReader>event.target).result;
+        console.log(this.url);
       }
       reader.readAsDataURL(event.target.files[0]);
     }
   }
-
   submit()
   {
     this.navigate.paramMap.subscribe(a =>
@@ -136,7 +134,7 @@ export class CreerProduitComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.currentStore = JSON.parse(localStorage.getItem('mesProduits') || '[]');
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
     (
       (reponse) =>

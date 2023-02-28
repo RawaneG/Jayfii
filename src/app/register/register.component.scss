@@ -2,8 +2,10 @@
 {
     background-image: url("https://img.freepik.com/free-photo/interior-has-armchair-empty-white-wall_41470-1722.jpg?w=1380&t=st=1665514489~exp=1665515089~hmac=c41610ab04d9fefed424ee1c3eb53a9d3c5adfa328da58aa8d5d91d052bd644d");
     background-size: cover;
-    height: 100%;
-    position: relative;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 a
 {
@@ -11,21 +13,20 @@ a
 }
 .card
 {
-  position: absolute;
-  top: 3%;
-  right: 15%;
   font-family: sans-serif;
   width: 450px;
   border-radius: 10px;
   background-color: #ffff;
   opacity: 75%;
-  padding: 1.8rem;
+  padding: 1.5rem;
   box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.1);
 }
 .title
 {
-  font-size: 3em;
-  margin: 1em 0;
+  font-size: 2em;
+  margin: 0.5em 0;
+  font-family: 'Great Vibes', cursive;
+  font-weight: bold;
 }
 .btn-text
 {

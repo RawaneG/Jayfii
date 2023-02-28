@@ -150,7 +150,7 @@ export class DashboardComponent implements OnInit
   ngOnInit(): void
   {
     //-- Affichage de la boutique en cours d'utilisation
-    this.currentShop = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.currentShop = JSON.parse(localStorage.getItem('mesProduits') || '[]');
     this.form = this.formBuilder.group(
       {
         start : [''],

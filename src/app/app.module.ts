@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -44,13 +44,12 @@ import { ListShopsComponent } from './profile/list-shops/list-shops.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { MatRippleModule } from '@angular/material/core';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { CreateCashierComponent } from './profile/create-cashier/create-cashier.component';
-import { MonIntercepteurInterceptor } from './mon-intercepteur.interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
@@ -126,15 +125,10 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
             provider: new GoogleLoginProvider(
               '50262491662-7rmnq8d035t9pofletlkp5dsn6maqldn.apps.googleusercontent.com'
             )
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
           }
         ]
       } as SocialAuthServiceConfig,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: MonIntercepteurInterceptor, multi:true },
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

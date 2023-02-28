@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import jwt_decode from 'jwt-decode';
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { SocialAuthService } from '@abacritt/angularx-social-login';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +16,12 @@ export class AuthService
   }
   public deconnecter()
   {
-    this.authService.signOut();
     localStorage.removeItem('ACCESS_TOKEN');
     localStorage.removeItem('reçu');
     localStorage.removeItem('promo');
     localStorage.removeItem('panier');
-    localStorage.removeItem('boutique');
+    localStorage.removeItem('mesProduits');
+    localStorage.removeItem('mes_boutiques');
     this.route.navigateByUrl('/');
   }
   getRole()

@@ -20,17 +20,9 @@ export class ProfileComponent implements OnInit
 
   constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router ) { }
 
-  switch(shop : any)
-  {
-    localStorage.setItem('boutique', JSON.stringify(shop));
-    localStorage.removeItem('panier');
-    this.ngOnInit();
-    this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès');
-  }
-
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.currentStore = JSON.parse(localStorage.getItem('mesProduits') || '[]');
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
 
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(

@@ -10,10 +10,7 @@
         <mat-form-field class="example-input">
           <mat-label>Catégorie</mat-label>
           <mat-select formControlName="categorie" [(value)]="value">
-            <mat-option
-              *ngFor="let categorie of mesCategories"
-              [value]="categorie?.id"
-            >
+            <mat-option *ngFor="let categorie of mesCategories" [value]="categorie?.id">
               {{ categorie.nom }}
             </mat-option>
           </mat-select>
@@ -28,11 +25,8 @@
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Description</mat-label>
-          <textarea
-            matInput
-            placeholder="Ex. Cette partie est reservée à la nourriture..."
-            formControlName="description"
-          ></textarea>
+          <textarea matInput placeholder="Ex. Cette partie est reservée à la nourriture..."
+            formControlName="description"></textarea>
         </mat-form-field>
       </div>
       <h1>Inventaire</h1>
@@ -50,18 +44,12 @@
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Produit en Stock</mat-label>
-          <input
-            matInput
-            placeholder="Ex. 10"
-            formControlName="quantiteEnStock"
-          />
+          <input matInput placeholder="Ex. 10" formControlName="quantiteEnStock" />
         </mat-form-field>
         <mat-form-field class="example-input">
           <mat-label>Stock faible</mat-label>
           <input matInput placeholder="Ex. 5" formControlName="limite" />
-          <mat-icon class="info-icon" matSuffix (click)="openSnackBar()"
-            >info</mat-icon
-          >
+          <mat-icon class="info-icon" matSuffix (click)="openSnackBar()">info</mat-icon>
         </mat-form-field>
       </div>
     </div>
@@ -69,11 +57,7 @@
       <div class="container2">
         <h1>Illustration du produit</h1>
         <h3>Représentation par couleur</h3>
-        <mat-radio-group
-          aria-label="Select an option"
-          class="radio-group"
-          formControlName="couleur"
-        >
+        <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="couleur">
           <div class="parent">
             <mat-radio-button value="blue" class="radio">
               <div class="box"></div>
@@ -102,28 +86,19 @@
         </mat-radio-group>
 
         <mat-accordion class="accordion">
-          <mat-expansion-panel
-            (opened)="panelOpenState = true"
-            (closed)="panelOpenState = false"
-          >
-            <mat-expansion-panel-header>
-              <mat-panel-title class="panel-title">
-                Représentation par Image
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-            <label for="image" class="input-file">
-              <i class="fas fa-upload"></i>
+          <h3 class="panel-title">
+            Représentation par Image
+          </h3>
+          <div class="w-100 d-flex justify-content-evenly align-items-center">
+            <label for="image" class="input-file d-flex flex-column align-items-center justify-content-evenly">
+              <i class="fas fa-images my-4"></i>
               <p>Importer une image</p>
             </label>
-            <input
-              id="image"
-              class="input"
-              type="file"
-              name="upload"
-              class="image"
-              (change)="readUrl($event)"
-            />
-          </mat-expansion-panel>
+            <div class="border border-dark my-5 p-2 rounded shadow p-3 mb-5 bg-white" *ngIf="url">
+              <img src="{{url}}" width="100px" height="100px">
+            </div>
+          </div>
+          <input id="image" class="input" type="file" name="upload" class="image" (change)="readUrl($event)" />
         </mat-accordion>
       </div>
     </div>

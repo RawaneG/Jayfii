@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { HttpClientService } from 'src/app/services.service';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
@@ -118,23 +117,11 @@ export class ListeProduitsComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe
-    (
-      (reponse) =>
-      {
-        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop?.produit.forEach((element : any) =>
-        {
-          if(element.etat == false)
-          {
-            this.mesProduits.push(element);
-          }
-        });
-        this.pageSlice = this.mesProduits.slice(0 , 5);
-        this.spin = false;
-      }
-    );
+    setTimeout(() => {
+      this.spin = false;
+    }, 500);
+    this.mesProduits = JSON.parse(localStorage.getItem('mesProduits') || '[]');
+    this.pageSlice = this.mesProduits.slice(0 , 5);
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
     (
       (reponse) => {this.mesCategories = reponse}

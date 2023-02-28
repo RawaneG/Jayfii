@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { HttpClientService } from 'src/app/services.service';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-liste-categories',
@@ -80,22 +79,11 @@ export class ListeCategoriesComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe
-    (
-      (reponse) =>
-      {
-        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop?.categories.forEach((element : any) =>
-        {
-          if(element.etat == false)
-          {
-            this.mesCategories.push(element);
-          }
-        });
-        this.pageSlice = this.mesCategories.slice(0 , 5);
-        this.spin = false;
-      }
-    );
+    setTimeout(() => {
+      this.spin = false;
+    }, 500);
+    this.mesCategories = JSON.parse(localStorage.getItem('mesCategories') || '[]');
+    console.log(this.mesCategories);
+    this.pageSlice = this.mesCategories.slice(0 , 5);
   }
 }
