@@ -37,7 +37,7 @@ export class CreerCategorieComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('mesProduits') || '[]');
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.ajouterCategorie = this.formBuilder.group(
       {
         'nom' : new FormControl(""),

@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { HttpClientService } from 'src/app/services.service';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-liste-produits',
@@ -11,6 +12,7 @@ import { Location } from '@angular/common';
 })
 export class ListeProduitsComponent implements OnInit
 {
+
   spin : boolean = true;
   panelOpenState = false;
   mesProduits : any[] = [];
@@ -22,7 +24,7 @@ export class ListeProduitsComponent implements OnInit
   currentStore: any;
   currentShop: any;
 
-  constructor(private httpService : HttpClientService, public route : Router, public location: Location) { }
+  constructor(private httpService : HttpClientService, public route : Router, public location: Location, public dialog: MatDialog) { }
 
   refresh()
   {
@@ -48,10 +50,10 @@ export class ListeProduitsComponent implements OnInit
       this.mesProduits.forEach((element : any) =>
       {
         element.etat = true;
-        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id, element);
         setTimeout(() => {
-        }, 500);
-        location.reload();
+        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id, element);
+        this.httpService.openSnackBar('Suppression effectuée avec succès');
+        }, 1000);
       });
     }
     else
@@ -59,11 +61,10 @@ export class ListeProduitsComponent implements OnInit
       if(this.isChecked !== 'decochee')
       {
         this.isChecked.etat = true;
-        this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.isChecked.id), this.isChecked);
         setTimeout(() => {
-
-        }, 500);
-        location.reload();
+        this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.isChecked.id), this.isChecked);
+        this.httpService.openSnackBar('Suppression effectuée avec succès');
+        }, 1000);
       }
     }
   }
@@ -117,14 +118,22 @@ export class ListeProduitsComponent implements OnInit
   }
   ngOnInit(): void
   {
-    setTimeout(() => {
-      this.spin = false;
-    }, 500);
-    this.mesProduits = JSON.parse(localStorage.getItem('mesProduits') || '[]');
-    this.pageSlice = this.mesProduits.slice(0 , 5);
-    this.httpService.getUrl(this.httpService.categorieUrl).subscribe
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
     (
-      (reponse) => {this.mesCategories = reponse}
+      (reponse) =>
+      {
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop?.produit.forEach((element : any) =>
+        {
+          if(element.etat == false)
+          {
+            this.mesProduits.push(element);
+          }
+        });
+        this.pageSlice = this.mesProduits.slice(0 , 5);
+        this.spin = false;
+      }
     );
   }
 

@@ -1,38 +1,72 @@
 <app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
-<div class="container">
-  <div class="first-container">
-    <button routerLink="add">
-      <i class="fas fa-plus" style="font-size: 10px"></i>
-      <p class="ajout">AJOUTER UNE CATÉGORIE</p>
-    </button>
-    <div (click)="toTrash()">
-      <i class="fas fa-trash" style="font-size: 20px"></i>
+<div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
+  <h1 class="page-title">Mes Catégories</h1>
+  <div class="container">
+    <div class="first-container">
+      <button routerLink="add">
+        <i class="fas fa-plus" style="font-size: 10px"></i>
+        <p class="ajout">AJOUTER UNE CATÉGORIE</p>
+      </button>
+      <div data-toggle="modal" data-target="#exampleModal">
+        <i class="fas fa-trash" style="font-size: 20px" title="Supprimer"></i>
+      </div>
     </div>
+    <!-- ========== Second Parent ========== -->
+    <div class="second-parent mt-5">
+      <div class="w-75">
+        <table class="w-100">
+          <tr class="d-flex justify-content-evenly text-center mb-3">
+            <td class="checkbox text-center"><mat-checkbox (change)="check($event)"></mat-checkbox></td>
+            <td class="checkbox text-center"><span>Modifier</span></td>
+            <td class="text-center"><span>Nom de la catégorie</span></td>
+            <td class="text-center"><span></span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <!-- ========== Third Parent ========== -->
+    <div class="third-parent" *ngFor="let categorie of pageSlice">
+      <div class="w-100 d-flex align-items-center">
+        <table class="w-75">
+          <tr class="d-flex justify-content-evenly align-items-center my-2">
+            <td class="checkbox text-center"><mat-checkbox [checked]="isSelected" (change)="coche($event, categorie)">
+              </mat-checkbox></td>
+            <td class="checkbox text-center">
+              <button class="btn btn-light rounded-circle">
+                <i class="fas fa-marker" style="font-size: 16px" [routerLink]="['modifier', categorie.id]"
+                  title="Modifier"></i>
+              </button>
+            </td>
+            <td class="text-center"><span>{{ categorie?.nom }}</span></td>
+            <td class="text-center d-flex justify-content-center"><span class="box"></span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <mat-paginator [length]="mesCategories.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons (page)="onPageChange($event)">
+    </mat-paginator>
   </div>
-  <div class="second-container">
-    <mat-checkbox (change)="check($event)"></mat-checkbox>
-    <p>Nom de la catégorie</p>
-  </div>
-  <div class="final-container" *ngFor="let categorie of pageSlice">
-    <mat-checkbox
-      [checked]="isSelected"
-      (change)="coche($event, categorie)"
-    ></mat-checkbox>
-    <div class="box-n-stuff">
-      <div class="box"></div>
-      <div class="text">
-        <h4>{{ categorie.nom }}</h4>
-        <!-- <p>{{ categorie.produits.length }} produit(s)</p> -->
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header w-100 d-flex justify-content-end">
+        <button type="button" class="close btn btn-dark rounded" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Vouslez-vous vraiment supprimer ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="toTrash()" data-dismiss="modal">Supprimer</button>
       </div>
     </div>
   </div>
-  <mat-paginator
-    [length]="mesCategories.length"
-    [pageSize]="5"
-    [pageSizeOptions]="[5, 10, 25, 50]"
-    showFirstLastButtons
-    (page)="onPageChange($event)"
-  >
-  </mat-paginator>
 </div>

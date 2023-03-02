@@ -35,11 +35,10 @@ export class ListeCategoriesComponent implements OnInit
       this.mesCategories.forEach((element : any) =>
       {
         element.etat = true;
-        this.httpService.putUrl(this.httpService.categorieUrl + '/' + element.id, element);
         setTimeout(() => {
-
-        }, 500);
-        location.reload();
+          this.httpService.putUrl(this.httpService.categorieUrl + '/' + element.id, element);
+          this.httpService.openSnackBar('Suppression effectuée avec succès');
+        }, 1000);
       });
     }
     else
@@ -47,11 +46,10 @@ export class ListeCategoriesComponent implements OnInit
       if(this.isChecked !== 'decochee')
       {
         this.isChecked.etat = true;
-        this.httpService.putUrl(this.httpService.categorieUrl + '/' + (+this.isChecked.id), this.isChecked);
         setTimeout(() => {
-
-        }, 500);
-        location.reload();
+          this.httpService.putUrl(this.httpService.categorieUrl + '/' + (+this.isChecked.id), this.isChecked);
+          this.httpService.openSnackBar('Suppression effectuée avec succès');
+        }, 1000);
       }
     }
   }
@@ -79,11 +77,22 @@ export class ListeCategoriesComponent implements OnInit
   }
   ngOnInit(): void
   {
-    setTimeout(() => {
-      this.spin = false;
-    }, 500);
-    this.mesCategories = JSON.parse(localStorage.getItem('mesCategories') || '[]');
-    console.log(this.mesCategories);
-    this.pageSlice = this.mesCategories.slice(0 , 5);
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
+    (
+      (reponse) =>
+      {
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop?.categories.forEach((element : any) =>
+        {
+          if(element.etat == false)
+          {
+            this.mesCategories.push(element);
+          }
+        });
+        this.pageSlice = this.mesCategories.slice(0 , 5);
+        this.spin = false;
+      }
+    );
   }
 }

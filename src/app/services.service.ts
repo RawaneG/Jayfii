@@ -98,9 +98,6 @@ export class HttpClientService
                 if(monBoutiquier.status == "Actif")
                 {
                   localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
-                  this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-                  this.shops = this.currentUser?.shop;
-                  localStorage.setItem('mes_boutiques', JSON.stringify(this.shops));
                   this.openSnackBar('Connexion réussie','poc');
                 }
                 else
@@ -122,9 +119,6 @@ export class HttpClientService
               if(monBoutiquier != undefined)
               {
                 localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
-                this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-                this.shops = this.currentUser?.shop;
-                localStorage.setItem('mes_boutiques', JSON.stringify(this.shops));
                 this.openSnackBar('Connexion réussie','poc');
               }
               else

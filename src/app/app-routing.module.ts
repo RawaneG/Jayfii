@@ -109,6 +109,11 @@ const routes: Routes =
     canActivate : [AuthGuard]
   },
   {
+    path: 'categories/modifier/:id',
+    component: CreerCategorieComponent,
+    canActivate : [AuthGuard]
+  },
+  {
     path: 'confirm/:id',
     component: ConfirmPasswordComponent
   }

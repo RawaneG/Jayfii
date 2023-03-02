@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
 import { AuthService } from '../auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Location } from '@angular/common';
 
 @Component({
@@ -18,6 +18,7 @@ export class PosteDeVenteComponent implements OnInit
   mesProduits : any[] = [];
   monTotal !: number;
   form !: FormGroup;
+  nomProduit = new FormControl('');
   montant !: number;
   reste : number = 0;
   confirmer : boolean = false;
@@ -33,11 +34,27 @@ export class PosteDeVenteComponent implements OnInit
   currentCashier: any;
   currentSeller: any;
   product : any;
-  search !: string;
+  search : any = '';
   public messaged !: string;
+  category: any;
+  mesCategories: any;
+  unfilteredProd: any;
 
   constructor(private formBuilder: FormBuilder, private httpService : HttpClientService, private serviceAuth : AuthService, public location: Location) {}
 
+  recherche()
+  {
+    this.mesProduits = [];
+    this.search = this.nomProduit.value;
+    this.unfilteredProd = this.currentShop.produit.filter((item : any) => item.nom.toLowerCase().includes(this.search.toLowerCase()));
+    this.unfilteredProd.forEach((element : any) =>
+    {
+      if(element.etat == false)
+      {
+        this.mesProduits?.push(element);
+      }
+    });
+  }
   open()
   {
     document.querySelector('.first-popup')?.classList.remove('hidden');
@@ -213,12 +230,12 @@ export class PosteDeVenteComponent implements OnInit
       }
     );
   }
+  selectCategorie(event : any)
+  {
+    this.category = event.nom;
+  }
   ngOnInit(): void
   {
-    setTimeout(() => {
-      this.spin = false;
-    }, 1000);
-
     // -- Liste des produits du caissier
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
     if(this.currentUser.roles[0] == 'ROLE_CAISSIER')
@@ -238,18 +255,40 @@ export class PosteDeVenteComponent implements OnInit
       })
     }
     // -- Liste des produits de la boutique courrante
-    this.mesProduits = JSON.parse(localStorage.getItem('mesProduits') || '[]');
-
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.httpService.getUrl(this.httpService.shopUrl).subscribe
+    (
+      (reponse) =>
+      {
+        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
+        this.currentShop?.produit.forEach((element : any) =>
+        {
+          if(element.etat == false)
+          {
+            this.mesProduits.push(element);
+          }
+        });
+        this.spin = false;
+      }
+    );
     this.form = this.formBuilder.group(
     {
       montant: [""]
     });
-
+    // -- Gestion du reçu
+    this.receipt = JSON.parse(localStorage.getItem('reçu') || '[]');
+    this.httpService.getUrl(this.httpService.commandeUrl).subscribe
+    (
+      reponse =>
+      {
+        this.receipt.date = reponse[reponse.length - 1].date;
+        this.receipt.methodePaiement = reponse[reponse.length - 1].methodePaiement.valeur;
+      }
+    )
     this.httpService.items$.subscribe(value =>
     {
       this.monPanier = value;
     });
-
     // -- Mise à Jour du Sous total du panier
     this.monTotal = this.httpService.sousTotal();
   }

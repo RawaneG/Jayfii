@@ -1,48 +1,44 @@
-<div class="container">
-  <form class="example-form" [formGroup]="ajouterCategorie" (submit)="submit()">
-    <mat-form-field class="example-full-width">
-      <mat-label>Nom de la catégorie</mat-label>
-      <input matInput placeholder="Ex. Nourriture" formControlName="nom" />
-    </mat-form-field>
+<div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
+  <h1 class="page-title">Création Catégorie</h1>
+  <div class="container py-5">
+    <form class="example-form" [formGroup]="ajouterCategorie" (submit)="submit()">
+      <mat-form-field class="example-full-width">
+        <mat-label>Nom de la catégorie</mat-label>
+        <input matInput placeholder="Ex. Nourriture" formControlName="nom" />
+      </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Description</mat-label>
-      <textarea
-        matInput
-        placeholder="Ex. Cette partie est reservée à la nourriture..."
-        formControlName="description"
-      ></textarea>
-    </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Description</mat-label>
+        <textarea matInput placeholder="Ex. Cette partie est reservée à la nourriture..."
+          formControlName="description"></textarea>
+      </mat-form-field>
 
-    <mat-radio-group
-      aria-label="Select an option"
-      class="radio-group"
-      formControlName="couleur"
-    >
-      <div class="parent">
-        <mat-radio-button value="blue" class="radio"></mat-radio-button>
-        <div class="box"></div>
+      <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="couleur">
+        <div class="parent">
+          <mat-radio-button value="blue" class="radio"></mat-radio-button>
+          <div class="box"></div>
+        </div>
+        <div class="parent">
+          <mat-radio-button value="red" class="radio"></mat-radio-button>
+          <div class="box red"></div>
+        </div>
+        <div class="parent">
+          <mat-radio-button value="green" class="radio"></mat-radio-button>
+          <div class="box green"></div>
+        </div>
+        <div class="parent">
+          <mat-radio-button value="purple" class="radio"></mat-radio-button>
+          <div class="box purple"></div>
+        </div>
+        <div class="parent">
+          <mat-radio-button value="black" class="radio"></mat-radio-button>
+          <div class="box black"></div>
+        </div>
+      </mat-radio-group>
+      <div class="final-boutons">
+        <button (click)="retour()">Annuler</button>
+        <button class="valider">Enregistrer</button>
       </div>
-      <div class="parent">
-        <mat-radio-button value="red" class="radio"></mat-radio-button>
-        <div class="box red"></div>
-      </div>
-      <div class="parent">
-        <mat-radio-button value="green" class="radio"></mat-radio-button>
-        <div class="box green"></div>
-      </div>
-      <div class="parent">
-        <mat-radio-button value="purple" class="radio"></mat-radio-button>
-        <div class="box purple"></div>
-      </div>
-      <div class="parent">
-        <mat-radio-button value="black" class="radio"></mat-radio-button>
-        <div class="box black"></div>
-      </div>
-    </mat-radio-group>
-    <div class="final-boutons">
-      <button (click)="retour()">Annuler</button>
-      <button class="valider">Enregistrer</button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

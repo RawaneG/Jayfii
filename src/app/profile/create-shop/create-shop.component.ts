@@ -59,7 +59,7 @@ export class CreateShopComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('mesProduits') || '[]');
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
 
     this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(

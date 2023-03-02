@@ -2,7 +2,7 @@
   <div class="body">
     <div class="first-section">
       <h1>Description du Produit</h1>
-      <div class="container1">
+      <div class="container1 p-5">
         <mat-form-field class="example-input">
           <mat-label>Nom du produit</mat-label>
           <input matInput placeholder="Ex. Chocolat" formControlName="nom" />
@@ -30,7 +30,7 @@
         </mat-form-field>
       </div>
       <h1>Inventaire</h1>
-      <div class="container1">
+      <div class="container1 p-5">
         <mat-form-field class="example-input">
           <mat-label>Produit Composé</mat-label>
           <mat-select formControlName="compose" [(value)]="composee">
@@ -54,7 +54,7 @@
       </div>
     </div>
     <div class="second-section">
-      <div class="container2">
+      <div class="container2 p-5">
         <h1>Illustration du produit</h1>
         <h3>Représentation par couleur</h3>
         <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="couleur">
@@ -84,7 +84,6 @@
             </mat-radio-button>
           </div>
         </mat-radio-group>
-
         <mat-accordion class="accordion">
           <h3 class="panel-title">
             Représentation par Image

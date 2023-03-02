@@ -1,10 +1,16 @@
+.page-title
+{
+    font-family: 'Great Vibes', cursive;
+    font-size: 3em;
+    font-weight: bold;
+}
 .container
 {
-    margin: 5em 0 0 10em;
     min-height: 50vh;
     width: 60%;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
     border-radius: 10px;
+    padding: 2em;
 }
 .first-container
 {
@@ -40,44 +46,20 @@
         margin: 1%;
     }
 }
-.second-container,.final-container
+.checkbox
 {
-    margin: 1.5em 0 0 0.5em;
-    display: flex;
-    width: 25%;
-    justify-content: space-evenly;
-    color:#9C9C9C;
+    width: 20%;
 }
-.second-container
-{
-    width: 23%;
-    display: flex;
-    justify-content: space-around;
-}
-.final-container
+td
 {
     width: 30%;
-    color:#000;
-    margin: 1em 0 0 2em;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .box-n-stuff
-    {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        width: 100%;
-    }
-    .text
-    {
-        width: 50%;
-    }
-    .box
-    {
-        border: 2px solid rgb(0, 115, 255);
-        padding: 2em;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+}
+.box
+{
+    display: block;
+    width: 5%;
+    border: 2px solid rgb(0, 115, 255);
+    padding: 1.5em;
+    border-radius: 5px;
+    cursor: pointer;
 }

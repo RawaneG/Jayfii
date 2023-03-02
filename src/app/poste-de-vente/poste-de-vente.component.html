@@ -5,12 +5,14 @@
     <mat-form-field appearance="outline" class="filterCategorie mt-5">
       <mat-label>Veuillez selectionner une catégorie</mat-label>
       <mat-select disableRipple>
-        <mat-option value="1">Option 1</mat-option>
+        <mat-option *ngFor="let categorie of currentShop?.categories" (click)="selectCategorie(categorie)">
+          {{ categorie?.nom }}
+        </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-form-field appearance="outline" class="filterCategorie mt-5">
       <mat-label>Rechercher un produit</mat-label>
-      <input matInput placeholder="Veuillez entrer le nom du produit" [(ngModel)]="search">
+      <input matInput placeholder="Veuillez entrer le nom du produit" [formControl]="nomProduit" (input)="recherche()">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
@@ -22,7 +24,7 @@
           <img src="./assets/bx.png" alt="Aucun produit" />
           <span>Aucun produit disponible</span>
         </div>
-        <div class="product-card card" *ngFor="let produit of mesProduits | filter : search">
+        <div class="product-card card" *ngFor="let produit of mesProduits | filter : category">
           <div class="product-header" (click)="panier(produit)">
             <img class="product-picture" src="{{ 'data:image/png;base64,' + produit?.image }}" />
           </div>

@@ -47,7 +47,6 @@ export class CreerProduitComponent implements OnInit
       reader.onload = (event: ProgressEvent) =>
       {
         this.url = (<FileReader>event.target).result;
-        console.log(this.url);
       }
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -134,7 +133,7 @@ export class CreerProduitComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('mesProduits') || '[]');
+    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
     (
       (reponse) =>
