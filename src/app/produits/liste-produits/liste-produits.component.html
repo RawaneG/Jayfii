@@ -1,5 +1,5 @@
 <app-spinner *ngIf="spin"></app-spinner>
-<app-header></app-header>
+<app-header (mesProduits)="receiveProduct($event)" (mesCategories)="receiveCategory($event)"></app-header>
 <!-- ========== First Parent ========== -->
 <div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
   <h1 class="page-title">Mes Produits</h1>
@@ -19,7 +19,7 @@
           <mat-label>Catégorie</mat-label>
           <mat-select>
             <mat-option value="one" (click)="refresh()">Tous les produits</mat-option>
-            <mat-option *ngFor="let categorie of currentShop?.categories" (click)="selectCategorie(categorie)">
+            <mat-option *ngFor="let categorie of mesCategories" (click)="selectCategorie(categorie)">
               {{ categorie?.nom }}
             </mat-option>
           </mat-select>
@@ -60,9 +60,8 @@
             <td class="checkbox text-center"><mat-checkbox [checked]="isSelected" (change)="coche($event, produit)">
               </mat-checkbox></td>
             <td class="checkbox text-center">
-              <button type="" class="btn btn-light rounded-circle">
-                <i class="fas fa-marker" style="font-size: 16px" [routerLink]="['modifier', produit.id]"
-                  title="Modifier"></i>
+              <button [routerLink]="['modifier', produit.id]" class="btn btn-light rounded-circle">
+                <i class="fas fa-marker" style="font-size: 16px" title="Modifier"></i>
               </button>
             </td>
             <td class=" text-center"><span>{{ produit?.nom }}</span></td>

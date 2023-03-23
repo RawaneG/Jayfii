@@ -1,5 +1,6 @@
 import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { IndexDBService } from './index-db.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -10,14 +11,6 @@ import jwt_decode from 'jwt-decode';
 })
 export class HttpClientService
 {
-  // loginUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/login';
-  // cashierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/caissiers';
-  // produitUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/produits';
-  // categorieUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/categories';
-  // commandeUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/commandes';
-  // shopUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/shops';
-  // boutiquierUrl = 'http://77.241.86.134/Jayfii_API/public/index.php/api/boutiquiers';
-
   loginUrl = 'https://127.0.0.1:8000/api/login';
   cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
   produitUrl = 'https://127.0.0.1:8000/api/produits';
@@ -26,6 +19,7 @@ export class HttpClientService
   shopUrl = 'https://127.0.0.1:8000/api/shops';
   boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
 
+  id = 0;
   monTotalService: any = 0;
   quantite: number = 1;
   itemsSubject = new BehaviorSubject<any[]>([]);
@@ -37,8 +31,14 @@ export class HttpClientService
   shops: any;
   currentSeller: any;
   currentUser: any;
+  data: any;
+  mesCommandes : any[] = [];
 
-  constructor(private http: HttpClient, private route: Router, private _snackBar: MatSnackBar)
+  constructor(
+    private route: Router,
+    private http: HttpClient,
+    private _snackBar: MatSnackBar,
+    private indexDBService : IndexDBService)
   {
     let existingCartItems = JSON.parse(localStorage.getItem('panier') || '[]');
     if (!existingCartItems) {
@@ -55,7 +55,6 @@ export class HttpClientService
       duration : t
     });
   }
-
   openSnackBar(message : any, navigation : string = '')
   {
     let t = 2000;
@@ -97,7 +96,17 @@ export class HttpClientService
               {
                 if(monBoutiquier.status == "Actif")
                 {
-                  localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
+                  this.getUrl(this.commandeUrl).subscribe(
+                    (data) =>
+                    {
+                      data.forEach((element : any) =>
+                      {
+                        element.boutiquier.id === monBoutiquier.id ? this.mesCommandes.push(element) : null;
+                      });
+                      this.indexDBService.addData({ id : this.id, commandes : this.mesCommandes } , 'currentSellings').subscribe();
+                    }
+                    );
+                  this.indexDBService.addData({ id : this.id, user : monBoutiquier } , 'currentUser');
                   this.openSnackBar('Connexion réussie','poc');
                 }
                 else
@@ -118,7 +127,7 @@ export class HttpClientService
               let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
               if(monBoutiquier != undefined)
               {
-                localStorage.setItem('ACCESS_TOKEN', JSON.stringify(monBoutiquier));
+                this.indexDBService.addData({ id : this.id, user : monBoutiquier } , 'currentUser');
                 this.openSnackBar('Connexion réussie','poc');
               }
               else
@@ -179,16 +188,18 @@ export class HttpClientService
     return tableau.find((param: any) => param.id === id);
   }
   /**************************************** Ajouter au panier ****** **********************************/
-  addToCart(productParam: any) {
+  addToCart(productParam : any)
+  {
     this.items$
       .pipe(
         take(1),
-        map((productsParam) => {
+        map((productsParam) =>
+        {
           productParam.quantite = 1;
           productParam.quantiteEnStock--;
           productsParam.push(productParam);
-          this.monTotalService = this.sousTotal();
-          localStorage.setItem('panier', JSON.stringify(productsParam));
+          this.indexDBService.clearData('panier');
+          this.indexDBService.addData({ id : this.id, panier : productsParam } , 'panier');
         })
       )
       .subscribe();
@@ -215,8 +226,6 @@ export class HttpClientService
           }
           productsParam[this.produit].quantite++;
           productsParam[this.produit].quantiteEnStock--;
-          this.monTotalService = this.sousTotal();
-          localStorage.setItem('panier', JSON.stringify(productsParam));
         })
       )
       .subscribe();
@@ -232,18 +241,8 @@ export class HttpClientService
           );
           productsParam[this.produit].quantite--;
           productsParam[this.produit].quantiteEnStock++;
-          this.monTotalService = this.sousTotal();
-          localStorage.setItem('panier', JSON.stringify(productsParam));
         })
       )
       .subscribe();
-  }
-  /****************************************** Sous-Total *************************************************/
-  sousTotal() {
-    let total = 0;
-    this.items$.subscribe((valeur) =>
-      valeur.forEach((element) => (total += element.quantite * element.prix))
-    );
-    return total;
   }
 }

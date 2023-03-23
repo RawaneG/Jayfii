@@ -5,7 +5,7 @@
     <mat-form-field appearance="outline" class="filterCategorie mt-5">
       <mat-label>Veuillez selectionner une catégorie</mat-label>
       <mat-select disableRipple>
-        <mat-option *ngFor="let categorie of currentShop?.categories" (click)="selectCategorie(categorie)">
+        <mat-option *ngFor="let categorie of mesCategories" (click)="selectCategorie(categorie)">
           {{ categorie?.nom }}
         </mat-option>
       </mat-select>
@@ -50,7 +50,7 @@
           </div>
           <div class="myCard-content">
             <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-            <div *ngIf="monTotal === 0" class="w-100 h-100 d-flex justify-content-center align-items-center">
+            <div *ngIf="monPanier === []" class="w-100 h-100 d-flex justify-content-center align-items-center">
               <div class="myCard-empty d-flex justify-content-center align-items-center">
                 <span>
                   <i class="fas fa-shopping-cart"></i>
@@ -92,14 +92,6 @@
                   <mat-label>Entrez votre montant Ici (FCFA)</mat-label>
                   <input matInput class="input" (input)="ecriture()" formControlName="montant" />
                 </mat-form-field>
-                <!-- <div class="propositions">
-                  <div>1000 FCFA</div>
-                  <div>2000 FCFA</div>
-                  <div>3000 FCFA</div>
-                  <div>4000 FCFA</div>
-                  <div>5000 FCFA</div>
-                  <div>10000 FCFA</div>
-                </div> -->
               </form>
               <div class="reste">
                 <h3>Reste : {{ reste }} FCFA</h3>

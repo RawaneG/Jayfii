@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
 import { HttpClientService } from 'src/app/services.service';
-import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { PageEvent } from '@angular/material/paginator';
+import { MatDialog } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import {MatDialog} from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { IndexDBService } from 'src/app/index-db.service';
 
-@Component({
-  selector: 'app-liste-produits',
-  templateUrl: './liste-produits.component.html',
-  styleUrls: ['./liste-produits.component.scss']
-})
+@Component(
+  {
+    selector: 'app-liste-produits',
+    templateUrl: './liste-produits.component.html',
+    styleUrls: ['./liste-produits.component.scss']
+  })
 export class ListeProduitsComponent implements OnInit
 {
-
   spin : boolean = true;
   panelOpenState = false;
   mesProduits : any[] = [];
@@ -24,14 +25,20 @@ export class ListeProduitsComponent implements OnInit
   currentStore: any;
   currentShop: any;
 
-  constructor(private httpService : HttpClientService, public route : Router, public location: Location, public dialog: MatDialog) { }
+  constructor(private httpService : HttpClientService, public route : Router, public location: Location, public dialog: MatDialog, private indexDBService : IndexDBService) { }
 
-  refresh()
+  receiveProduct($event: any)
   {
-    let currentUrl = this.route.url;
-    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.route.navigate([currentUrl]);
+    this.currentShop = $event;
+    this.currentShop.forEach((element: any) =>
+    {
+      element.etat == false ? this.mesProduits?.push(element) : null;
+      this.pageSlice = this.mesProduits ? this.mesProduits.slice(0 , 5) : null;
     });
+  }
+  receiveCategory($event: any)
+  {
+    this.mesCategories = $event;
   }
   onPageChange(event : PageEvent)
   {
@@ -42,6 +49,16 @@ export class ListeProduitsComponent implements OnInit
       endIndex = this.mesProduits.length;
     }
     this.pageSlice = this.mesProduits.slice(startIndex, endIndex);
+  }
+  refresh()
+  {
+    this.mesProduits = [];
+    console.log(this.currentShop)
+    this.currentShop.forEach((element: any) =>
+    {
+      element.etat == false ? this.mesProduits.push(element) : null;
+      this.pageSlice = this.mesProduits.slice(0 , 5);
+    });
   }
   toTrash()
   {
@@ -97,44 +114,36 @@ export class ListeProduitsComponent implements OnInit
   filtreStock()
   {
     this.mesProduits = [];
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe
-    (
-      (reponse) =>
+    this.currentShop.forEach((element: any) =>
+    {
+      if(element.etat == false)
       {
-        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop?.produit.forEach((element : any) =>
+        if(element.quantiteEnStock <= element.limite)
         {
-          if(element.etat == false)
-          {
-            if(element.quantiteEnStock <= element.limite)
-            {
-              this.mesProduits.push(element);
-            }
-          }
-        });
-        this.pageSlice = this.mesProduits.slice(0 , 5);
+          this.mesProduits.push(element);
+        }
       }
-    );
+      this.pageSlice = this.mesProduits ? this.mesProduits.slice(0 , 5) : null;
+    });
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe
-    (
-      (reponse) =>
+    this.spin = false;
+    this.indexDBService.getData('currentShop').subscribe(
+      (data) =>
       {
-        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop?.produit.forEach((element : any) =>
+        this.currentShop = data.length > 0 ? data[0].boutique.produit : [];
+        this.mesCategories = data.length > 0 ? data[0].boutique.categories : [];
+        this.currentShop.forEach((element: any) =>
         {
-          if(element.etat == false)
-          {
-            this.mesProduits.push(element);
-          }
+          element.etat == false ? this.mesProduits?.push(element) : null;
+          this.pageSlice = this.mesProduits ? this.mesProduits.slice(0 , 5) : null;
         });
-        this.pageSlice = this.mesProduits.slice(0 , 5);
-        this.spin = false;
-      }
-    );
+      },
+      (error) =>
+      {
+        console.log("Vous n'avez pas encore d'utilisateur " + error)
+      });
   }
 
 }

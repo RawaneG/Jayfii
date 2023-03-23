@@ -21,10 +21,19 @@
   }
   span
   {
-    width: 25%;
+    width: 20%;
   }
 }
-.quantity
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button
 {
-  margin: 0 1em;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number]
+{
+  -moz-appearance: textfield;
 }

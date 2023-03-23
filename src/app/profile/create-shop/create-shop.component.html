@@ -1,4 +1,3 @@
-<!-- <app-header></app-header> -->
 <section>
   <div class="box">
     <div class="square" style="--i: 0"></div>
@@ -28,26 +27,13 @@
           </div>
           <div class="inputBx">
             <label for="image">Choisir une image</label>
-            <input
-              id="image"
-              class="input"
-              type="file"
-              name="upload"
-              class="image"
-              (change)="readUrl($event)"
-              formControlName="image"
-              hidden
-            />
+            <input id="image" class="input" type="file" name="upload" class="image" (change)="readUrl($event)"
+              formControlName="image" hidden />
             <span>Image de votre boutique</span>
             <i class="fas fa-facebook"></i>
           </div>
           <div class="inputBx">
-            <input
-              type="button"
-              class="submit"
-              value="Annuler"
-              (click)="retour()"
-            />
+            <input type="button" class="submit" value="Annuler" (click)="retour()" />
             <input type="submit" value="Enregistrer" />
           </div>
         </form>

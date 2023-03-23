@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { Router , ActivatedRoute } from '@angular/router';
+import { IndexDBService } from 'src/app/index-db.service';
 import { HttpClientService } from 'src/app/services.service';
 
 @Component({
@@ -27,7 +28,7 @@ export class CreerProduitComponent implements OnInit
   currentStore: any;
   durationInSeconds = 5;
 
-  constructor(private _snackBar: MatSnackBar, private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute) { }
+  constructor(private _snackBar: MatSnackBar, private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute, private indexDBService : IndexDBService) { }
 
   retour()
   {
@@ -86,7 +87,7 @@ export class CreerProduitComponent implements OnInit
             "couleur": this.ajouterProduit.value.couleur,
             "shop" :
             {
-              "id" : this.currentStore.id
+              "id" : this.currentStore
             }
           }
           this.httpService.postUrl(this.httpService.produitUrl,this.body);
@@ -122,10 +123,10 @@ export class CreerProduitComponent implements OnInit
             "couleur": this.ajouterProduit.value.couleur,
             "shop" :
             {
-              "id" : this.currentStore.id
+              "id" : this.currentStore
             }
           }
-          this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.link),this.body);
+          this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.link), this.body);
           this.httpService.openSnackBar('Article modifiée avec succès','produits');
         }
       }
@@ -133,7 +134,16 @@ export class CreerProduitComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.indexDBService.getData('currentShop').subscribe(
+      (data) =>
+      {
+        this.currentStore = data[0].boutique.id
+      },
+      (error) =>
+      {
+        console.log('Erreur au niveau du composant produit')
+      }
+    )
     this.httpService.getUrl(this.httpService.categorieUrl).subscribe
     (
       (reponse) =>
@@ -169,18 +179,18 @@ export class CreerProduitComponent implements OnInit
             (reponse) =>
             {
               this.monProduit = reponse;
-              this.monProduit = this.httpService.getElementById(+this.link, this.monProduit);
               this.value = this.monProduit.categorie[0].id;
+              this.ajouterProduit.controls.categorie.setValue(this.value);
               this.ajouterProduit.controls.nom.setValue(this.monProduit.nom);
-              this.ajouterProduit.controls.description.setValue(this.monProduit.description);
-              this.ajouterProduit.controls.couleur.setValue(this.monProduit.couleur);
+              this.ajouterProduit.controls.SKU.setValue(this.monProduit.SKU);
               this.ajouterProduit.controls.prix.setValue(this.monProduit.prix);
               this.ajouterProduit.controls.cout.setValue(this.monProduit.cout);
-              this.ajouterProduit.controls.quantiteEnStock.setValue(this.monProduit.quantiteEnStock);
-              this.ajouterProduit.controls.compose.setValue(this.monProduit.compose);
-              this.ajouterProduit.controls.SKU.setValue(this.monProduit.SKU);
-              this.ajouterProduit.controls.categorie.setValue(this.value);
               this.ajouterProduit.controls.limite.setValue(this.monProduit.limite);
+              this.ajouterProduit.controls.couleur.setValue(this.monProduit.couleur);
+              this.ajouterProduit.controls.compose.setValue(this.monProduit.compose);
+              this.monProduit = this.httpService.getElementById(+this.link, this.monProduit);
+              this.ajouterProduit.controls.description.setValue(this.monProduit.description);
+              this.ajouterProduit.controls.quantiteEnStock.setValue(this.monProduit.quantiteEnStock);
             });
         }
       });

@@ -1,8 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { AuthService } from '../auth.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientService } from '../services.service';
-import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { IndexDBService } from '../index-db.service';
+import { AuthService } from '../auth.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -12,25 +12,39 @@ import { Location } from '@angular/common';
 })
 export class HeaderComponent implements OnInit
 {
+  @Output() mesProduits = new EventEmitter<any>();
+  @Output() mesCategories = new EventEmitter<any>();
+  @Output() monPanier = new EventEmitter<any>();
+
+  id : number = 0;
   monRole: any;
-  refresh() : void
-  {
-    let currentUrl = this.route.url;
-    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => {
-        this.route.navigate([currentUrl]);
-    });
-  }
   currentUser: any = {};
   currentSeller: any;
   shops: any;
   currentStore: any;
-  constructor(private router : ActivatedRoute,private service : AuthService, private httpService : HttpClientService, public route : Router, public location: Location) { }
 
+  constructor(
+    private router : ActivatedRoute ,
+    private service : AuthService,
+    private httpService : HttpClientService,
+    public route : Router,
+    public location: Location,
+    private indexDBService : IndexDBService
+    ) {}
+
+  refresh() : void
+  {
+    let currentUrl = this.route.url;
+    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+    {
+      this.route.navigate([currentUrl]);
+    });
+  }
   switch(shop : any)
   {
-    localStorage.setItem('boutique', JSON.stringify(shop));
-    localStorage.removeItem('panier');
-    this.ngOnInit();
+    this.indexDBService.clearData('currentShop')
+    this.indexDBService.clearData('panier')
+    this.indexDBService.addData({id : this.id, boutique : shop}, 'currentShop');
     this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès');
   }
   link(event : any)
@@ -57,6 +71,16 @@ export class HeaderComponent implements OnInit
   }
   ngOnInit(): void
   {
+    this.indexDBService.getData('currentUser').subscribe(
+      (data) =>
+      {
+        this.shops = data.length > 0 ? data[0].user.shop : [];
+        this.monRole = data.length > 0 ? data[0].user.roles[0] : [];
+      },
+      (error) =>
+      {
+        console.log("Vous n'avez pas encore d'utilisateur " + error)
+      });
     const allItems = document.querySelectorAll(".nav__item");
     allItems.forEach(element =>
     {
@@ -65,24 +89,5 @@ export class HeaderComponent implements OnInit
     const path = this.router.snapshot.routeConfig?.path;
     const daItem = document.querySelector(`[href*=${path}]`);
     daItem?.classList.add('active');
-
-    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-    this.monRole = this.currentUser?.roles[0];
-    this.currentStore= JSON.parse(localStorage.getItem('boutique') || '[]');
-
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-      value =>
-      {
-        if(this.currentUser?.shop)
-        {
-          this.shops = this.currentUser?.shop;
-        }
-        else
-        {
-          this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-          this.shops = this.currentSeller?.shop;
-        }
-      }
-    );
   }
 }

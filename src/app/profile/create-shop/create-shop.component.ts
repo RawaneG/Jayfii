@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth.service';
+import { IndexDBService } from 'src/app/index-db.service';
 import { HttpClientService } from 'src/app/services.service';
 
 @Component({
@@ -19,7 +20,7 @@ export class CreateShopComponent implements OnInit
   shops: any;
   currentSeller: any;
 
-  constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router ) { }
+  constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router, private indexDBService : IndexDBService ) { }
 
   retour()
   {
@@ -59,23 +60,15 @@ export class CreateShopComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-      value =>
+    this.indexDBService.getData('currentUser').subscribe(
+      (data) =>
       {
-        if(this.currentUser.shop)
-        {
-          this.currentSeller = this.currentUser.id;
-        }
-        else
-        {
-          this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-          this.currentSeller = this.currentSeller.id;
-        }
-      }
-    );
+        this.currentSeller = data[0].user.id
+      },
+      (error) =>
+      {
+        console.log("Erreur au niveau du composant création de boutique" + error)
+      })
 
     this.shopCreation  =  this.formBuilder.group(
       {

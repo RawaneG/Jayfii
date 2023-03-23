@@ -1,4 +1,3 @@
-<!-- <app-header></app-header> -->
 <section>
   <div class="box">
     <div class="square" style="--i: 0"></div>
@@ -34,21 +33,13 @@
           <div class="inputBx">
             <select name="password" formControlName="shop">
               <option value="">Affecter une boutique</option>
-              <option
-                value="{{ boutique.id }}"
-                *ngFor="let boutique of currentUser?.shop"
-              >
+              <option value="{{ boutique.id }}" *ngFor="let boutique of shops">
                 {{ boutique.nomBoutique }}
               </option>
             </select>
           </div>
           <div class="inputBx">
-            <input
-              type="button"
-              class="submit"
-              value="Annuler"
-              (click)="retour()"
-            />
+            <input type="button" class="submit" value="Annuler" (click)="retour()" />
             <input type="submit" value="Enregistrer" />
           </div>
         </form>

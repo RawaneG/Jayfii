@@ -43,8 +43,6 @@ import { CreateShopComponent } from './profile/create-shop/create-shop.component
 import { ListShopsComponent } from './profile/list-shops/list-shops.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { FormsModule } from '@angular/forms';
 import { AdminComponent } from './admin/admin.component';
 import { MatRippleModule } from '@angular/material/core';
@@ -83,7 +81,6 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatRippleModule,
     FormsModule,
     MatSnackBarModule,
-    SocialLoginModule,
     Ng2SearchPipeModule,
     MatProgressSpinnerModule,
     MatTableModule,
@@ -115,22 +112,8 @@ import {MatDialogModule} from '@angular/material/dialog';
   ],
   providers:
   [
-    { provide: LOCALE_ID, useValue: 'fr-FR'},
     DatePipe,
-    {
-      provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: false,
-        providers: [
-          {
-            id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              '50262491662-7rmnq8d035t9pofletlkp5dsn6maqldn.apps.googleusercontent.com'
-            )
-          }
-        ]
-      } as SocialAuthServiceConfig,
-    },
+    { provide: LOCALE_ID, useValue: 'fr-FR'},
     {provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent]

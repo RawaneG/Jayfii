@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
+import { IndexDBService } from 'src/app/index-db.service';
 import { HttpClientService } from 'src/app/services.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class ListeCategoriesComponent implements OnInit
   isChecked : any = 'decochee';
   currentStore: any;
   currentShop: any;
-  constructor(private httpService : HttpClientService) { }
+  constructor(private httpService : HttpClientService, private indexDBService : IndexDBService) { }
 
   onPageChange(event : PageEvent)
   {
@@ -77,22 +78,20 @@ export class ListeCategoriesComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.httpService.getUrl(this.httpService.shopUrl).subscribe
-    (
-      (reponse) =>
+    this.spin = false;
+    this.indexDBService.getData('currentShop').subscribe(
+      (data) =>
       {
-        this.currentShop = this.httpService.getElementById(this.currentStore.id, reponse);
-        this.currentShop?.categories.forEach((element : any) =>
+        this.currentShop = data.length > 0 ? data[0].boutique.categories : [];
+        this.currentShop.forEach((element: any) =>
         {
-          if(element.etat == false)
-          {
-            this.mesCategories.push(element);
-          }
+          element.etat == false ? this.mesCategories?.push(element) : null;
+          this.pageSlice = this.mesCategories ? this.mesCategories.slice(0 , 5) : null;
         });
-        this.pageSlice = this.mesCategories.slice(0 , 5);
-        this.spin = false;
-      }
-    );
+      },
+      (error) =>
+      {
+        console.log("Vous n'avez pas encore d'utilisateur " + error)
+      });
   }
 }

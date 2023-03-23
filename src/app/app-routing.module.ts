@@ -9,7 +9,6 @@ import { CreerCategorieComponent } from './categories/creer-categorie/creer-cate
 import { CreerProduitComponent } from './produits/creer-produit/creer-produit.component';
 import { ListeCategoriesComponent } from './categories/liste-categories/liste-categories.component';
 import { ListeProduitsComponent } from './produits/liste-produits/liste-produits.component';
-import { AuthGuard } from './auth.guard';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
 import { AdminComponent } from './admin/admin.component';
@@ -57,27 +56,27 @@ const routes: Routes =
   {
     path: 'admin',
     component: AdminComponent,
-    canActivate : [AuthGuard],
+    // canActivate : [AuthGuard],
   },
   {
     path: 'profile',
     component: ProfileComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'profile/addShop',
     component: CreateShopComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'profile/addCashier',
     component: CreateCashierComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'poc',
@@ -86,32 +85,32 @@ const routes: Routes =
   {
     path: 'produits/add',
     component: CreerProduitComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'categories/add',
     component: CreerCategorieComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'produits',
     component: ListeProduitsComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'produits/modifier/:id',
     component: CreerProduitComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'categories',
     component: ListeCategoriesComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'categories/modifier/:id',
     component: CreerCategorieComponent,
-    canActivate : [AuthGuard]
+    // canActivate : [AuthGuard]
   },
   {
     path: 'confirm/:id',

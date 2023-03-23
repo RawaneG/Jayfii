@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HttpClientService } from 'src/app/services.service';
+import { FormControl } from '@angular/forms';
 
-@Component({
+@Component(
+{
   selector: 'app-panier',
   templateUrl: './panier.component.html',
   styleUrls: ['./panier.component.scss']
@@ -17,39 +19,48 @@ export class PanierComponent implements OnInit
   monPrix : any;
   disable : boolean = true;
   monTotal !: number;
+  input = new FormControl(1);
+  prixCalculee : number = 1;
 
   constructor(private httpService : HttpClientService) { }
 
+  ajoutQuantite(panier : any)
+  {
+    if(this.input.value === null  || +this.input.value < 0)
+    {
+      this.input.setValue(1);
+      this.prixCalculee = 1;
+    }
+    else
+    {
+      this.prixCalculee = +this.input.value;
+    }
+  }
   incremente(element : any)
   {
     this.quantite++;
     this.httpService.incremente(element);
-    this.monTotal = this.httpService.sousTotal();
-    this.message.emit(this.monTotal);
+    // this.message.emit(this.monTotal);
   }
   decremente(element : any)
   {
     this.quantite--;
     this.httpService.decremente(element);
-    this.monTotal = this.httpService.sousTotal();
-    this.message.emit(this.monTotal);
+    // this.message.emit(this.monTotal);
   }
   close(produit : any)
   {
-    this.httpService.items$.subscribe(
-      value =>
-      {
-        this.monPanier = value;
-        this.ajoutee = value.findIndex(prod => prod.id === produit.id);
-        this.monPanier.splice(this.ajoutee, 1);
-        this.monTotal = this.httpService.sousTotal();
-        this.message.emit(this.monTotal);
-        localStorage.setItem('panier', JSON.stringify(this.monPanier));
-      }
-    );
+    // this.httpService.items$.subscribe(
+    //   value =>
+    //   {
+    //     this.monPanier = value;
+    //     this.ajoutee = value.findIndex(prod => prod.id === produit.id);
+    //     this.monPanier.splice(this.ajoutee, 1);
+    //     this.message.emit(this.monTotal);
+    //   }
+    // );
   }
   ngOnInit(): void
   {
-    this.monTotal = this.httpService.sousTotal();
   }
 }

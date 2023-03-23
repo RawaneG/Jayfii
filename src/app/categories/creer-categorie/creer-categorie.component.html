@@ -1,5 +1,5 @@
 <div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
-  <h1 class="page-title">Création Catégorie</h1>
+  <h1 class="page-title">{{title}}</h1>
   <div class="container py-5">
     <form class="example-form" [formGroup]="ajouterCategorie" (submit)="submit()">
       <mat-form-field class="example-full-width">
@@ -37,7 +37,8 @@
       </mat-radio-group>
       <div class="final-boutons">
         <button (click)="retour()">Annuler</button>
-        <button class="valider">Enregistrer</button>
+        <button class="valider" [hidden]="showMe">Enregistrer</button>
+        <button class="valider" [hidden]="!showMe">Modifier</button>
       </div>
     </form>
   </div>

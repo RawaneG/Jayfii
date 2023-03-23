@@ -1,31 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
+// import { SocialAuthService } from '@abacritt/angularx-social-login';
+import { IndexDBService } from './index-db.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   user: any;
-  constructor(private route: Router, private authService: SocialAuthService) {}
+  constructor(private route: Router, private indexDBService : IndexDBService) {}
 
-  public estConnecte() {
+  public estConnecte()
+  {
     return localStorage.getItem('ACCESS_TOKEN') !== null;
   }
-  public deconnecter() {
-    localStorage.removeItem('ACCESS_TOKEN');
-    localStorage.removeItem('reçu');
-    localStorage.removeItem('promo');
-    localStorage.removeItem('panier');
-    localStorage.removeItem('boutique');
-    localStorage.removeItem('mes_boutiques');
+  public deconnecter()
+  {
+    this.indexDBService.clearData('panier');
+    this.indexDBService.clearData('currentShop');
+    this.indexDBService.clearData('currentUser');
+    this.indexDBService.clearData('currentSellings');
     this.route.navigateByUrl('/');
   }
-  getRole() {
+  getRole()
+  {
     this.user = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-    if (this.user !== null) {
+    if (this.user !== null)
+    {
       return this.user.roles;
-    } else {
+    } else
+    {
       return (this.user = null);
     }
   }

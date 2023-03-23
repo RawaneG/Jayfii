@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { IndexDBService } from '../index-db.service';
 import { HttpClientService } from '../services.service';
 
 @Component({
@@ -18,34 +19,22 @@ export class ProfileComponent implements OnInit
   shops: any;
   currentStore: any;
 
-  constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router ) { }
+  constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router, private indexDBService : IndexDBService ) { }
 
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
-    this.currentUser = JSON.parse(localStorage.getItem('ACCESS_TOKEN') || '[]');
-
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
-      value =>
+    this.spin = false;
+    this.indexDBService.getData('currentUser').subscribe(
+      (data) =>
       {
-        if(this.currentUser.shop)
-        {
-          this.currentSeller = this.currentUser;
-          this.shops = this.currentUser.shop;
-          this.spin = false;
-        }
-        else
-        {
-          this.currentSeller = value.find((param : any) => param.email === this.currentUser.username)
-          this.shops = this.currentSeller.shop;
-          this.spin = false;
-        }
-      }
-    );
+        this.currentSeller = data[0].user
+        this.shops = data[0].user.shop
+      },
+      (error) =>
+      {
+        console.log("Erreur au niveau du composant profil" + error)
+      })
 
-    // this.httpService.getUrl(this.httpService.shopUrl).subscribe(
-    //   value => value
-    // );
     this.shopCreation  =  this.formBuilder.group(
       {
         nom: ['', Validators.required],
