@@ -17,29 +17,17 @@ export class ListeProduitsComponent implements OnInit
   spin : boolean = true;
   panelOpenState = false;
   mesProduits : any[] = [];
-  mesCategories : any;
+  mesCategories : any[] = [];
   pageSlice : any;
   category : any;
   isSelected !: boolean;
   isChecked : any = 'decochee';
   currentStore: any;
   currentShop: any;
+  shopId: any;
 
   constructor(private httpService : HttpClientService, public route : Router, public location: Location, public dialog: MatDialog, private indexDBService : IndexDBService) { }
 
-  receiveProduct($event: any)
-  {
-    this.currentShop = $event;
-    this.currentShop.forEach((element: any) =>
-    {
-      element.etat == false ? this.mesProduits?.push(element) : null;
-      this.pageSlice = this.mesProduits ? this.mesProduits.slice(0 , 5) : null;
-    });
-  }
-  receiveCategory($event: any)
-  {
-    this.mesCategories = $event;
-  }
   onPageChange(event : PageEvent)
   {
     const startIndex = event.pageIndex * event.pageSize;
@@ -53,12 +41,12 @@ export class ListeProduitsComponent implements OnInit
   refresh()
   {
     this.mesProduits = [];
-    console.log(this.currentShop)
-    this.currentShop.forEach((element: any) =>
+    this.currentShop?.produit?.forEach((element: any) =>
     {
       element.etat == false ? this.mesProduits.push(element) : null;
-      this.pageSlice = this.mesProduits.slice(0 , 5);
     });
+    this.category = null;
+    this.pageSlice = this.mesProduits.slice(0 , 5);
   }
   toTrash()
   {
@@ -67,10 +55,22 @@ export class ListeProduitsComponent implements OnInit
       this.mesProduits.forEach((element : any) =>
       {
         element.etat = true;
-        setTimeout(() => {
-        this.httpService.putUrl(this.httpService.produitUrl + '/' + element.id, element);
-        this.httpService.openSnackBar('Suppression effectuée avec succès');
-        }, 1000);
+        this.httpService.update(this.httpService.produitUrl, element.id, element).subscribe(
+          {
+            next : (value : any) =>
+            {
+              this.httpService.openSnackBar('Suppression effectuée avec succès');
+            },
+            error : (error : any) =>
+            {
+              console.log('Erreur au niveau de la suppression')
+            },
+            complete : () =>
+            {
+              console.log('Suppression bien effectuée')
+            }
+          }
+        );
       });
     }
     else
@@ -78,10 +78,22 @@ export class ListeProduitsComponent implements OnInit
       if(this.isChecked !== 'decochee')
       {
         this.isChecked.etat = true;
-        setTimeout(() => {
-        this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.isChecked.id), this.isChecked);
-        this.httpService.openSnackBar('Suppression effectuée avec succès');
-        }, 1000);
+        this.httpService.update(this.httpService.produitUrl, (+this.isChecked.id), this.isChecked).subscribe(
+          {
+            next : (value : any) =>
+            {
+              this.httpService.openSnackBar('Suppression effectuée avec succès');
+            },
+            error : (error : any) =>
+            {
+              console.log('Erreur au niveau de la suppression')
+            },
+            complete : () =>
+            {
+              console.log('Suppression bien effectuée')
+            }
+          }
+        );
       }
     }
   }
@@ -114,7 +126,7 @@ export class ListeProduitsComponent implements OnInit
   filtreStock()
   {
     this.mesProduits = [];
-    this.currentShop.forEach((element: any) =>
+    this.currentShop?.produit?.forEach((element: any) =>
     {
       if(element.etat == false)
       {
@@ -128,17 +140,26 @@ export class ListeProduitsComponent implements OnInit
   }
   ngOnInit(): void
   {
-    this.spin = false;
     this.indexDBService.getData('currentShop').subscribe(
       (data) =>
       {
-        this.currentShop = data.length > 0 ? data[0].boutique.produit : [];
-        this.mesCategories = data.length > 0 ? data[0].boutique.categories : [];
-        this.currentShop.forEach((element: any) =>
-        {
-          element.etat == false ? this.mesProduits?.push(element) : null;
-          this.pageSlice = this.mesProduits ? this.mesProduits.slice(0 , 5) : null;
-        });
+        this.shopId = data[0].boutique.id;
+        this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
+          boutique =>
+          {
+            this.currentShop = boutique;
+            boutique?.produit?.forEach((element: any) =>
+            {
+              element.etat == false ? this.mesProduits.push(element) : null;
+              this.pageSlice = this.mesProduits ? this.mesProduits?.slice(0 , 5) : null;
+              this.spin = false;
+            });
+            boutique?.categories?.forEach((element: any) =>
+            {
+              element.etat == false ? this.mesCategories.push(element) : null;
+            });
+          }
+        )
       },
       (error) =>
       {

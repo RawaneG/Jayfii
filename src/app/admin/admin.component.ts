@@ -20,7 +20,7 @@ export class AdminComponent implements OnInit
     {
       "status" : "Actif"
     }
-    this.httpService.putUrl(this.httpService.boutiquierUrl + '/' + id, this.body);
+    this.httpService.update(this.httpService.boutiquierUrl, id, this.body).subscribe();
     this.httpService.openSnackBar('Statut Modifié avec succès');
   }
   desactiver(id : number)
@@ -29,13 +29,13 @@ export class AdminComponent implements OnInit
     {
       "status" : "Inactif"
     }
-    this.httpService.putUrl(this.httpService.boutiquierUrl + '/' + id, this.body);
+    this.httpService.update(this.httpService.boutiquierUrl, id, this.body).subscribe();
     this.httpService.openSnackBar('Statut Modifié avec succès');
   }
 
   ngOnInit(): void
   {
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+    this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
       user =>
       {
         this.boutiquiers = user;

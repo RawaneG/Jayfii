@@ -1,6 +1,6 @@
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientService } from '../services.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { IndexDBService } from '../index-db.service';
 import { AuthService } from '../auth.service';
 import { Location } from '@angular/common';
@@ -20,8 +20,9 @@ export class HeaderComponent implements OnInit
   monRole: any;
   currentUser: any = {};
   currentSeller: any;
-  shops: any;
+  shops: any[] = [];
   currentStore: any;
+  boutiquierId: any;
 
   constructor(
     private router : ActivatedRoute ,
@@ -42,10 +43,24 @@ export class HeaderComponent implements OnInit
   }
   switch(shop : any)
   {
-    this.indexDBService.clearData('currentShop')
-    this.indexDBService.clearData('panier')
-    this.indexDBService.addData({id : this.id, boutique : shop}, 'currentShop');
-    this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès');
+    this.indexDBService.clearData('currentShop');
+    this.indexDBService.clearData('panier');
+    this.indexDBService.addData({id : this.id, boutique : shop}, 'currentShop').subscribe(
+      {
+        next: () =>
+        {
+          this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès');
+        },
+        error: () =>
+        {
+          console.log("Erreur au niveau de l'ajout de la boutique");
+        },
+        complete: () =>
+        {
+          console.log('Compleété avec succès');
+        }
+      }
+    );
   }
   link(event : any)
   {
@@ -74,13 +89,24 @@ export class HeaderComponent implements OnInit
     this.indexDBService.getData('currentUser').subscribe(
       (data) =>
       {
-        this.shops = data.length > 0 ? data[0].user.shop : [];
+        this.boutiquierId = data.length > 0 ? data[0].user.id : [];
         this.monRole = data.length > 0 ? data[0].user.roles[0] : [];
+        this.httpService.getAll(this.httpService.shopUrl)
+        .subscribe(
+          data =>
+          {
+            data.forEach((element : any) =>
+            {
+              element.boutiquier.id === this.boutiquierId ? this.shops.push(element) : null;
+            });
+          }
+        )
       },
       (error) =>
       {
         console.log("Vous n'avez pas encore d'utilisateur " + error)
       });
+
     const allItems = document.querySelectorAll(".nav__item");
     allItems.forEach(element =>
     {

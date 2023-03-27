@@ -32,13 +32,13 @@ export class ConfirmPasswordComponent implements OnInit
         "password" : this.resetForm.value.password
       }
       const path = this.snap.snapshot.params['id'];
-      this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+      this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
         (element : any) =>
         {
           this.mySeller = element.find((boutiquier : any) => boutiquier.id === +path);
           if(this.mySeller === undefined)
           {
-            this.httpService.getUrl(this.httpService.cashierUrl).subscribe(
+            this.httpService.getAll(this.httpService.cashierUrl).subscribe(
               (element : any) =>
               {
                 this.mySeller = element.find((caissier : any) => caissier.id === +path);
@@ -48,7 +48,7 @@ export class ConfirmPasswordComponent implements OnInit
                 }
                 else
                 {
-                  this.httpService.putUrl(this.httpService.cashierUrl + "/" + path, this.body);
+                  this.httpService.update(this.httpService.cashierUrl, path, this.body).subscribe();
                   this.httpService.openSnackBar('Mot de passe modifié avec succès','login');
                 }
               }
@@ -56,7 +56,7 @@ export class ConfirmPasswordComponent implements OnInit
           }
           else
           {
-            this.httpService.putUrl(this.httpService.boutiquierUrl + "/" + path, this.body);
+            this.httpService.update(this.httpService.boutiquierUrl, path, this.body).subscribe();
             this.httpService.openSnackBar('Mot de passe modifié avec succès','login');
           }
         }

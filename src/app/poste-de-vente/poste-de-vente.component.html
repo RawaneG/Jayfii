@@ -5,6 +5,7 @@
     <mat-form-field appearance="outline" class="filterCategorie mt-5">
       <mat-label>Veuillez selectionner une catégorie</mat-label>
       <mat-select disableRipple>
+        <mat-option>Toutes les catégories</mat-option>
         <mat-option *ngFor="let categorie of mesCategories" (click)="selectCategorie(categorie)">
           {{ categorie?.nom }}
         </mat-option>
@@ -50,15 +51,16 @@
           </div>
           <div class="myCard-content">
             <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-            <div *ngIf="monPanier === []" class="w-100 h-100 d-flex justify-content-center align-items-center">
+            <!-- <div *ngIf="monPanier$ === []" class="w-100 h-100 d-flex justify-content-center align-items-center">
               <div class="myCard-empty d-flex justify-content-center align-items-center">
                 <span>
                   <i class="fas fa-shopping-cart"></i>
                 </span>
               </div>
-            </div>
+            </div> -->
             <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
-            <app-panier *ngFor="let elus of monPanier" [selected]="elus" (message)="messageRecu($event)"></app-panier>
+            <app-panier *ngFor="let elus of monPanier$ | async" [selected]="elus"
+              (message)="messageRecu($event)"></app-panier>
           </div>
           <div class="myCard-footer">
             <span>Sous-Total</span>

@@ -1,5 +1,5 @@
 <app-spinner *ngIf="spin"></app-spinner>
-<app-header (mesProduits)="receiveProduct($event)" (mesCategories)="receiveCategory($event)"></app-header>
+<app-header></app-header>
 <!-- ========== First Parent ========== -->
 <div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
   <h1 class="page-title">Mes Produits</h1>
@@ -18,7 +18,7 @@
         <mat-form-field appearance="outline">
           <mat-label>Catégorie</mat-label>
           <mat-select>
-            <mat-option value="one" (click)="refresh()">Tous les produits</mat-option>
+            <mat-option (click)="refresh()">Tous les produits</mat-option>
             <mat-option *ngFor="let categorie of mesCategories" (click)="selectCategorie(categorie)">
               {{ categorie?.nom }}
             </mat-option>
@@ -27,8 +27,8 @@
         <mat-form-field appearance="outline">
           <mat-label>Alerte de Stock</mat-label>
           <mat-select>
-            <mat-option value="one" (click)="refresh()">Tous les produits</mat-option>
-            <mat-option value="two" (click)="filtreStock()">En Rupture</mat-option>
+            <mat-option (click)="refresh()">Tous les produits</mat-option>
+            <mat-option (click)="filtreStock()">En Rupture</mat-option>
           </mat-select>
         </mat-form-field>
       </div>

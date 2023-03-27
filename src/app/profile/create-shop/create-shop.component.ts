@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
-import { IndexDBService } from 'src/app/index-db.service';
 import { HttpClientService } from 'src/app/services.service';
+import { IndexDBService } from 'src/app/index-db.service';
+import { AuthService } from 'src/app/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-shop',
@@ -54,8 +54,22 @@ export class CreateShopComponent implements OnInit
           "id" : this.currentSeller
       }
     };
-    this.httpService.postUrl(this.httpService.shopUrl  , this.body);
-    this.httpService.openSnackBar('Boutique créee avec succès','/profile');
+    this.httpService.create(this.httpService.shopUrl  , this.body).subscribe(
+      {
+        next : (value : any) =>
+        {
+          this.httpService.openSnackBar('Boutique créee avec succès','/profile');
+        },
+        error : (error : any) =>
+        {
+          console.log('Erreur au niveau de la page de création de boutique')
+        },
+        complete : () =>
+        {
+          console.log('Boutique créee avec succès')
+        }
+      }
+    );
   }
 
   ngOnInit(): void

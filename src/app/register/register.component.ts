@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit
 
   submitted()
   {
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+    this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
       boutiquier =>
       {
         this.nouveauBoutiquier = boutiquier.find((user : any) => user.email == this.registerForm.value.email);
@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit
             "telephone" : +this.registerForm.value.telephone,
             "adresse" : this.registerForm.value.adresse
           }
-          this.httpService.postUrl(this.httpService.boutiquierUrl, this.body);
+          this.httpService.create(this.httpService.boutiquierUrl, this.body).subscribe();
           this.httpService.openSnackBar('Inscription effectuée avec succès', 'login');
         }
         else

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { IndexDBService } from 'src/app/index-db.service';
 import { HttpClientService } from 'src/app/services.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class CreerCategorieComponent implements OnInit
   value: any;
   title !: string;
 
-  constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router,private navigate : ActivatedRoute) { }
+  constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router,private navigate : ActivatedRoute, private indexDBService : IndexDBService) { }
 
   retour()
   {
@@ -40,11 +41,25 @@ export class CreerCategorieComponent implements OnInit
             "couleur" : this.ajouterCategorie.value.couleur,
             "shop" :
             {
-              "id" : this.currentStore.id
+              "id" : this.currentStore
             }
           }
-          this.httpService.postUrl(this.httpService.categorieUrl,this.body);
-          this.httpService.openSnackBar('Catégorie enregistrée avec succès', 'categories');
+          this.httpService.create(this.httpService.categorieUrl,this.body).subscribe(
+            {
+              next: (value : any) =>
+              {
+                this.httpService.openSnackBar('Catégorie enregistrée avec succès', 'categories');
+              },
+              error: (error : any) =>
+              {
+                console.log("Une erreur s'est produite lors de l'ajout du produit");
+              },
+              complete: () =>
+              {
+                console.log('Ajout avec succès')
+              }
+            }
+          );
         }
         else
         {
@@ -55,17 +70,35 @@ export class CreerCategorieComponent implements OnInit
             "couleur" : this.ajouterCategorie.value.couleur,
             "shop" :
             {
-              "id" : this.currentStore.id
+              "id" : this.currentStore
             }
           }
-          this.httpService.putUrl(this.httpService.categorieUrl + '/' + (+this.link),this.body);
-          this.httpService.openSnackBar('Catégorie modifiée avec succès', 'categories');
+          this.httpService.update(this.httpService.categorieUrl, (+this.link) ,this.body).subscribe(
+            {
+              next: (value : any) =>
+              {
+                this.httpService.openSnackBar('Catégorie modifiée avec succès', 'categories');
+              },
+              error: (error : any) =>
+              {
+                console.log("Une erreur s'est produite lors de la modification du produit");
+              },
+              complete: () =>
+              {
+                console.log('Modification avec succès')
+              }
+            }
+          );
         }
       })
   }
   ngOnInit(): void
   {
-    this.currentStore = JSON.parse(localStorage.getItem('boutique') || '[]');
+    this.indexDBService.getData('currentShop').subscribe(
+      (data) =>
+      {
+        this.currentStore = data[0].boutique.id;
+      })
       this.navigate.paramMap.subscribe(a =>
         {
           this.link = a.get('id');
@@ -85,11 +118,10 @@ export class CreerCategorieComponent implements OnInit
           {
             this.title = "Modifier une catégorie";
             this.showMe = true;
-            this.httpService.getUrl(this.httpService.categorieUrl).subscribe(
+            this.httpService.getById(this.httpService.categorieUrl, +this.link).subscribe(
               (reponse) =>
               {
                 this.maCategorie = reponse;
-                this.maCategorie = this.httpService.getElementById(+this.link, this.maCategorie);
                 this.value = this.maCategorie.id;
                 this.ajouterCategorie.controls['nom'].setValue(this.maCategorie.nom);
                 this.ajouterCategorie.controls['description'].setValue(this.maCategorie.description);

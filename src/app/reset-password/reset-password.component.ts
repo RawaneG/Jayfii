@@ -26,7 +26,7 @@ export class ResetPasswordComponent implements OnInit
     }
     else
     {
-      this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+      this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
         observables =>
         {
           this.mySeller = observables.find((user : any) => user.email === this.resetForm.value.email)
@@ -40,7 +40,7 @@ export class ResetPasswordComponent implements OnInit
             {
               "refreshToken" : "string"
             }
-            this.httpService.patchUrl(this.httpService.boutiquierUrl + '/' + this.mySeller.id, this.body);
+            this.httpService.patch(this.httpService.boutiquierUrl, this.mySeller.id, this.body).subscribe();
             this.httpService.alert('Veuillez consulter votre adresse mail');
           }
         }
@@ -50,7 +50,7 @@ export class ResetPasswordComponent implements OnInit
 
   ngOnInit(): void
   {
-    this.httpService.getUrl(this.httpService.boutiquierUrl).subscribe(
+    this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
       observables =>
       {
         this.mesBoutiquiers = observables

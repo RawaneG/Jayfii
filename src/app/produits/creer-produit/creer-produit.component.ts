@@ -16,7 +16,7 @@ export class CreerProduitComponent implements OnInit
   compose !: boolean;
   requiredFile !: string;
   panelOpenState = false;
-  mesCategories : any;
+  mesCategories : any[] = [];
   ajouterProduit : any;
   body : any = {};
   url !: string | ArrayBuffer | null;
@@ -27,6 +27,7 @@ export class CreerProduitComponent implements OnInit
   composee !: any;
   currentStore: any;
   durationInSeconds = 5;
+  currentShop: any;
 
   constructor(private _snackBar: MatSnackBar, private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router, private navigate : ActivatedRoute, private indexDBService : IndexDBService) { }
 
@@ -90,8 +91,22 @@ export class CreerProduitComponent implements OnInit
               "id" : this.currentStore
             }
           }
-          this.httpService.postUrl(this.httpService.produitUrl,this.body);
-          this.httpService.openSnackBar('Article enregistrée avec succès','produits');
+          this.httpService.create(this.httpService.produitUrl,this.body).subscribe(
+            {
+              next: (value : any) =>
+              {
+                this.httpService.openSnackBar('Article enregistrée avec succès','produits');
+              },
+              error: (error : any) =>
+              {
+                console.log("Une erreur s'est produite lors de l'ajout du produit");
+              },
+              complete: () =>
+              {
+                console.log('Ajout avec succès')
+              }
+            }
+          )
         }
         else
         {
@@ -126,8 +141,22 @@ export class CreerProduitComponent implements OnInit
               "id" : this.currentStore
             }
           }
-          this.httpService.putUrl(this.httpService.produitUrl + '/' + (+this.link), this.body);
-          this.httpService.openSnackBar('Article modifiée avec succès','produits');
+          this.httpService.update(this.httpService.produitUrl, (+this.link), this.body).subscribe(
+            {
+              next: (value : any) =>
+              {
+                this.httpService.openSnackBar('Article modifiée avec succès','produits');
+              },
+              error: (error : any) =>
+              {
+                console.log("Une erreur s'est produite lors de l'ajout du produit");
+              },
+              complete: () =>
+              {
+                console.log('Ajout avec succès')
+              }
+            }
+          );
         }
       }
     )
@@ -137,20 +166,23 @@ export class CreerProduitComponent implements OnInit
     this.indexDBService.getData('currentShop').subscribe(
       (data) =>
       {
-        this.currentStore = data[0].boutique.id
+        this.currentStore = data[0].boutique.id;
+        this.httpService.getById(this.httpService.shopUrl, this.currentStore).subscribe(
+          boutique =>
+          {
+            this.currentShop = boutique;
+            boutique?.categories?.forEach((element: any) =>
+            {
+              element.etat == false ? this.mesCategories?.push(element) : null;
+            });
+          }
+        )
       },
       (error) =>
       {
         console.log('Erreur au niveau du composant produit')
       }
     )
-    this.httpService.getUrl(this.httpService.categorieUrl).subscribe
-    (
-      (reponse) =>
-      {
-        this.mesCategories = reponse;
-      }
-    );
     this.navigate.paramMap.subscribe(a =>
       {
         this.link = a.get('id');
@@ -175,23 +207,24 @@ export class CreerProduitComponent implements OnInit
         else
         {
           this.showMe = true;
-          this.httpService.getUrl(this.httpService.produitUrl).subscribe(
-            (reponse) =>
+          this.httpService.getById(this.httpService.produitUrl, +this.link).subscribe(
+            data =>
             {
-              this.monProduit = reponse;
+              this.monProduit = data;
+              this.url = 'data:image/png;base64,' + this.monProduit.image;
               this.value = this.monProduit.categorie[0].id;
-              this.ajouterProduit.controls.categorie.setValue(this.value);
               this.ajouterProduit.controls.nom.setValue(this.monProduit.nom);
-              this.ajouterProduit.controls.SKU.setValue(this.monProduit.SKU);
+              this.ajouterProduit.controls.description.setValue(this.monProduit.description);
+              this.ajouterProduit.controls.couleur.setValue(this.monProduit.couleur);
               this.ajouterProduit.controls.prix.setValue(this.monProduit.prix);
               this.ajouterProduit.controls.cout.setValue(this.monProduit.cout);
-              this.ajouterProduit.controls.limite.setValue(this.monProduit.limite);
-              this.ajouterProduit.controls.couleur.setValue(this.monProduit.couleur);
-              this.ajouterProduit.controls.compose.setValue(this.monProduit.compose);
-              this.monProduit = this.httpService.getElementById(+this.link, this.monProduit);
-              this.ajouterProduit.controls.description.setValue(this.monProduit.description);
               this.ajouterProduit.controls.quantiteEnStock.setValue(this.monProduit.quantiteEnStock);
-            });
+              this.ajouterProduit.controls.compose.setValue(this.monProduit.compose);
+              this.ajouterProduit.controls.SKU.setValue(this.monProduit.SKU);
+              this.ajouterProduit.controls.categorie.setValue(this.value);
+              this.ajouterProduit.controls.limite.setValue(this.monProduit.limite);
+            }
+          );
         }
       });
   }

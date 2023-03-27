@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth.service';
-import { IndexDBService } from 'src/app/index-db.service';
 import { HttpClientService } from 'src/app/services.service';
+import { IndexDBService } from 'src/app/index-db.service';
+import { FormBuilder, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-cashier',
@@ -41,8 +41,22 @@ export class CreateCashierComponent implements OnInit
         "id" : +this.cashierCreation.value.shop
       }
     };
-    this.httpService.postUrl(this.httpService.cashierUrl  , this.body);
-    this.httpService.openSnackBar('Caissier inscrit avec succès','/profile');
+    this.httpService.create(this.httpService.cashierUrl  , this.body).subscribe(
+      {
+        next : (value : any) =>
+        {
+          this.httpService.openSnackBar('Caissier inscrit avec succès','/profile');
+        },
+        error : (error : any) =>
+        {
+          console.log('Erreur au niveau de la page création de caissier')
+        },
+        complete : () =>
+        {
+          console.log('Caissier inscrit avec succès')
+        }
+      }
+    );
   }
   ngOnInit(): void
   {

@@ -51,10 +51,11 @@ import { CreateCashierComponent } from './profile/create-cashier/create-cashier.
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [
+  declarations:
+  [
     AppComponent,
     LoginComponent,
     RegisterComponent,
