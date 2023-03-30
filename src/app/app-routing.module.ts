@@ -1,19 +1,19 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { PosteDeVenteComponent } from './poste-de-vente/poste-de-vente.component';
-import { CreerCategorieComponent } from './categories/creer-categorie/creer-categorie.component';
-import { CreerProduitComponent } from './produits/creer-produit/creer-produit.component';
 import { ListeCategoriesComponent } from './categories/liste-categories/liste-categories.component';
+import { CreerCategorieComponent } from './categories/creer-categorie/creer-categorie.component';
 import { ListeProduitsComponent } from './produits/liste-produits/liste-produits.component';
-import { ProfileComponent } from './profile/profile.component';
-import { CreateShopComponent } from './profile/create-shop/create-shop.component';
-import { AdminComponent } from './admin/admin.component';
 import { CreateCashierComponent } from './profile/create-cashier/create-cashier.component';
 import { ConfirmPasswordComponent } from './confirm-password/confirm-password.component';
+import { CreerProduitComponent } from './produits/creer-produit/creer-produit.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { PosteDeVenteComponent } from './poste-de-vente/poste-de-vente.component';
+import { CreateShopComponent } from './profile/create-shop/create-shop.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
 
 const routes: Routes =
 [

@@ -12,7 +12,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class HttpClientService
 {
-  /**************************************** Mes APIS **********************************/
+  /* Mes APIS **************************************************************************************************/
   boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
   categorieUrl = 'https://127.0.0.1:8000/api/categories';
   commandeUrl = 'https://127.0.0.1:8000/api/commandes';
@@ -20,7 +20,7 @@ export class HttpClientService
   produitUrl = 'https://127.0.0.1:8000/api/produits';
   loginUrl = 'https://127.0.0.1:8000/api/login';
   shopUrl = 'https://127.0.0.1:8000/api/shops';
-  /**************************************** Mes attributs **********************************/
+  /* Mes attributs *********************************************************************************************/
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();
   mesCommandes : any[] = [];
@@ -35,34 +35,34 @@ export class HttpClientService
   user: any;
   data: any;
   id = 0;
-
+  /* Mon Constructeur ******************************************************************************************/
   constructor(
     private route: Router,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
     private indexDBService : IndexDBService) {}
-
-    getAll(url : string) : Observable<any>
-    {
-      return this.http.get(`${url}`);
-    }
-    getById(url : string, id: number) : Observable<any>
-    {
-      return this.http.get(`${url}/${id}`);
-    }
-    create(url : string, item: any) : Observable<any>
-    {
-      return this.http.post(`${url}`, item);
-    }
-    update(url : string, id : number, item: any) : Observable<any>
-    {
-      return this.http.put(`${url}/${id}`, item);
-    }
-    patch(url : string, id : number, item: any) : Observable<any>
-    {
-      return this.http.patch(`${url}/${id}`, item);
-    }
-  /************************************* Fonction de notification **********************************/
+  /* Mes Fonctions ********************************************************************************************/
+  getAll(url : string) : Observable<any>
+  {
+    return this.http.get(`${url}`);
+  }
+  getById(url : string, id: number) : Observable<any>
+  {
+    return this.http.get(`${url}/${id}`);
+  }
+  create(url : string, item: any) : Observable<any>
+  {
+    return this.http.post(`${url}`, item);
+  }
+  update(url : string, id : number, item: any) : Observable<any>
+  {
+    return this.http.put(`${url}/${id}`, item);
+  }
+  patch(url : string, id : number, item: any) : Observable<any>
+  {
+    return this.http.patch(`${url}/${id}`, item);
+  }
+  /* Notification **********************************************************************************************/
   alert(message : any)
   {
     let t = 2000;
@@ -71,7 +71,7 @@ export class HttpClientService
       duration : t
     });
   }
-  /**************************** Fonction de notification + redirection *******************************/
+  /* Fonction de notification + Redirection ********************************************************************/
   openSnackBar(message : any, navigation : string = '')
   {
     let t = 2000;
@@ -93,7 +93,7 @@ export class HttpClientService
       }, 2200);
     }
   }
-  /**************************************** Authentification ******** **************************/
+  /* Authentification ******************************************************************************************/
   login(body: any) {
     this.http.post(this.loginUrl, body).subscribe((token) =>
     {
@@ -154,7 +154,7 @@ export class HttpClientService
     })
     ;
   }
-  /**************************************** Obtenir le token d'authentification **************************/
+  /* Obtenir le token d'authentification ***********************************************************************/
   getDecodedAccessToken(token: string): any
   {
     try
@@ -164,7 +164,7 @@ export class HttpClientService
       return null;
     }
   }
-  /**************************************** Ajouter au panier ****** **********************************/
+  /* Ajouter au panier *****************************************************************************************/
   addToCart(productParam : any)
   {
     this.items$
@@ -188,9 +188,14 @@ export class HttpClientService
           });
         })
       )
-      .subscribe();
+      .subscribe(
+        {
+          next : () => null,
+          complete : () => console.log('complete')
+        }
+      );
   }
-  /**************************************** Incrémentation *************************************************/
+  /* Incrémentation ********************************************************************************************/
   increaseQuantity(element: any, counter : number)
   {
     this.items$

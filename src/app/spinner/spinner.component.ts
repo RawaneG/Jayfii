@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss']
 })
-export class SpinnerComponent {
+export class SpinnerComponent
+{
 
 }

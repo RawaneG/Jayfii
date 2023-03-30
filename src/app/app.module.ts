@@ -40,7 +40,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateShopComponent } from './profile/create-shop/create-shop.component';
-import { ListShopsComponent } from './profile/list-shops/list-shops.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule } from '@angular/forms';
@@ -69,7 +68,6 @@ import { MatDialogModule } from '@angular/material/dialog';
     PanierComponent,
     ProfileComponent,
     CreateShopComponent,
-    ListShopsComponent,
     ResetPasswordComponent,
     AdminComponent,
     CreateCashierComponent,

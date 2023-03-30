@@ -1,10 +1,9 @@
-
 import { Component, OnInit } from '@angular/core';
 
-@Component({
+@Component(
+{
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit
 {
@@ -12,7 +11,8 @@ export class AppComponent implements OnInit
 
   title = 'Jayfii';
 
-  ngOnInit() {
+  ngOnInit()
+  {
 
   }
 }

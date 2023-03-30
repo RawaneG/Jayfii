@@ -82,7 +82,8 @@
             {{ boutique?.adresse }}
           </p>
           <p class="card-text">
-            {{ boutique?.lienBoutique }}
+            <a class="color color-dark" href="{{ boutique?.lienBoutique }}" target="_blank">Page web de la
+              boutique</a>
           </p>
           <a (click)="switch(boutique); close()" class="btn btn-outline-dark">Choisir cette boutique</a>
         </div>

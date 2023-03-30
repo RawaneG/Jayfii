@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { HttpClientService } from '../services.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-register',
@@ -12,15 +10,10 @@ import { HttpClientService } from '../services.service';
 export class RegisterComponent implements OnInit
 {
   registerForm !: FormGroup;
-  body : any;
   nouveauBoutiquier: any;
+  body : any;
 
-  constructor(
-    private httpService : HttpClientService,
-    private serviceAuth : AuthService,
-    private formBuilder : FormBuilder,
-    private route : Router
-    ) { }
+  constructor( private httpService : HttpClientService, private formBuilder : FormBuilder) { }
 
   submitted()
   {
@@ -38,8 +31,12 @@ export class RegisterComponent implements OnInit
             "telephone" : +this.registerForm.value.telephone,
             "adresse" : this.registerForm.value.adresse
           }
-          this.httpService.create(this.httpService.boutiquierUrl, this.body).subscribe();
-          this.httpService.openSnackBar('Inscription effectuée avec succès', 'login');
+          this.httpService.create(this.httpService.boutiquierUrl, this.body).subscribe(
+            {
+              next : () => this.httpService.openSnackBar('Inscription effectuée avec succès', 'login'),
+              error : () => console.log("Erreur au niveau de la création de compte"),
+              complete : () => console.log("Completed"),
+            });
         }
         else
         {
@@ -48,17 +45,16 @@ export class RegisterComponent implements OnInit
       }
     );
   }
-
   ngOnInit(): void
   {
     this.registerForm  =  this.formBuilder.group(
       {
-        email: ['', Validators.required],
-        password: ['', Validators.required],
-        prenom: ['', Validators.required],
-        nom: ['', Validators.required],
         telephone: ['', Validators.required],
-        adresse: ['', Validators.required]
+        password: ['', Validators.required],
+        adresse: ['', Validators.required],
+        prenom: ['', Validators.required],
+        email: ['', Validators.required],
+        nom: ['', Validators.required],
       });
   }
 }

@@ -10,24 +10,22 @@ import { HttpClientService } from 'src/app/services.service';
 })
 export class ListeCategoriesComponent implements OnInit
 {
-  spin : boolean = true;
-  mesCategories : any = [];
-  pageSlice: any;
-  isSelected !: boolean;
   isChecked : any = 'decochee';
+  mesCategories : any = [];
+  spin : boolean = true;
+  isSelected !: boolean;
   currentStore: any;
   currentShop: any;
+  pageSlice: any;
   shopId: any;
+
   constructor(private httpService : HttpClientService, private indexDBService : IndexDBService) { }
 
   onPageChange(event : PageEvent)
   {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
-    if(endIndex > this.mesCategories.length)
-    {
-      endIndex = this.mesCategories.length;
-    }
+    endIndex > this.mesCategories.length ? endIndex = this.mesCategories.length : null;
     this.pageSlice = this.mesCategories.slice(startIndex, endIndex);
   }
   toTrash()
@@ -39,20 +37,10 @@ export class ListeCategoriesComponent implements OnInit
           element.etat = true;
           this.httpService.update(this.httpService.categorieUrl, element.id, element).subscribe(
             {
-              next : (value : any) =>
-              {
-                this.httpService.openSnackBar('Suppression effectuée avec succès');
-              },
-              error : (value : any) =>
-              {
-                console.log('Erreur au niveau de la liste des catégories')
-              },
-              complete : () =>
-              {
-                console.log('Suppression complete')
-              }
-            }
-          );
+              next : (value : any) => this.httpService.openSnackBar('Suppression effectuée avec succès'),
+              error : (value : any) => console.log('Erreur au niveau de la liste des catégories'),
+              complete : () => console.log('Suppression complete')
+            });
       });
     }
     else
@@ -62,49 +50,25 @@ export class ListeCategoriesComponent implements OnInit
           this.isChecked.etat = true;
           this.httpService.update(this.httpService.categorieUrl,(+this.isChecked.id), this.isChecked).subscribe(
             {
-              next : (value : any) =>
-              {
-                this.httpService.openSnackBar('Suppression effectuée avec succès');
-              },
-              error : (value : any) =>
-              {
-                console.log('Erreur au niveau de la liste des catégories')
-              },
-              complete : () =>
-              {
-                console.log('Suppression complete')
-              }
-            }
-          );
+              next : (value : any) => this.httpService.openSnackBar('Suppression effectuée avec succès'),
+              error : (value : any) => console.log('Erreur au niveau de la liste des catégories'),
+              complete : () => console.log('Suppression complete')
+            });
       }
     }
   }
   check(event : any)
   {
-    if(event.checked === true)
-    {
-      this.isSelected = true;
-    }
-    else
-    {
-      this.isSelected = false;
-    }
+    event.checked === true ? this.isSelected = true : this.isSelected = false;
   }
   coche(event : any, produit : any)
   {
-    if(event.checked == true)
-    {
-      this.isChecked = produit;
-    }
-    else
-    {
-      this.isChecked = 'decochee';
-    }
+    event.checked == true ? this.isChecked = produit : this.isChecked = 'decochee'
   }
   ngOnInit(): void
   {
     this.indexDBService.getData('currentShop').subscribe(
-      (data) =>
+      data =>
       {
         this.shopId = data.length > 0 ? data[0].boutique.id : [];
         this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
@@ -120,9 +84,6 @@ export class ListeCategoriesComponent implements OnInit
           }
         )
       },
-      (error) =>
-      {
-        console.log("Vous n'avez pas encore d'utilisateur " + error)
-      });
+      error => console.log("Vous n'avez pas encore d'utilisateur " + error));
   }
 }

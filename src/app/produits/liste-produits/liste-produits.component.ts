@@ -1,10 +1,10 @@
 import { HttpClientService } from 'src/app/services.service';
+import { IndexDBService } from 'src/app/index-db.service';
 import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-import { IndexDBService } from 'src/app/index-db.service';
 
 @Component(
   {
@@ -14,16 +14,16 @@ import { IndexDBService } from 'src/app/index-db.service';
   })
 export class ListeProduitsComponent implements OnInit
 {
-  spin : boolean = true;
-  panelOpenState = false;
-  mesProduits : any[] = [];
-  mesCategories : any[] = [];
-  pageSlice : any;
-  category : any;
-  isSelected !: boolean;
   isChecked : any = 'decochee';
+  mesCategories : any[] = [];
+  mesProduits : any[] = [];
+  panelOpenState = false;
+  spin : boolean = true;
+  isSelected !: boolean;
   currentStore: any;
   currentShop: any;
+  pageSlice : any;
+  category : any;
   shopId: any;
 
   constructor(private httpService : HttpClientService, public route : Router, public location: Location, public dialog: MatDialog, private indexDBService : IndexDBService) { }
@@ -32,19 +32,13 @@ export class ListeProduitsComponent implements OnInit
   {
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
-    if(endIndex > this.mesProduits.length)
-    {
-      endIndex = this.mesProduits.length;
-    }
+    endIndex > this.mesProduits.length ? endIndex = this.mesProduits.length : null;
     this.pageSlice = this.mesProduits.slice(startIndex, endIndex);
   }
   refresh()
   {
     this.mesProduits = [];
-    this.currentShop?.produit?.forEach((element: any) =>
-    {
-      element.etat == false ? this.mesProduits.push(element) : null;
-    });
+    this.currentShop?.produit?.forEach((element: any) => element.etat == false ? this.mesProduits.push(element) : null)
     this.category = null;
     this.pageSlice = this.mesProduits.slice(0 , 5);
   }
@@ -57,20 +51,10 @@ export class ListeProduitsComponent implements OnInit
         element.etat = true;
         this.httpService.update(this.httpService.produitUrl, element.id, element).subscribe(
           {
-            next : (value : any) =>
-            {
-              this.httpService.openSnackBar('Suppression effectuée avec succès');
-            },
-            error : (error : any) =>
-            {
-              console.log('Erreur au niveau de la suppression')
-            },
-            complete : () =>
-            {
-              console.log('Suppression bien effectuée')
-            }
-          }
-        );
+            next : () => this.httpService.openSnackBar('Suppression effectuée avec succès'),
+            error : () => console.log('Erreur au niveau de la suppression'),
+            complete : () => console.log('Suppression bien effectuée')
+          })
       });
     }
     else
@@ -80,44 +64,20 @@ export class ListeProduitsComponent implements OnInit
         this.isChecked.etat = true;
         this.httpService.update(this.httpService.produitUrl, (+this.isChecked.id), this.isChecked).subscribe(
           {
-            next : (value : any) =>
-            {
-              this.httpService.openSnackBar('Suppression effectuée avec succès');
-            },
-            error : (error : any) =>
-            {
-              console.log('Erreur au niveau de la suppression')
-            },
-            complete : () =>
-            {
-              console.log('Suppression bien effectuée')
-            }
-          }
-        );
+            next : () => this.httpService.openSnackBar('Suppression effectuée avec succès'),
+            error : () => console.log('Erreur au niveau de la suppression'),
+            complete : () => console.log('Suppression bien effectuée')
+          })
       }
     }
   }
   check(event : any)
   {
-    if(event.checked === true)
-    {
-      this.isSelected = true;
-    }
-    else
-    {
-      this.isSelected = false;
-    }
+    event.checked === true ? this.isSelected = true : this.isSelected = false
   }
   coche(event : any, produit : any)
   {
-    if(event.checked == true)
-    {
-      this.isChecked = produit;
-    }
-    else
-    {
-      this.isChecked = 'decochee';
-    }
+    event.checked == true ? this.isChecked = produit : this.isChecked = 'decochee'
   }
   selectCategorie(event : any)
   {
@@ -128,20 +88,14 @@ export class ListeProduitsComponent implements OnInit
     this.mesProduits = [];
     this.currentShop?.produit?.forEach((element: any) =>
     {
-      if(element.etat == false)
-      {
-        if(element.quantiteEnStock <= element.limite)
-        {
-          this.mesProduits.push(element);
-        }
-      }
+      element.etat == false ? (element.quantiteEnStock <= element.limite ? this.mesProduits.push(element) : null) : null;
       this.pageSlice = this.mesProduits ? this.mesProduits.slice(0 , 5) : null;
     });
   }
   ngOnInit(): void
   {
     this.indexDBService.getData('currentShop').subscribe(
-      (data) =>
+      data =>
       {
         this.shopId = data[0].boutique.id;
         this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
@@ -154,17 +108,9 @@ export class ListeProduitsComponent implements OnInit
               this.pageSlice = this.mesProduits ? this.mesProduits?.slice(0 , 5) : null;
               this.spin = false;
             });
-            boutique?.categories?.forEach((element: any) =>
-            {
-              element.etat == false ? this.mesCategories.push(element) : null;
-            });
-          }
-        )
+            boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories.push(element) : null)
+          })
       },
-      (error) =>
-      {
-        console.log("Vous n'avez pas encore d'utilisateur " + error)
-      });
+      error => console.log("Vous n'avez pas encore d'utilisateur " + error))
   }
-
 }

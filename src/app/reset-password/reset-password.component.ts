@@ -1,8 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { HttpClientService } from '../services.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-reset-password',
@@ -11,12 +9,12 @@ import { HttpClientService } from '../services.service';
 })
 export class ResetPasswordComponent implements OnInit
 {
-  mesBoutiquiers : any;
   resetForm !: FormGroup;
-  body : any;
+  mesBoutiquiers : any;
   mySeller: any;
+  body : any;
 
-  constructor(private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router) { }
+  constructor(private httpService : HttpClientService, private formBuilder : FormBuilder) { }
 
   reset()
   {
@@ -40,22 +38,19 @@ export class ResetPasswordComponent implements OnInit
             {
               "refreshToken" : "string"
             }
-            this.httpService.patch(this.httpService.boutiquierUrl, this.mySeller.id, this.body).subscribe();
-            this.httpService.alert('Veuillez consulter votre adresse mail');
+            this.httpService.patch(this.httpService.boutiquierUrl, this.mySeller.id, this.body).subscribe(
+              {
+                next : () => this.httpService.alert('Veuillez consulter votre adresse mail'),
+                error : () => console.log("Erreur au niveau du changement de mot de passe"),
+                complete : () => console.log("Completed"),
+              })
           }
-        }
-      )
+        })
     }
   }
-
   ngOnInit(): void
   {
-    this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
-      observables =>
-      {
-        this.mesBoutiquiers = observables
-      }
-    )
+    this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(observables => this.mesBoutiquiers = observables)
     this.resetForm  =  this.formBuilder.group(
       {
         email: ['', Validators.required]

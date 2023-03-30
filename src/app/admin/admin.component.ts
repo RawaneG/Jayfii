@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClientService } from '../services.service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-admin',
@@ -9,9 +8,10 @@ import { Location } from '@angular/common';
 })
 export class AdminComponent implements OnInit
 {
-  spin : boolean = true;
   boutiquiers : any = [];
+  spin : boolean = true;
   body !: {};
+
   constructor(private httpService : HttpClientService) {}
 
   activer(id : number)
@@ -20,8 +20,12 @@ export class AdminComponent implements OnInit
     {
       "status" : "Actif"
     }
-    this.httpService.update(this.httpService.boutiquierUrl, id, this.body).subscribe();
-    this.httpService.openSnackBar('Statut Modifié avec succès');
+    this.httpService.update(this.httpService.boutiquierUrl, id, this.body).subscribe(
+      {
+        next : () => this.httpService.openSnackBar('Statut Modifié avec succès'),
+        error : () => console.log('Erreur pendant la modification du statut'),
+        complete : () => console.log('Completed')
+      });
   }
   desactiver(id : number)
   {
@@ -29,10 +33,13 @@ export class AdminComponent implements OnInit
     {
       "status" : "Inactif"
     }
-    this.httpService.update(this.httpService.boutiquierUrl, id, this.body).subscribe();
-    this.httpService.openSnackBar('Statut Modifié avec succès');
+    this.httpService.update(this.httpService.boutiquierUrl, id, this.body).subscribe(
+      {
+        next : () => this.httpService.openSnackBar('Statut Modifié avec succès'),
+        error : () => console.log('Erreur pendant la modification du statut'),
+        complete : () => console.log('Completed')
+      });
   }
-
   ngOnInit(): void
   {
     this.httpService.getAll(this.httpService.boutiquierUrl).subscribe(
@@ -40,7 +47,6 @@ export class AdminComponent implements OnInit
       {
         this.boutiquiers = user;
         this.spin = false;
-      }
-    )
+      })
   }
 }

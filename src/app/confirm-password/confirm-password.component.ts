@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { HttpClientService } from '../services.service';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-confirm-password',
@@ -12,12 +11,12 @@ import { HttpClientService } from '../services.service';
 export class ConfirmPasswordComponent implements OnInit
 {
 
-  mesBoutiquiers : any;
   resetForm !: FormGroup;
-  body : any;
+  mesBoutiquiers : any;
   mySeller: any;
+  body : any;
 
-  constructor(private snap: ActivatedRoute, private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router) { }
+  constructor(private snap: ActivatedRoute, private httpService : HttpClientService, private formBuilder : FormBuilder) { }
 
   modifier()
   {
@@ -48,22 +47,27 @@ export class ConfirmPasswordComponent implements OnInit
                 }
                 else
                 {
-                  this.httpService.update(this.httpService.cashierUrl, path, this.body).subscribe();
-                  this.httpService.openSnackBar('Mot de passe modifié avec succès','login');
+                  this.httpService.update(this.httpService.cashierUrl, path, this.body).subscribe(
+                    {
+                      next : () => this.httpService.openSnackBar('Mot de passe modifié avec succès','login'),
+                      error : () => console.log("Erreur lors de la modification du mot de passe"),
+                      complete : () => console.log("Completed")
+                    });
                 }
-              }
-            )
+              })
           }
           else
           {
-            this.httpService.update(this.httpService.boutiquierUrl, path, this.body).subscribe();
-            this.httpService.openSnackBar('Mot de passe modifié avec succès','login');
+            this.httpService.update(this.httpService.boutiquierUrl, path, this.body).subscribe(
+              {
+                next : () => this.httpService.openSnackBar('Mot de passe modifié avec succès','login'),
+                error : () => console.log("Erreur lors de la modification du mot de passe"),
+                complete : () => console.log("Completed")
+              });
           }
-        }
-      )
+        })
     }
   }
-
   ngOnInit(): void
   {
     this.resetForm  =  this.formBuilder.group(

@@ -12,49 +12,46 @@ import { Observable } from 'rxjs';
 })
 export class PosteDeVenteComponent implements OnInit
 {
-  items$ !: Observable<any[]>;
-  data !: any[];
-  id = 0;
-  spin: boolean = true;
-  maQuantite: any;
-  ajoutee: any;
-  monPanier$ !: Observable<any>;
-  mesProduits: any[] = [];
-  monTotal: number = 0;
-  form !: FormGroup;
-  nomProduit = new FormControl('');
-  montant !: number;
-  reste: number = 0;
-  confirmer: boolean = false;
-  body: any;
-  tabCommandes: any = [];
-  intermediaire: any = [];
-  tabEntier: any = [];
   produit !: { quantiteEnStock: any; };
+  nomProduit = new FormControl('');
+  items$ !: Observable<any[]>;
+  confirmer: boolean = false;
+  public messaged !: string;
+  mesCategories: any[] = [];
+  mesCommandes: any[] = [];
+  mesProduits: any[] = [];
+  intermediaire: any = [];
+  tabCommandes: any = [];
+  monProduit: any[] = [];
+  monTotal: number = 0;
+  spin: boolean = true;
+  currentCashier: any;
+  tabEntier: any = [];
+  unfilteredProd: any;
+  monPanier !: any[];
+  currentSeller: any;
   receipt: any = [];
+  form !: FormGroup;
+  montant !: number;
   currentStore: any;
+  reste: number = 0;
   currentShop: any;
   currentUser: any;
-  currentCashier: any;
-  currentSeller: any;
-  product: any;
   search: any = '';
+  maQuantite: any;
+  data !: any[];
   category: any;
-  mesCategories: any[] = [];
-  unfilteredProd: any;
-  monProduit: any[] = [];
-  mesCommandes: any[] = [];
-  public messaged !: string;
+  product: any;
+  ajoutee: any;
+  body: any;
+  id = 0;
 
   constructor(
     private httpService: HttpClientService,
     private indexDBService: IndexDBService,
     private formBuilder: FormBuilder,
     public location: Location,
-  )
-  {
-
-  }
+  ) {}
 
   recherche()
   {
@@ -78,30 +75,26 @@ export class PosteDeVenteComponent implements OnInit
   close() {
     document.querySelector('.second-popup')?.classList.add('cache');
   }
-  messageRecu(event: any) {
+  messageRecu(event: any)
+  {
     this.monTotal = event;
   }
   getProduct()
   {
-    this.monPanier$.subscribe(
-      panier =>
+    this.monPanier.forEach((element : any) =>
+    {
+      this.intermediaire =
       {
-        panier.forEach((element : any) =>
+        "quantite": element.quantite,
+        "prix": element.prix,
+        "produit":
         {
-          this.intermediaire =
-          {
-            "quantite": element.quantite,
-            "prix": element.prix,
-            "produit":
-            {
-              "id": element.id,
-              "nom": element.nom
-            }
-          }
-          this.tabEntier.push(this.intermediaire);
-        });
+          "id": element.id,
+          "nom": element.nom
+        }
       }
-    )
+      this.tabEntier.push(this.intermediaire);
+    });
     return this.tabEntier;
   }
   confirmerPaiement()
@@ -212,39 +205,29 @@ export class PosteDeVenteComponent implements OnInit
   {
     this.monTotal = 0;
     this.indexDBService.clearData('panier');
+    this.httpService.items$.subscribe(
+      {
+        next : () => this.monPanier = [],
+        complete: () => console.log('complete')
+      }
+    )
   }
   panier(produit: any)
   {
     this.httpService.addToCart(produit)
-    this.monPanier$ = this.httpService.items$;
-    // this.httpService.items$.subscribe(
-    //   (data) =>
-    //   {
-    //     this.monPanier = data
-    //     this.monTotal += this.monPanier ? this.monPanier[this.monPanier.length - 1].prix : 0
-    //   }
-    // )
-    // this.indexDBService.getData('panier').subscribe((data) =>
-    // {
-    //   this.monPanier = data[0].panier;
-    //   this.monTotal += this.monPanier ? this.monPanier[this.monPanier.length - 1].prix : 0;
-    // });
+    this.httpService.items$.subscribe(
+      data => this.monPanier = data
+    );
   }
   selectCategorie(event: any)
   {
-    this.category = event.nom;
+    event === 'vide' ? this.category = null : this.category = event.nom;
   }
   ngOnInit(): void
   {
     this.indexDBService.getData('currentUser').subscribe(
-      (data) =>
-      {
-        this.currentUser = data.length > 0 ? data[0].user.id : [];
-      },
-      (error) =>
-      {
-        console.log("Erreur au niveau de l'obtention de l'utilisateur")
-      }
+      (data) => this.currentUser = data.length > 0 ? data[0].user.id : [],
+      (error) => console.log("Erreur au niveau de l'obtention de l'utilisateur")
     )
     this.indexDBService.getData('currentShop').subscribe(
       (data) =>
@@ -254,14 +237,8 @@ export class PosteDeVenteComponent implements OnInit
           boutique =>
           {
             this.currentShop = boutique;
-            boutique?.produit?.forEach((element: any) =>
-            {
-              element.etat == false ? this.mesProduits?.push(element) : null;
-            });
-            boutique?.categories?.forEach((element: any) =>
-            {
-              element.etat == false ? this.mesCategories?.push(element) : null;
-            });
+            boutique?.produit?.forEach((element: any) => element.etat == false ? this.mesProduits?.push(element) : null);
+            boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories?.push(element) : null);
             this.spin = false;
           }
         )

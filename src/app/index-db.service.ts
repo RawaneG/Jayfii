@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { Observable, fromEvent } from 'rxjs';
+import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 @Injectable(
@@ -8,12 +8,12 @@ import { map } from 'rxjs/operators';
 })
 export class IndexDBService
 {
-  private db!: IDBDatabase;
-  private dbName = 'Jayfii';
-  private currentUser = 'currentUser';
-  private currentShop = 'currentShop';
   private currentSellings = 'currentSellings';
+  private currentShop = 'currentShop';
+  private currentUser = 'currentUser';
+  private dbName = 'Jayfii';
   private panier = 'panier';
+  private db!: IDBDatabase;
 
   constructor()
   {
@@ -24,10 +24,7 @@ export class IndexDBService
   {
     let request = window.indexedDB.open(this.dbName, 1);
     const objectStoreNames = [this.currentUser, this.currentShop, this.panier, this.currentSellings];
-    request.onerror = (event: any) =>
-    {
-      'Database error: ' + event.target.errorCode;
-    };
+    request.onerror = (event: any) => 'Database error: ' + event.target.errorCode;
     request.onupgradeneeded = (event: any) =>
     {
       this.db = event.target.result;
@@ -36,10 +33,7 @@ export class IndexDBService
         this.db.createObjectStore(objectStoreName, { keyPath: 'id' });
       }
     };
-    request.onsuccess = (event: any) =>
-    {
-      this.db = event.target.result;
-    };
+    request.onsuccess = (event: any) => this.db = event.target.result;
   }
 
   getData(storeName : any): Observable<any[]>

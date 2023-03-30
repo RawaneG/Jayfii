@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IndexDBService } from 'src/app/index-db.service';
+import { FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import { HttpClientService } from 'src/app/services.service';
+import { IndexDBService } from 'src/app/index-db.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-creer-categorie',
@@ -13,15 +13,15 @@ import { HttpClientService } from 'src/app/services.service';
 export class CreerCategorieComponent implements OnInit
 {
   ajouterCategorie : FormGroup = new FormGroup({});
-  body : any = {};
   currentStore: any;
-  link !: any;
   showMe !: boolean;
   maCategorie: any;
-  value: any;
+  body : any = {};
   title !: string;
+  link !: any;
+  value: any;
 
-  constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route:Router,private navigate : ActivatedRoute, private indexDBService : IndexDBService) { }
+  constructor(private formBuilder : FormBuilder, private httpService : HttpClientService, private route : Router,private navigate : ActivatedRoute, private indexDBService : IndexDBService) { }
 
   retour()
   {
@@ -46,20 +46,10 @@ export class CreerCategorieComponent implements OnInit
           }
           this.httpService.create(this.httpService.categorieUrl,this.body).subscribe(
             {
-              next: (value : any) =>
-              {
-                this.httpService.openSnackBar('Catégorie enregistrée avec succès', 'categories');
-              },
-              error: (error : any) =>
-              {
-                console.log("Une erreur s'est produite lors de l'ajout du produit");
-              },
-              complete: () =>
-              {
-                console.log('Ajout avec succès')
-              }
-            }
-          );
+              next: (value : any) => this.httpService.openSnackBar('Catégorie enregistrée avec succès', 'categories'),
+              error: (error : any) => console.log("Une erreur s'est produite lors de l'ajout du produit"),
+              complete: () => console.log('Ajout avec succès')
+            });
         }
         else
         {
@@ -75,30 +65,16 @@ export class CreerCategorieComponent implements OnInit
           }
           this.httpService.update(this.httpService.categorieUrl, (+this.link) ,this.body).subscribe(
             {
-              next: (value : any) =>
-              {
-                this.httpService.openSnackBar('Catégorie modifiée avec succès', 'categories');
-              },
-              error: (error : any) =>
-              {
-                console.log("Une erreur s'est produite lors de la modification du produit");
-              },
-              complete: () =>
-              {
-                console.log('Modification avec succès')
-              }
-            }
-          );
+              next: (value : any) => this.httpService.openSnackBar('Catégorie modifiée avec succès', 'categories'),
+              error: (error : any) => console.log("Une erreur s'est produite lors de la modification du produit"),
+              complete: () => console.log('Modification avec succès')
+            });
         }
       })
   }
   ngOnInit(): void
   {
-    this.indexDBService.getData('currentShop').subscribe(
-      (data) =>
-      {
-        this.currentStore = data[0].boutique.id;
-      })
+      this.indexDBService.getData('currentShop').subscribe((data) => this.currentStore = data[0].boutique.id)
       this.navigate.paramMap.subscribe(a =>
         {
           this.link = a.get('id');
@@ -106,8 +82,8 @@ export class CreerCategorieComponent implements OnInit
           this.ajouterCategorie = this.formBuilder.group(
             {
               'nom' : new FormControl(""),
+              "couleur" : new FormControl(""),
               'description' : new FormControl(""),
-              "couleur" : new FormControl("")
             })
           if(this.link === null)
           {
@@ -116,16 +92,16 @@ export class CreerCategorieComponent implements OnInit
           }
           else
           {
-            this.title = "Modifier une catégorie";
             this.showMe = true;
+            this.title = "Modifier une catégorie";
             this.httpService.getById(this.httpService.categorieUrl, +this.link).subscribe(
               (reponse) =>
               {
                 this.maCategorie = reponse;
                 this.value = this.maCategorie.id;
                 this.ajouterCategorie.controls['nom'].setValue(this.maCategorie.nom);
-                this.ajouterCategorie.controls['description'].setValue(this.maCategorie.description);
                 this.ajouterCategorie.controls['couleur'].setValue(this.maCategorie.couleur);
+                this.ajouterCategorie.controls['description'].setValue(this.maCategorie.description);
               });
           }
         });

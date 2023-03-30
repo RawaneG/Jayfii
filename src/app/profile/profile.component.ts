@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
 import { IndexDBService } from '../index-db.service';
-import { HttpClientService } from '../services.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile',
@@ -19,29 +16,25 @@ export class ProfileComponent implements OnInit
   shops: any;
   currentStore: any;
 
-  constructor( private httpService : HttpClientService, private serviceAuth : AuthService, private formBuilder : FormBuilder, private route : Router, private indexDBService : IndexDBService ) { }
+  constructor(private formBuilder : FormBuilder, private indexDBService : IndexDBService ) { }
 
   ngOnInit(): void
   {
-    this.spin = false;
     this.indexDBService.getData('currentUser').subscribe(
-      (data) =>
+      data =>
       {
         this.currentSeller = data[0].user
         this.shops = data[0].user.shop
+        this.spin = false
       },
-      (error) =>
-      {
-        console.log("Erreur au niveau du composant profil" + error)
-      })
+      error => console.log("Erreur au niveau du composant profil" + error))
 
     this.shopCreation  =  this.formBuilder.group(
       {
-        nom: ['', Validators.required],
-        link: ['', Validators.required],
         adresse: ['', Validators.required],
         image: ['', Validators.required],
+        link: ['', Validators.required],
+        nom: ['', Validators.required],
       });
   }
-
 }
