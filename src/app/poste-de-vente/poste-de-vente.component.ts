@@ -10,8 +10,7 @@ import { Observable } from 'rxjs';
   templateUrl: './poste-de-vente.component.html',
   styleUrls: ['./poste-de-vente.component.scss']
 })
-export class PosteDeVenteComponent implements OnInit
-{
+export class PosteDeVenteComponent implements OnInit {
   produit !: { quantiteEnStock: any; };
   nomProduit = new FormControl('');
   items$ !: Observable<any[]>;
@@ -51,15 +50,13 @@ export class PosteDeVenteComponent implements OnInit
     private indexDBService: IndexDBService,
     private formBuilder: FormBuilder,
     public location: Location,
-  ) {}
+  ) { }
 
-  recherche()
-  {
+  recherche() {
     this.mesProduits = [];
     this.search = this.nomProduit.value;
     this.unfilteredProd = this.currentShop.produit.filter((item: any) => item.nom.toLowerCase().includes(this.search.toLowerCase()));
-    this.unfilteredProd.forEach((element: any) =>
-    {
+    this.unfilteredProd.forEach((element: any) => {
       element.etat == false ? this.mesProduits?.push(element) : null;
     });
   }
@@ -75,14 +72,11 @@ export class PosteDeVenteComponent implements OnInit
   close() {
     document.querySelector('.second-popup')?.classList.add('cache');
   }
-  messageRecu(event: any)
-  {
+  messageRecu(event: any) {
     this.monTotal = event;
   }
-  getProduct()
-  {
-    this.monPanier.forEach((element : any) =>
-    {
+  getProduct() {
+    this.monPanier.forEach((element: any) => {
       this.intermediaire =
       {
         "quantite": element.quantite,
@@ -97,16 +91,12 @@ export class PosteDeVenteComponent implements OnInit
     });
     return this.tabEntier;
   }
-  confirmerPaiement()
-  {
-    if (this.monTotal == 0)
-    {
+  confirmerPaiement() {
+    if (this.monTotal == 0) {
       this.httpService.alert("Veuillez selectionner au moins un produit");
     }
-    else
-    {
-      if (this.currentCashier == undefined)
-      {
+    else {
+      if (this.currentCashier == undefined) {
         this.body =
         {
           "prixCommande": this.monTotal,
@@ -155,87 +145,65 @@ export class PosteDeVenteComponent implements OnInit
       // }
       this.httpService.create(this.httpService.commandeUrl, this.body).subscribe(
         {
-          error : (error : any) =>
-          {
-            console.log("Il y'a erreur au niveau de l'ajout de commande'")
-          },
-          complete : () =>
-          {
-            console.log("Commande ajoutée avec succès")
-          }
+          error: () => console.log("Il y'a erreur au niveau de l'ajout de commande'"),
+          complete: () => console.log("Commande ajoutée avec succès")
         }
       );
-      this.mesProduits.forEach((element: any) =>
-      {
+      this.mesProduits.forEach((element: any) => {
         this.produit =
         {
           "quantiteEnStock": element.quantiteEnStock
         }
-        this.httpService.update(this.httpService.produitUrl,element.id,this.produit).subscribe(
+        this.httpService.update(this.httpService.produitUrl, element.id, this.produit).subscribe(
           {
-            error : (error : any) =>
-            {
-              console.log("Il y'a erreur au niveau de la vente")
-            },
-            complete : () =>
-            {
+            error: () => console.log("Il y'a erreur au niveau de la vente"),
+            complete: () => {
               this.closeAll();
               this.ferme();
             }
           }
-          );
+        );
         this.httpService.openSnackBar('Vente effectuée avec succès');
       })
     }
   }
   ecriture() {
     this.montant = +this.form.controls['montant'].value;
-    if (this.montant >= this.monTotal && !isNaN(this.montant))
-    {
+    if (this.montant >= this.monTotal && !isNaN(this.montant)) {
       this.reste = this.montant - this.monTotal;
       this.confirmer = true;
     }
-    else
-    {
+    else {
       this.reste = 0;
       this.confirmer = false;
     }
   }
-  closeAll()
-  {
+  closeAll() {
     this.monTotal = 0;
     this.indexDBService.clearData('panier');
     this.httpService.items$.subscribe(
       {
-        next : () => this.monPanier = [],
-        complete: () => console.log('complete')
-      }
-    )
+        next: () => this.httpService.openSnackBar('Panier vidé avec succès'),
+        complete: () => console.log("Completed")
+      })
   }
-  panier(produit: any)
-  {
+  panier(produit: any) {
     this.httpService.addToCart(produit)
-    this.httpService.items$.subscribe(
-      data => this.monPanier = data
-    );
+    this.httpService.items$.subscribe(data => this.monPanier = data);
   }
-  selectCategorie(event: any)
-  {
+  selectCategorie(event: any) {
     event === 'vide' ? this.category = null : this.category = event.nom;
   }
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.indexDBService.getData('currentUser').subscribe(
       (data) => this.currentUser = data.length > 0 ? data[0].user.id : [],
       (error) => console.log("Erreur au niveau de l'obtention de l'utilisateur")
     )
     this.indexDBService.getData('currentShop').subscribe(
-      (data) =>
-      {
+      (data) => {
         this.currentStore = data.length > 0 ? data[0].boutique.id : [];
         this.httpService.getById(this.httpService.shopUrl, this.currentStore).subscribe(
-          boutique =>
-          {
+          boutique => {
             this.currentShop = boutique;
             boutique?.produit?.forEach((element: any) => element.etat == false ? this.mesProduits?.push(element) : null);
             boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories?.push(element) : null);
@@ -243,13 +211,12 @@ export class PosteDeVenteComponent implements OnInit
           }
         )
       },
-      (error) =>
-      {
+      (error) => {
         console.log("Erreur au niveau de l'obtention de la boutique " + error)
       });
     this.form = this.formBuilder.group(
-    {
-      montant: [""]
-    });
+      {
+        montant: [""]
+      });
   }
 }

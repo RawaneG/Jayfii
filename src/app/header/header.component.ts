@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientService } from '../services.service';
 import { IndexDBService } from '../index-db.service';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Location } from '@angular/common';
 
@@ -10,35 +10,32 @@ import { Location } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit
-{
+export class HeaderComponent implements OnInit {
   currentUser: any = {};
   currentSeller: any;
   shops: any[] = [];
   currentStore: any;
   boutiquierId: any;
-  id : number = 0;
+  id: number = 0;
   monRole: any;
 
   constructor(
-    private httpService : HttpClientService,
-    private indexDBService : IndexDBService,
-    private router : ActivatedRoute ,
-    private service : AuthService,
+    private httpService: HttpClientService,
+    private indexDBService: IndexDBService,
+    private router: ActivatedRoute,
+    private service: AuthService,
     public location: Location,
-    public route : Router,
-    ) {}
+    public route: Router,
+  ) { }
 
-  refresh() : void
-  {
+  refresh(): void {
     let currentUrl = this.route.url;
-    this.route.navigateByUrl('/', {skipLocationChange: true}).then(() => this.route.navigate([currentUrl]));
+    this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => this.route.navigate([currentUrl]));
   }
-  switch(shop : any)
-  {
+  switch(shop: any) {
     this.indexDBService.clearData('currentShop');
     this.indexDBService.clearData('panier');
-    this.indexDBService.addData({id : this.id, boutique : shop}, 'currentShop').subscribe(
+    this.indexDBService.addData({ id: this.id, boutique: shop }, 'currentShop').subscribe(
       {
         next: () => this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès'),
         error: () => console.log("Erreur au niveau de l'ajout de la boutique"),
@@ -46,37 +43,30 @@ export class HeaderComponent implements OnInit
       }
     );
   }
-  link(event : any)
-  {
+  link(event: any) {
     const allItems = document.querySelectorAll(".nav__item");
     allItems.forEach(element => element.classList.remove('active'));
     const daItem = document.querySelector(event);
     daItem.classList.add('active');
   }
-  open()
-  {
+  open() {
     document.querySelector('.popup-container')?.classList.remove('hidden');
   }
-  close()
-  {
+  close() {
     document.querySelector('.popup-container')?.classList.add('hidden');
   }
-  deconnexion()
-  {
+  deconnexion() {
     this.service.deconnecter();
   }
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.indexDBService.getData('currentUser').subscribe(
-      data =>
-      {
+      data => {
         this.boutiquierId = data.length > 0 ? data[0].user.id : [];
         this.monRole = data.length > 0 ? data[0].user.roles[0] : [];
-        this.httpService.getAll(this.httpService.shopUrl).subscribe(data => data.forEach((element : any) => element.boutiquier.id === this.boutiquierId ? this.shops.push(element) : null))
+        this.httpService.getAll(this.httpService.shopUrl).subscribe(data => data.forEach((element: any) => element.boutiquier.id === this.boutiquierId ? this.shops.push(element) : null))
       },
       error => console.log("Vous n'avez pas encore d'utilisateur " + error)
     );
-
     const allItems = document.querySelectorAll(".nav__item");
     allItems.forEach(element => element.classList.remove('active'));
     const path = this.router.snapshot.routeConfig?.path;

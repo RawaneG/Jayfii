@@ -7,23 +7,24 @@ import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 
 @Injectable(
-{
-  providedIn: 'root',
-})
-export class HttpClientService
-{
+  {
+    providedIn: 'root',
+  })
+export class HttpClientService {
   /* Mes APIS **************************************************************************************************/
   boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
   categorieUrl = 'https://127.0.0.1:8000/api/categories';
   commandeUrl = 'https://127.0.0.1:8000/api/commandes';
   cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
+  removeBgUrl = 'https://api.remove.bg/v1.0/removebg';
   produitUrl = 'https://127.0.0.1:8000/api/produits';
   loginUrl = 'https://127.0.0.1:8000/api/login';
   shopUrl = 'https://127.0.0.1:8000/api/shops';
+  removeBgKey = 'jBWxNa19KS49dmpcL38ibg6x';
   /* Mes attributs *********************************************************************************************/
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();
-  mesCommandes : any[] = [];
+  mesCommandes: any[] = [];
   monTotalService: any = 0;
   quantite: number = 1;
   indexProd !: number;
@@ -40,86 +41,73 @@ export class HttpClientService
     private route: Router,
     private http: HttpClient,
     private _snackBar: MatSnackBar,
-    private indexDBService : IndexDBService) {}
+    private indexDBService: IndexDBService) { }
   /* Mes Fonctions ********************************************************************************************/
-  getAll(url : string) : Observable<any>
-  {
+  getAll(url: string): Observable<any> {
     return this.http.get(`${url}`);
   }
-  getById(url : string, id: number) : Observable<any>
-  {
+  getById(url: string, id: number): Observable<any> {
     return this.http.get(`${url}/${id}`);
   }
-  create(url : string, item: any) : Observable<any>
-  {
+  create(url: string, item: any): Observable<any> {
     return this.http.post(`${url}`, item);
   }
-  update(url : string, id : number, item: any) : Observable<any>
-  {
+  update(url: string, id: number, item: any): Observable<any> {
     return this.http.put(`${url}/${id}`, item);
   }
-  patch(url : string, id : number, item: any) : Observable<any>
-  {
+  patch(url: string, id: number, item: any): Observable<any> {
     return this.http.patch(`${url}/${id}`, item);
   }
   /* Notification **********************************************************************************************/
-  alert(message : any)
-  {
+  alert(message: any) {
     let t = 2000;
     this._snackBar.open(message, '',
-    {
-      duration : t
-    });
+      {
+        duration: t
+      });
   }
   /* Fonction de notification + Redirection ********************************************************************/
-  openSnackBar(message : any, navigation : string = '')
-  {
+  openSnackBar(message: any, navigation: string = '') {
     let t = 2000;
     this._snackBar.open(message, '',
-    {
-      duration : t
-    });
-    if(navigation == '')
-    {
+      {
+        duration: t
+      });
+    if (navigation == '') {
       setTimeout(() => {
         location.reload()
       }, 2200)
     }
-    else
-    {
-      setTimeout(() =>
-      {
+    else {
+      setTimeout(() => {
         this.route.navigateByUrl(navigation);
       }, 2200);
     }
   }
   /* Authentification ******************************************************************************************/
   login(body: any) {
-    this.http.post(this.loginUrl, body).subscribe((token) =>
-    {
+    this.http.post(this.loginUrl, body).subscribe((token) => {
       this.myUser = this.getDecodedAccessToken(JSON.stringify(token));
-      if (this.myUser != undefined)
-      {
-        if(this.myUser?.roles[0] == 'ROLE_BOUTIQUIER' || this.myUser?.roles[0] == 'ROLE_ADMIN')
-        {
+      if (this.myUser != undefined) {
+        if (this.myUser?.roles[0] == 'ROLE_BOUTIQUIER' || this.myUser?.roles[0] == 'ROLE_ADMIN') {
           this.getAll(this.boutiquierUrl)
-          .subscribe(
-            boutiquier =>
-            {
-              let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
-              if(monBoutiquier != undefined)
-              {
-                if(monBoutiquier.status == "Actif")
-                {
-                  this.indexDBService.addData({ id : this.id, user : monBoutiquier } , 'currentUser');
-                  this.openSnackBar('Connexion réussie','poc');
+            .subscribe(
+              boutiquier => {
+                let monBoutiquier = boutiquier.find((user: any) => user.email === this.myUser.username);
+                if (monBoutiquier != undefined) {
+                  if (monBoutiquier.status == "Actif") {
+                    this.indexDBService.addData({ id: this.id, user: monBoutiquier }, 'currentUser').subscribe(
+                      {
+                        next: () => this.openSnackBar('Connexion réussie', 'poc'),
+                        error: () => console.log("Erreur lors de la connexion"),
+                        complete: () => console.log("Completed")
+                      });
+                  }
+                  else {
+                    this.openSnackBar('Connexion non autorisée');
+                  }
                 }
-                else
-                {
-                  this.openSnackBar('Connexion non autorisée');
-                }
-              }
-            })
+              })
         }
         // else
         // {
@@ -140,71 +128,64 @@ export class HttpClientService
         //     })
         // }
       }
-      else
-      {
+      else {
         this.openSnackBar('Connexion non autorisée');
       }
     },
-    (error) =>
-    {
-      if(error.status === 401)
-      {
-        this.openSnackBar('Votre email ou mot de passe est incorrect');
-      }
-    })
-    ;
+      error => error.status === 401 ? this.openSnackBar('Votre email ou mot de passe est incorrect') : null)
   }
   /* Obtenir le token d'authentification ***********************************************************************/
-  getDecodedAccessToken(token: string): any
-  {
-    try
-    {
+  getDecodedAccessToken(token: string): any {
+    try {
       return jwt_decode(token);
     } catch (Error) {
       return null;
     }
   }
   /* Ajouter au panier *****************************************************************************************/
-  addToCart(productParam : any)
-  {
+  addToCart(productParam: any) {
     this.items$
       .pipe(
         take(1),
-        map((productsParam) =>
-        {
+        map((productsParam) => {
           productParam.quantite = 1;
           productParam.quantiteEnStock--;
           productsParam.push(productParam);
-          this.indexDBService.putData({ id : this.id, panier : productsParam } , 'panier').subscribe(
+          this.indexDBService.putData({ id: this.id, panier: productsParam }, 'panier').subscribe(
             {
-              next : (value : any) =>
-              {
-                this.alert('Produit ajouté au panier avec succès')
-              },
-              complete : () =>
-              {
-                console.log("Ajout au panier complet")
-              }
-          });
+              next: () => this.alert('Produit ajouté au panier avec succès'),
+              complete: () => console.log("Ajout au panier complet")
+            });
         })
       )
       .subscribe(
         {
-          next : () => null,
-          complete : () => console.log('complete')
+          next: () => null,
+          complete: () => console.log('complete')
         }
       );
   }
   /* Incrémentation ********************************************************************************************/
-  increaseQuantity(element: any, counter : number)
-  {
+  increaseQuantity(element: any, counter: number) {
     this.items$
       .pipe(
-        take(1),
-        map((productsParam) =>
-        {
-        })
+        map((productsParam) => console.log())
       )
-      .subscribe();
+      .subscribe(
+        {
+          next: () => null,
+          complete: () => console.log('complete')
+        }
+      );
+  }
+  /* Remove background *********************************************************************************/
+  removeBackground(imageData: string) {
+    const apiKey = this.removeBgKey;
+    const options = {
+      headers: { 'X-Api-Key': apiKey },
+      responseType: 'blob' as const
+    };
+    const data = { image_file_b64: imageData };
+    return this.http.post('https://api.remove.bg/v1.0/removebg', data, options);
   }
 }

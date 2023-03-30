@@ -94,7 +94,7 @@
               <p>Importer une image</p>
             </label>
             <div class="border border-dark my-5 p-2 rounded shadow p-3 mb-5 bg-white" *ngIf="url">
-              <img src="{{url}}" width="100px" height="100px">
+              <img [src]="resultSrc ? resultSrc : url" width="100px" height="100px">
             </div>
           </div>
           <input id="image" class="input" type="file" name="upload" class="image" (change)="readUrl($event)" />
