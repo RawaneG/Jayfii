@@ -32,6 +32,9 @@
             <span>Image de votre boutique</span>
             <i class="fas fa-facebook"></i>
           </div>
+          <div class="border border-dark my-5 p1 rounded shadow p-3 mb-5 w-50 mx-auto" *ngIf="url">
+            <img src="{{url}}" width="100px" height="100px">
+          </div>
           <div class="inputBx">
             <input type="button" class="submit" value="Annuler" (click)="retour()" />
             <input type="submit" value="Enregistrer" />

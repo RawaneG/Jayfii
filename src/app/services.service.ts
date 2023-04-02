@@ -1,4 +1,4 @@
-import { BehaviorSubject, map, Observable, take } from 'rxjs';
+import { BehaviorSubject, filter, map, Observable, take, tap } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IndexDBService } from './index-db.service';
 import { HttpClient } from '@angular/common/http';
@@ -132,7 +132,7 @@ export class HttpClientService {
         this.openSnackBar('Connexion non autorisée');
       }
     },
-      error => error.status === 401 ? this.openSnackBar('Votre email ou mot de passe est incorrect') : null)
+      error => error.status === 401 ? this.openSnackBar('Email ou mot de passe incorrect') : null)
   }
   /* Obtenir le token d'authentification ***********************************************************************/
   getDecodedAccessToken(token: string): any {
@@ -157,19 +157,6 @@ export class HttpClientService {
               complete: () => console.log("Ajout au panier complet")
             });
         })
-      )
-      .subscribe(
-        {
-          next: () => null,
-          complete: () => console.log('complete')
-        }
-      );
-  }
-  /* Incrémentation ********************************************************************************************/
-  increaseQuantity(element: any, counter: number) {
-    this.items$
-      .pipe(
-        map((productsParam) => console.log())
       )
       .subscribe(
         {

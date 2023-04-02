@@ -3,7 +3,7 @@ import { HttpClientService } from '../services.service';
 import { IndexDBService } from '../index-db.service';
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-poste-de-vente',
@@ -150,6 +150,7 @@ export class PosteDeVenteComponent implements OnInit {
         }
       );
       this.mesProduits.forEach((element: any) => {
+        element.quantiteStockTemp ? element.quantiteEnStock = element.quantiteStockTemp : null
         this.produit =
         {
           "quantiteEnStock": element.quantiteEnStock
@@ -188,7 +189,18 @@ export class PosteDeVenteComponent implements OnInit {
       })
   }
   panier(produit: any) {
-    this.httpService.addToCart(produit)
+    this.httpService.items$.pipe(
+      map((mesProduits) => {
+        let ajout = mesProduits.find(monProduit => monProduit == produit);
+        ajout === undefined ? this.httpService.addToCart(produit) : this.httpService.openSnackBar(`Ce produit est déjà dans le panier`, "poc");
+      })
+    ).subscribe(
+      {
+        next: () => null,
+        error: () => console.log(`Erreur lors de l'ajout au panier`),
+        complete: () => console.log(`Ajout au panier avec succès`)
+      }
+    )
     this.httpService.items$.subscribe(data => this.monPanier = data);
   }
   selectCategorie(event: any) {
@@ -201,15 +213,20 @@ export class PosteDeVenteComponent implements OnInit {
     )
     this.indexDBService.getData('currentShop').subscribe(
       (data) => {
-        this.currentStore = data.length > 0 ? data[0].boutique.id : [];
-        this.httpService.getById(this.httpService.shopUrl, this.currentStore).subscribe(
-          boutique => {
-            this.currentShop = boutique;
-            boutique?.produit?.forEach((element: any) => element.etat == false ? this.mesProduits?.push(element) : null);
-            boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories?.push(element) : null);
-            this.spin = false;
-          }
-        )
+        this.currentStore = data[0]?.boutique?.id;
+        if (this.currentStore === undefined) {
+          this.spin = false;
+        }
+        else {
+          this.httpService.getById(this.httpService.shopUrl, this.currentStore).subscribe(
+            boutique => {
+              this.currentShop = boutique;
+              boutique?.produit?.forEach((element: any) => element.etat == false ? this.mesProduits?.push(element) : null);
+              boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories?.push(element) : null);
+              this.spin = false;
+            }
+          )
+        }
       },
       (error) => {
         console.log("Erreur au niveau de l'obtention de la boutique " + error)

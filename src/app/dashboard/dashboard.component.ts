@@ -117,87 +117,92 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.indexDBService.getData('currentShop').subscribe(
       data => {
-        this.shopId = data[0].boutique.id;
-        this.httpService.getAll(this.httpService.shopUrl).subscribe(
-          data => {
-            data.forEach((element: any) => element.id === this.shopId ? this.mesCommandes.push(element) : null);
-            this.filtrer = this.mesCommandes[0].commande;
-            this.spin = false;
-            // -- Calcul des couts totaux
-            this.filtrer?.forEach((commande: any) => {
-              let total = 0;
-              commande.ligneDeCommandes.forEach((ligne: any) => total += ligne.produit.cout);
-              this.couts.push(total);
-              commande.cout = this.couts[this.couts.length - 1];
-            });
-            // -- Calcul des ventes qui ont été faites dans la journée
-            if (this.filtrer != undefined) {
-              this.echantillonDate = this.datePipe.transform(this.filtrer[0]?.date, 'yyyy-MM-dd');
-              this.filtrer.forEach((element: any) => {
-                if (this.echantillonDate == this.datePipe.transform(element.date, 'yyyy-MM-dd')) {
-                  if (this.mesVentes.filter((e) => e.date === this.echantillonDate).length > 0) {
-                    this.nombreVentes += 1;
-                    this.venteTotale += element.prixCommande;
-                    this.coutTotal += element.cout;
-                    let index = this.mesVentes.findIndex((vente) => vente.date === this.echantillonDate);
-                    this.mesVentes[index].vente = this.venteTotale;
-                    this.mesVentes[index].cout = this.coutTotal;
-                    this.mesVentes[index].nombreVentes = this.nombreVentes;
-                  }
-                  else {
-                    this.nombreVentes += 1;
-                    this.venteTotale += element.prixCommande;
-                    this.coutTotal += element.cout;
-                    this.maVente =
-                    {
-                      date: this.echantillonDate,
-                      vente: this.venteTotale,
-                      cout: this.coutTotal,
-                      nombreVentes: this.nombreVentes,
-                    };
-                    this.mesVentes.push(this.maVente);
-                  }
-                }
-                else {
-                  this.nombreVentes = 0;
-                  this.venteTotale = 0;
-                  this.coutTotal = 0;
-                  this.echantillonDate = this.datePipe.transform(element.date, 'yyyy-MM-dd');
-                  if (this.mesVentes.filter((e) => e.date === this.echantillonDate).length > 0) {
-                    this.nombreVentes += 1;
-                    this.venteTotale += element.prixCommande;
-                    this.coutTotal += element.cout;
-                    let index = this.mesVentes.findIndex((vente) => vente.date === this.echantillonDate);
-                    this.mesVentes[index].vente = this.venteTotale;
-                    this.mesVentes[index].cout = this.coutTotal;
-                    this.mesVentes[index].nombreVentes = this.nombreVentes;
-                  }
-                  else {
-                    this.nombreVentes += 1;
-                    this.venteTotale += element.prixCommande;
-                    this.coutTotal += element.cout;
-                    this.maVente =
-                    {
-                      date: this.echantillonDate,
-                      vente: this.venteTotale,
-                      cout: this.coutTotal,
-                      nombreVentes: this.nombreVentes,
-                    };
-                    this.mesVentes.push(this.maVente);
-                  }
-                }
+        this.shopId = data[0]?.boutique?.id;
+        if (this.shopId === undefined) {
+          this.spin = false
+        }
+        else {
+          this.httpService.getAll(this.httpService.shopUrl).subscribe(
+            data => {
+              data.forEach((element: any) => element.id === this.shopId ? this.mesCommandes?.push(element) : null);
+              this.filtrer = this.mesCommandes[0]?.commande;
+              this.spin = false;
+              // -- Calcul des couts totaux
+              this.filtrer?.forEach((commande: any) => {
+                let total = 0;
+                commande.ligneDeCommandes.forEach((ligne: any) => total += ligne.produit.cout);
+                this.couts.push(total);
+                commande.cout = this.couts[this.couts.length - 1];
               });
+              // -- Calcul des ventes qui ont été faites dans la journée
+              if (this.filtrer != undefined) {
+                this.echantillonDate = this.datePipe.transform(this.filtrer[0]?.date, 'yyyy-MM-dd');
+                this.filtrer.forEach((element: any) => {
+                  if (this.echantillonDate == this.datePipe.transform(element.date, 'yyyy-MM-dd')) {
+                    if (this.mesVentes.filter((e) => e.date === this.echantillonDate).length > 0) {
+                      this.nombreVentes += 1;
+                      this.venteTotale += element.prixCommande;
+                      this.coutTotal += element.cout;
+                      let index = this.mesVentes.findIndex((vente) => vente.date === this.echantillonDate);
+                      this.mesVentes[index].vente = this.venteTotale;
+                      this.mesVentes[index].cout = this.coutTotal;
+                      this.mesVentes[index].nombreVentes = this.nombreVentes;
+                    }
+                    else {
+                      this.nombreVentes += 1;
+                      this.venteTotale += element.prixCommande;
+                      this.coutTotal += element.cout;
+                      this.maVente =
+                      {
+                        date: this.echantillonDate,
+                        vente: this.venteTotale,
+                        cout: this.coutTotal,
+                        nombreVentes: this.nombreVentes,
+                      };
+                      this.mesVentes.push(this.maVente);
+                    }
+                  }
+                  else {
+                    this.nombreVentes = 0;
+                    this.venteTotale = 0;
+                    this.coutTotal = 0;
+                    this.echantillonDate = this.datePipe.transform(element.date, 'yyyy-MM-dd');
+                    if (this.mesVentes.filter((e) => e.date === this.echantillonDate).length > 0) {
+                      this.nombreVentes += 1;
+                      this.venteTotale += element.prixCommande;
+                      this.coutTotal += element.cout;
+                      let index = this.mesVentes.findIndex((vente) => vente.date === this.echantillonDate);
+                      this.mesVentes[index].vente = this.venteTotale;
+                      this.mesVentes[index].cout = this.coutTotal;
+                      this.mesVentes[index].nombreVentes = this.nombreVentes;
+                    }
+                    else {
+                      this.nombreVentes += 1;
+                      this.venteTotale += element.prixCommande;
+                      this.coutTotal += element.cout;
+                      this.maVente =
+                      {
+                        date: this.echantillonDate,
+                        vente: this.venteTotale,
+                        cout: this.coutTotal,
+                        nombreVentes: this.nombreVentes,
+                      };
+                      this.mesVentes.push(this.maVente);
+                    }
+                  }
+                });
+              }
+              // -- Calcul de la somme des ventees effectuées
+              this.mesVentes.forEach((element) => {
+                this.totalVente += element.vente;
+                this.totalCout += element.cout;
+              });
+              // -- Pagination
+              this.taillePage = this.mesVentes.length
+              this.pageSlice = this.mesVentes.slice(0, 5);
             }
-            // -- Calcul de la somme des ventees effectuées
-            this.mesVentes.forEach((element) => {
-              this.totalVente += element.vente;
-              this.totalCout += element.cout;
-            });
-            // -- Pagination
-            this.taillePage = this.mesVentes.length
-            this.pageSlice = this.mesVentes.slice(0, 5);
-          }
-        )
+          )
+        }
       },
       error => console.log('Erreur au niveau du composant dashboard' + error)
     )

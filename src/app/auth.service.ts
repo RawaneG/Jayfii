@@ -5,20 +5,33 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService
-{
-  constructor(private route: Router, private indexDBService : IndexDBService) {}
+export class AuthService {
+  constructor(private route: Router, private indexDBService: IndexDBService) { }
 
-  public estConnecte()
-  {
+  public estConnecte() {
     return localStorage.getItem('ACCESS_TOKEN') !== null;
   }
-  public deconnecter()
-  {
-    this.indexDBService.clearData('panier');
-    this.indexDBService.clearData('currentShop');
-    this.indexDBService.clearData('currentUser');
-    this.indexDBService.clearData('currentSellings');
+  public deconnecter() {
+    this.indexDBService.clearData('panier').subscribe(
+      {
+        complete: () => console.log('Panier vidé')
+      }
+    );
+    this.indexDBService.clearData('currentShop').subscribe(
+      {
+        complete: () => console.log('Boutique vidé')
+      }
+    );
+    this.indexDBService.clearData('currentUser').subscribe(
+      {
+        complete: () => console.log('Utilisateur vidé')
+      }
+    );
+    this.indexDBService.clearData('currentSellings').subscribe(
+      {
+        complete: () => console.log('Boutique courrante vidé')
+      }
+    );
     this.route.navigateByUrl('/');
   }
 }
