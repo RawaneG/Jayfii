@@ -11,7 +11,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./creer-produit.component.scss']
 })
 export class CreerProduitComponent implements OnInit {
-  url !: any;
   mesCategories: any[] = [];
   showMe: boolean = false;
   panelOpenState = false;
@@ -23,14 +22,15 @@ export class CreerProduitComponent implements OnInit {
   currentStore: any;
   maCategorie: any;
   currentShop: any;
-  body: any = {};
+  imageData !: any;
+  resultSrc !: any;
   monProduit: any;
   composee !: any;
-  link: any;
-  value: any;
-  imageData !: any;
   imageSrc !: any;
-  resultSrc !: any;
+  body: any = {};
+  value: any;
+  url !: any;
+  link: any;
 
   constructor(private _snackBar: MatSnackBar, private formBuilder: FormBuilder, private httpService: HttpClientService, private route: Router, private navigate: ActivatedRoute, private indexDBService: IndexDBService) { }
 

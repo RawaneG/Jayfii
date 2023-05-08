@@ -9,10 +9,11 @@ import { HttpClientService } from 'src/app/services.service';
   styleUrls: ['./liste-categories.component.scss']
 })
 export class ListeCategoriesComponent implements OnInit {
+  ajout_cat_button !: boolean;
   isChecked: any = 'decochee';
   mesCategories: any = [];
-  spin: boolean = true;
   isSelected !: boolean;
+  spin: boolean = true;
   currentStore: any;
   currentShop: any;
   pageSlice: any;
@@ -61,7 +62,8 @@ export class ListeCategoriesComponent implements OnInit {
       data => {
         this.shopId = data[0]?.boutique?.id;
         if (this.shopId === undefined) {
-          this.spin = false
+          this.spin = false;
+          this.ajout_cat_button = false;
         }
         else {
           this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
@@ -70,6 +72,7 @@ export class ListeCategoriesComponent implements OnInit {
               boutique?.categories?.forEach((element: any) => {
                 element.etat == false ? this.mesCategories?.push(element) : null;
                 this.pageSlice = this.mesCategories ? this.mesCategories?.slice(0, 5) : null;
+                this.ajout_cat_button = true;
                 this.spin = false;
               });
             }

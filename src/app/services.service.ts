@@ -1,4 +1,4 @@
-import { BehaviorSubject, filter, map, Observable, take, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, take } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IndexDBService } from './index-db.service';
 import { HttpClient } from '@angular/common/http';
@@ -12,15 +12,15 @@ import jwt_decode from 'jwt-decode';
   })
 export class HttpClientService {
   /* Mes APIS **************************************************************************************************/
-  boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
-  categorieUrl = 'https://127.0.0.1:8000/api/categories';
-  commandeUrl = 'https://127.0.0.1:8000/api/commandes';
-  cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
-  removeBgUrl = 'https://api.remove.bg/v1.0/removebg';
-  produitUrl = 'https://127.0.0.1:8000/api/produits';
-  loginUrl = 'https://127.0.0.1:8000/api/login';
-  shopUrl = 'https://127.0.0.1:8000/api/shops';
   removeBgKey = 'jBWxNa19KS49dmpcL38ibg6x';
+  removeBgUrl = 'https://api.remove.bg/v1.0/removebg';
+  shopUrl = 'http://77.241.94.87/jayfii/public/index.php/api/shops';
+  loginUrl = 'http://77.241.94.87/jayfii/public/index.php/api/login';
+  produitUrl = 'http://77.241.94.87/jayfii/public/index.php/api/produits';
+  cashierUrl = 'http://77.241.94.87/jayfii/public/index.php/api/caissiers';
+  commandeUrl = 'http://77.241.94.87/jayfii/public/index.php/api/commandes';
+  categorieUrl = 'http://77.241.94.87/jayfii/public/index.php/api/categories';
+  boutiquierUrl = 'http://77.241.94.87/jayfii/public/index.php/api/boutiquiers';
   /* Mes attributs *********************************************************************************************/
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();

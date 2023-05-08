@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
     styleUrls: ['./liste-produits.component.scss']
   })
 export class ListeProduitsComponent implements OnInit {
+  ajout_prod_button !: boolean;
   isChecked: any = 'decochee';
   mesCategories: any[] = [];
   mesProduits: any[] = [];
@@ -84,7 +85,8 @@ export class ListeProduitsComponent implements OnInit {
       data => {
         this.shopId = data[0]?.boutique?.id;
         if (this.shopId === undefined) {
-          this.spin = false
+          this.spin = false;
+          this.ajout_prod_button = false;
         }
         else {
           this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
@@ -93,6 +95,7 @@ export class ListeProduitsComponent implements OnInit {
               boutique?.produit?.forEach((element: any) => {
                 element.etat == false ? this.mesProduits.push(element) : null;
                 this.pageSlice = this.mesProduits ? this.mesProduits?.slice(0, 5) : null;
+                this.ajout_prod_button = true;
                 this.spin = false;
               });
               boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories.push(element) : null)

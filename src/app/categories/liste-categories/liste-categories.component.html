@@ -3,7 +3,7 @@
 <div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
   <h1 class="page-title">Mes Catégories</h1>
   <div class="container">
-    <div class="first-container">
+    <div class="first-container" *ngIf="ajout_cat_button">
       <button routerLink="add">
         <i class="fas fa-plus" style="font-size: 10px"></i>
         <p class="ajout">AJOUTER UNE CATÉGORIE</p>
@@ -13,7 +13,7 @@
       </div>
     </div>
     <!-- ========== Second Parent ========== -->
-    <div class="second-parent mt-5">
+    <div class="second-parent mt-5">  
       <div class="w-75">
         <table class="w-100">
           <tr class="d-flex justify-content-evenly text-center mb-3">
