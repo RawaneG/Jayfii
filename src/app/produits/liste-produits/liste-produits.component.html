@@ -1,7 +1,9 @@
 <app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
 <!-- ========== First Parent ========== -->
-<div class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center">
+<div
+  class="body w-100 min-vh-100 d-flex flex-column justify-content-evenly align-items-center"
+>
   <h1 class="page-title">Mes Produits</h1>
   <div class="container">
     <div class="first-parent">
@@ -19,7 +21,10 @@
           <mat-label>Catégorie</mat-label>
           <mat-select>
             <mat-option (click)="refresh()">Tous les produits</mat-option>
-            <mat-option *ngFor="let categorie of mesCategories" (click)="selectCategorie(categorie)">
+            <mat-option
+              *ngFor="let categorie of mesCategories"
+              (click)="selectCategorie(categorie)"
+            >
               {{ categorie?.nom }}
             </mat-option>
           </mat-select>
@@ -38,10 +43,16 @@
     <div class="second-parent">
       <div class="w-100">
         <table class="w-100">
-          <tr class="d-flex justify-content-evenly text-center mb-3">
-            <td class="checkbox text-center"><mat-checkbox (change)="check($event)"> </mat-checkbox></td>
-            <td class="checkbox text-center"><span>Modifier</span></td>
-            <td class="text-center"><span>Nom du produit</span></td>
+          <tr
+            class="d-flex justify-content-evenly align-items-center text-center mb-3 text-uppercase"
+          >
+            <td class="checkbox text-center">
+              <mat-checkbox (change)="check($event)"> </mat-checkbox>
+            </td>
+            <td class="checkbox text-center">
+              <span>Modifier</span>
+            </td>
+            <td class="text-center"><span>Nom</span></td>
             <td class="text-center"><span>Image</span></td>
             <td class="text-center"><span>Catégorie</span></td>
             <td class="text-center"><span>Prix</span></td>
@@ -53,54 +64,108 @@
     </div>
 
     <!-- ========== Third Parent ========== -->
-    <div class="third-parent" *ngFor="let produit of pageSlice | filter : category">
+    <div
+      class="third-parent"
+      *ngFor="let produit of pageSlice | filter : category"
+    >
       <div class="w-100 d-flex align-items-center">
         <table class="w-100">
-          <tr class="d-flex justify-content-evenly align-items-center my-2">
-            <td class="checkbox text-center"><mat-checkbox [checked]="isSelected" (change)="coche($event, produit)">
-              </mat-checkbox></td>
+          <tr
+            class="d-flex justify-content-evenly align-items-center bg-light py-2 my-2 border border-bottom-dark rounded"
+          >
             <td class="checkbox text-center">
-              <button [routerLink]="['modifier', produit.id]" class="btn btn-light rounded-circle">
-                <i class="fas fa-marker" style="font-size: 16px" title="Modifier"></i>
+              <mat-checkbox
+                [checked]="isSelected"
+                (change)="coche($event, produit)"
+              >
+              </mat-checkbox>
+            </td>
+            <td class="checkbox text-center">
+              <button
+                [routerLink]="['modifier', produit.id]"
+                class="btn btn-light rounded-circle"
+              >
+                <i
+                  class="fas fa-marker"
+                  style="font-size: 16px"
+                  title="Modifier"
+                ></i>
               </button>
             </td>
-            <td class=" text-center"><span>{{ produit?.nom }}</span></td>
             <td class="text-center">
-              <span><img src="{{ 'data:image/png;base64,' + produit?.image }}" alt="image_produit" width="50px"
-                  height="auto"></span>
+              <span>{{ produit?.nom }}</span>
             </td>
-            <td class="text-center"><span>{{ produit.categorie[0]?.nom }}</span></td>
-            <td class="text-center"><span>{{ produit?.prix }} FCFA</span></td>
-            <td class="text-center"><span>{{ produit?.cout }} FCFA</span></td>
-            <td class="text-center"><span>{{ produit?.quantiteEnStock }}</span></td>
+            <td class="product-image text-center">
+              <span class="text-center"
+                ><img
+                  src="{{ 'data:image/png;base64,' + produit?.image }}"
+                  alt="image_produit"
+              /></span>
+            </td>
+            <td class="text-center">
+              <span>{{ produit.categorie[0]?.nom }}</span>
+            </td>
+            <td class="text-center">
+              <span>{{ produit?.prix }} FCFA</span>
+            </td>
+            <td class="text-center">
+              <span>{{ produit?.cout }} FCFA</span>
+            </td>
+            <td class="text-center">
+              <span>{{ produit?.quantiteEnStock }}</span>
+            </td>
           </tr>
         </table>
       </div>
     </div>
 
     <!-- ========== Pagination ========== -->
-    <mat-paginator [length]="mesProduits.length" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 50]" showFirstLastButtons
-      (page)="onPageChange($event)">
+    <mat-paginator
+      class="paginator mt-3"
+      [length]="mesProduits.length"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+      (page)="onPageChange($event)"
+    >
     </mat-paginator>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-  aria-hidden="true">
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header w-100 d-flex justify-content-end">
-        <button type="button" class="close btn btn-dark rounded" data-dismiss="modal" aria-label="Close">
+        <button
+          type="button"
+          class="close btn btn-dark rounded"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        Vouslez-vous vraiment supprimer ?
-      </div>
+      <div class="modal-body">Vouslez-vous vraiment supprimer ?</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-        <button type="button" class="btn btn-primary" (click)="toTrash()" data-dismiss="modal">Supprimer</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Fermer
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="toTrash()"
+          data-dismiss="modal"
+        >
+          Supprimer
+        </button>
       </div>
     </div>
   </div>

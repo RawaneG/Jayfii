@@ -12,26 +12,10 @@ export class AuthService {
     return localStorage.getItem('ACCESS_TOKEN') !== null;
   }
   public deconnecter() {
-    this.indexDBService.clearData('panier').subscribe(
-      {
-        complete: () => console.log('Panier vidé')
-      }
-    );
-    this.indexDBService.clearData('currentShop').subscribe(
-      {
-        complete: () => console.log('Boutique vidé')
-      }
-    );
-    this.indexDBService.clearData('currentUser').subscribe(
-      {
-        complete: () => console.log('Utilisateur vidé')
-      }
-    );
-    this.indexDBService.clearData('currentSellings').subscribe(
-      {
-        complete: () => console.log('Boutique courrante vidé')
-      }
-    );
+    this.indexDBService.clearData('panier').subscribe();
+    this.indexDBService.clearData('currentShop').subscribe();
+    this.indexDBService.clearData('currentUser').subscribe();
+    this.indexDBService.clearData('currentSellings').subscribe();
     this.route.navigateByUrl('/');
   }
 }

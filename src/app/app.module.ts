@@ -41,7 +41,6 @@ import { MatTableModule } from '@angular/material/table';
 import { AdminComponent } from './admin/admin.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatSortModule } from '@angular/material/sort';
@@ -51,6 +50,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import * as fr from '@angular/common/locales/fr';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { CustomFilterPipe } from './custom-filter-pipe.pipe';
 
 @NgModule({
   declarations:
@@ -73,6 +73,7 @@ import { FormsModule } from '@angular/forms';
       LoginComponent,
       AdminComponent,
       AppComponent,
+      CustomFilterPipe
     ],
   imports:
     [
@@ -80,7 +81,6 @@ import { FormsModule } from '@angular/forms';
       BrowserAnimationsModule,
       NgxMatFileInputModule,
       MatDatepickerModule,
-      Ng2SearchPipeModule,
       MatNativeDateModule,
       MatDatepickerModule,
       NgxPaginationModule,

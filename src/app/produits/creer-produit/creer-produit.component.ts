@@ -87,12 +87,28 @@ export class CreerProduitComponent implements OnInit {
             "id": this.currentStore
           }
         }
-        this.httpService.create(this.httpService.produitUrl, this.body).subscribe(
+        let emptyInput = 0;
+        for (const key in this.ajouterProduit.value)
+        {
+          if(this.ajouterProduit.value[key] === "" || this.ajouterProduit.value.categorie === null || this.ajouterProduit.value.categorie === undefined)
           {
-            next: () => this.httpService.openSnackBar('Article enregistrée avec succès', 'produits'),
-            error: (err: any) => console.log("Une erreur s'est produite lors de l'ajout du produit : " + err.error.detail),
-            complete: () => console.log('Ajout avec succès')
-          })
+            emptyInput++;
+          }
+          console.log(emptyInput)
+        }
+        if(emptyInput > 0)
+        {
+          this.httpService.openSnackBar("Veuillez remplir tous les champs","/produits/add");
+        }
+        else
+        {
+          this.httpService.create(this.httpService.produitUrl, this.body).subscribe(
+            {
+              next: () => this.httpService.openSnackBar('Article enregistrée avec succès', 'produits'),
+              error: (err: any) => console.log("Une erreur s'est produite lors de l'ajout du produit : " + err.error.detail),
+              complete: () => console.log('Ajout avec succès')
+            })
+        }
       }
       else {
         this.ajouterProduit.value.compose == "true" ? this.compose = true : this.compose = false
@@ -119,12 +135,27 @@ export class CreerProduitComponent implements OnInit {
             "id": this.currentStore
           }
         }
-        this.httpService.update(this.httpService.produitUrl, (+this.link), this.body).subscribe(
+        let emptyInput = 0;
+        for (const key in this.ajouterProduit.value)
+        {
+          if(this.ajouterProduit.value[key] === "" || this.ajouterProduit.value.categorie === null || this.ajouterProduit.value.categorie === undefined)
           {
-            next: () => this.httpService.openSnackBar('Article modifiée avec succès', 'produits'),
-            error: (err: any) => console.log("Une erreur s'est produite lors de l'ajout du produit : " + err.error.detail),
-            complete: () => console.log('Ajout avec succès')
-          })
+            emptyInput++;
+          }
+        }
+        if(emptyInput > 0)
+        {
+          this.httpService.openSnackBar("Veuillez remplir tous les champs",`/produits/modifier/${+this.link}`);
+        }
+        else
+        {
+          this.httpService.update(this.httpService.produitUrl, (+this.link), this.body).subscribe(
+            {
+              next: () => this.httpService.openSnackBar('Article modifiée avec succès', 'produits'),
+              error: (err: any) => console.log("Une erreur s'est produite lors de l'ajout du produit : " + err.error.detail),
+              complete: () => console.log('Ajout avec succès')
+            })
+        }
       }
     })
   }

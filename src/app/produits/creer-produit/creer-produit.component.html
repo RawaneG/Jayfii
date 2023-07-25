@@ -1,63 +1,78 @@
 <form [formGroup]="ajouterProduit" (submit)="submit()">
   <div class="body">
     <div class="first-section">
-      <h1>Description du Produit</h1>
+      <h1 class="m-4">Description du Produit</h1>
       <div class="container1 p-5">
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Nom du produit</mat-label>
           <input matInput placeholder="Ex. Chocolat" formControlName="nom" />
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Catégorie</mat-label>
           <mat-select formControlName="categorie" [(value)]="value">
-            <mat-option *ngFor="let categorie of mesCategories" [value]="categorie?.id">
+            <mat-option
+              *ngFor="let categorie of mesCategories"
+              [value]="categorie?.id"
+            >
               {{ categorie.nom }}
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Prix</mat-label>
           <input matInput placeholder="Ex. Nourriture" formControlName="prix" />
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Coût</mat-label>
           <input matInput placeholder="Ex. Nourriture" formControlName="cout" />
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input w-100" appearance="outline">
           <mat-label>Description</mat-label>
-          <textarea matInput placeholder="Ex. Cette partie est reservée à la nourriture..."
-            formControlName="description"></textarea>
+          <textarea
+            matInput
+            placeholder="Ex. Cette partie est reservée à la nourriture..."
+            formControlName="description"
+          ></textarea>
         </mat-form-field>
       </div>
-      <h1>Inventaire</h1>
+      <h1 class="m-4">Inventaire</h1>
       <div class="container1 p-5">
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Produit Composé</mat-label>
           <mat-select formControlName="compose" [(value)]="composee">
             <mat-option value="true"> Oui </mat-option>
             <mat-option value="false"> Non </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>SKU</mat-label>
           <input matInput placeholder="Ex. AX1E4GNG978" formControlName="SKU" />
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Produit en Stock</mat-label>
-          <input matInput placeholder="Ex. 10" formControlName="quantiteEnStock" />
+          <input
+            matInput
+            placeholder="Ex. 10"
+            formControlName="quantiteEnStock"
+          />
         </mat-form-field>
-        <mat-form-field class="example-input">
+        <mat-form-field class="example-input" appearance="outline">
           <mat-label>Stock faible</mat-label>
           <input matInput placeholder="Ex. 5" formControlName="limite" />
-          <mat-icon class="info-icon" matSuffix (click)="openSnackBar()">info</mat-icon>
+          <mat-icon class="info-icon" matSuffix (click)="openSnackBar()"
+            >info</mat-icon
+          >
         </mat-form-field>
       </div>
     </div>
     <div class="second-section">
-      <div class="container2 p-5">
-        <h1>Illustration du produit</h1>
-        <h3>Représentation par couleur</h3>
-        <mat-radio-group aria-label="Select an option" class="radio-group" formControlName="couleur">
+      <div class="container2 p-5 d-flex flex-column justify-content-evenly">
+        <h1>Représentation par couleur</h1>
+        <mat-radio-group
+          aria-label="Select an option"
+          class="radio-group"
+          formControlName="couleur"
+        >
           <div class="parent">
             <mat-radio-button value="blue" class="radio">
               <div class="box"></div>
@@ -85,19 +100,34 @@
           </div>
         </mat-radio-group>
         <mat-accordion class="accordion">
-          <h3 class="panel-title">
-            Représentation par Image
-          </h3>
+          <h1 class="panel-title">Représentation par Image</h1>
           <div class="w-100 d-flex justify-content-evenly align-items-center">
-            <label for="image" class="input-file d-flex flex-column align-items-center justify-content-evenly">
-              <i class="fas fa-images my-4"></i>
+            <label
+              for="image"
+              class="import input-file d-flex flex-column align-items-center justify-content-evenly"
+            >
+              <i class="fa-solid fa-image my-4"></i>
               <p>Importer une image</p>
             </label>
-            <div class="border border-dark my-5 p-2 rounded shadow p-3 mb-5 bg-white" *ngIf="url">
-              <img [src]="resultSrc ? resultSrc : url" width="100px" height="100px">
+            <div
+              class="border border-dark my-5 p-4 rounded shadow p-3 mb-5 bg-white"
+              *ngIf="url"
+            >
+              <img
+                [src]="resultSrc ? resultSrc : url"
+                width="100px"
+                height="100px"
+              />
             </div>
           </div>
-          <input id="image" class="input" type="file" name="upload" class="image" (change)="readUrl($event)" />
+          <input
+            id="image"
+            class="input"
+            type="file"
+            name="upload"
+            class="image"
+            (change)="readUrl($event)"
+          />
         </mat-accordion>
       </div>
     </div>

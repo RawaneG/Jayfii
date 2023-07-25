@@ -14,13 +14,20 @@ export class HttpClientService {
   /* Mes APIS **************************************************************************************************/
   removeBgKey = 'jBWxNa19KS49dmpcL38ibg6x';
   removeBgUrl = 'https://api.remove.bg/v1.0/removebg';
-  shopUrl = 'http://77.241.94.87/jayfii/public/index.php/api/shops';
-  loginUrl = 'http://77.241.94.87/jayfii/public/index.php/api/login';
-  produitUrl = 'http://77.241.94.87/jayfii/public/index.php/api/produits';
-  cashierUrl = 'http://77.241.94.87/jayfii/public/index.php/api/caissiers';
-  commandeUrl = 'http://77.241.94.87/jayfii/public/index.php/api/commandes';
-  categorieUrl = 'http://77.241.94.87/jayfii/public/index.php/api/categories';
-  boutiquierUrl = 'http://77.241.94.87/jayfii/public/index.php/api/boutiquiers';
+  // shopUrl = 'https://jayfii.app/public/index.php/api/shops';
+  // loginUrl = 'https://jayfii.app/public/index.php/api/login';
+  // produitUrl = 'https://jayfii.app/public/index.php/api/produits';
+  // cashierUrl = 'https://jayfii.app/public/index.php/api/caissiers';
+  // commandeUrl = 'https://jayfii.app/public/index.php/api/commandes';
+  // categorieUrl = 'https://jayfii.app/public/index.php/api/categories';
+  // boutiquierUrl = 'https://jayfii.app/public/index.php/api/boutiquiers';
+  shopUrl = 'https://127.0.0.1:8000/api/shops';
+  loginUrl = 'https://127.0.0.1:8000/api/login';
+  produitUrl = 'https://127.0.0.1:8000/api/produits';
+  cashierUrl = 'https://127.0.0.1:8000/api/caissiers';
+  commandeUrl = 'https://127.0.0.1:8000/api/commandes';
+  categorieUrl = 'https://127.0.0.1:8000/api/categories';
+  boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
   /* Mes attributs *********************************************************************************************/
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();
@@ -73,16 +80,7 @@ export class HttpClientService {
       {
         duration: t
       });
-    if (navigation == '') {
-      setTimeout(() => {
-        location.reload()
-      }, 2200)
-    }
-    else {
-      setTimeout(() => {
-        this.route.navigateByUrl(navigation);
-      }, 2200);
-    }
+      navigation == '' ? setTimeout(() => location.reload() , 2200) : setTimeout(() => this.route.navigateByUrl(navigation), 2200);
   }
   /* Authentification ******************************************************************************************/
   login(body: any) {
@@ -109,24 +107,6 @@ export class HttpClientService {
                 }
               })
         }
-        // else
-        // {
-        //   this.getAll(this.cashierUrl)
-        //   .subscribe(
-        //     boutiquier =>
-        //     {
-        //       let monBoutiquier = boutiquier.find((user : any) => user.email === this.myUser.username);
-        //       if(monBoutiquier != undefined)
-        //       {
-        //         this.indexDBService.addData({ id : this.id, user : monBoutiquier } , 'currentUser');
-        //         this.openSnackBar('Connexion réussie','poc');
-        //       }
-        //       else
-        //       {
-        //         this.openSnackBar('Connexion non autorisée');
-        //       }
-        //     })
-        // }
       }
       else {
         this.openSnackBar('Connexion non autorisée');

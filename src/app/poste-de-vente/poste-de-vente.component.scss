@@ -53,11 +53,11 @@
   align-items: center;
   img
   {
-    max-width: 50%;
+    max-width: 40%;
   }
   span
   {
-    font-size: 2em;
+    font-size: 1.5em;
   }
 }
 .search-btn
@@ -160,7 +160,7 @@
         align-items:center;
         .price
         {
-          font-size: 10pt;
+          font-size: 8pt;
           margin: 0;
         }
         .add-cart
@@ -261,12 +261,13 @@
 }
 .myCard
 {
-  height: 96%;
   width: 96%;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  height: 96%;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
 }
 .myCard-header
 {
@@ -324,14 +325,15 @@
 }
 .payment
 {
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   width: 96%;
   height: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color:white;
+  display: flex;
+  border-radius: 10px;
+  align-items: center;
   background: #002978;
+  justify-content: center;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor:pointer;
   .payment-title
   {

@@ -68,12 +68,12 @@ export class ListeCategoriesComponent implements OnInit {
         else {
           this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
             boutique => {
-              this.currentShop = boutique
+              this.currentShop = boutique;
+              this.ajout_cat_button = true;
+              this.spin = false;
               boutique?.categories?.forEach((element: any) => {
                 element.etat == false ? this.mesCategories?.push(element) : null;
                 this.pageSlice = this.mesCategories ? this.mesCategories?.slice(0, 5) : null;
-                this.ajout_cat_button = true;
-                this.spin = false;
               });
             }
           )

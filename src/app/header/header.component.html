@@ -4,7 +4,13 @@
 <nav>
   <div class="nav__container">
     <!-- ========== Boutique en Cours ========== -->
-    <a id="a" class="nav__item" (click)="link('#a')" (click)="open()" *ngIf="monRole !== 'ROLE_CAISSIER'">
+    <a
+      id="a"
+      class="nav__item"
+      (click)="link('#a')"
+      (click)="open()"
+      *ngIf="monRole !== 'ROLE_CAISSIER'"
+    >
       <div class="nav__item-icon">
         <mat-icon>store</mat-icon>
       </div>
@@ -14,42 +20,78 @@
       </div>
     </a>
     <!-- ========== Admin ========== -->
-    <a id="b" class="nav__item" routerLink="../admin" (click)="link('#b')" *ngIf="monRole == 'ROLE_ADMIN'">
+    <a
+      id="b"
+      class="nav__item"
+      routerLink="../admin"
+      (click)="link('#b')"
+      *ngIf="monRole == 'ROLE_ADMIN'"
+    >
       <div class="nav__item-icon">
         <mat-icon>account_circle</mat-icon>
       </div>
       <div class="nav__item-name">Admin</div>
     </a>
     <!-- ========== Profil ========== -->
-    <a id="c" class="nav__item" routerLink="../profile" (click)="link('#c')" *ngIf="monRole !== 'ROLE_CAISSIER'">
+    <a
+      id="c"
+      class="nav__item"
+      routerLink="../profile"
+      (click)="link('#c')"
+      *ngIf="monRole !== 'ROLE_CAISSIER'"
+    >
       <div class="nav__item-icon">
         <mat-icon>person</mat-icon>
       </div>
       <div class="nav__item-name">Profil</div>
     </a>
     <!-- ========== Dashboard ========== -->
-    <a id="d" class="nav__item" routerLink="../dashboard" (click)="link('#d')" *ngIf="monRole !== 'ROLE_CAISSIER'">
+    <a
+      id="d"
+      class="nav__item"
+      routerLink="../dashboard"
+      (click)="link('#d')"
+      *ngIf="monRole !== 'ROLE_CAISSIER'"
+    >
       <div class="nav__item-icon">
         <mat-icon>dashboard</mat-icon>
       </div>
       <div class="nav__item-name">Dashboard</div>
     </a>
     <!-- ========== Produits ========== -->
-    <a id="e" class="nav__item" routerLink="../produits" (click)="link('#e')" *ngIf="monRole !== 'ROLE_CAISSIER'">
+    <a
+      id="e"
+      class="nav__item"
+      routerLink="../produits"
+      (click)="link('#e')"
+      *ngIf="monRole !== 'ROLE_CAISSIER'"
+    >
       <div class="nav__item-icon">
         <mat-icon>shopping_basket</mat-icon>
       </div>
       <div class="nav__item-name">Produits</div>
     </a>
     <!-- ========== Catégories ========== -->
-    <a id="f" class="nav__item" routerLink="../categories" (click)="link('#f')" *ngIf="monRole !== 'ROLE_CAISSIER'">
+    <a
+      id="f"
+      class="nav__item"
+      routerLink="../categories"
+      (click)="link('#f')"
+      *ngIf="monRole !== 'ROLE_CAISSIER'"
+    >
       <div class="nav__item-icon">
         <mat-icon>bubble_chart</mat-icon>
       </div>
       <div class="nav__item-name">Catégories</div>
     </a>
     <!-- ========== PDV ========== -->
-    <a id="g" class="nav__item" routerLink="../poc" (click)="link('#g')" *ngIf="monRole !== 'ROLE_CAISSIER'">
+    <a
+      id="g"
+      class="nav__item"
+      routerLink="../poc"
+      (click)="link('#g')"
+      *ngIf="monRole !== 'ROLE_CAISSIER'"
+    >
       <div class="nav__item-icon">
         <mat-icon>add_shopping_cart</mat-icon>
       </div>
@@ -75,17 +117,26 @@
     </div>
     <div class="content-child">
       <div class="card" *ngFor="let boutique of shops">
-        <img src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}" class="card-img-top" />
+        <img
+          src="{{ 'data:image/png;base64,' + boutique?.imageBoutique }}"
+          class="card-img-top"
+        />
         <div class="card-body">
           <h2 class="card-title">{{ boutique?.nomBoutique }}</h2>
           <p class="card-text">
             {{ boutique?.adresse }}
           </p>
           <p class="card-text">
-            <a class="color color-dark" href="{{ boutique?.lienBoutique }}" target="_blank">Site web de la
-              boutique</a>
+            <a
+              class="color color-dark"
+              href="{{ boutique?.lienBoutique }}"
+              target="_blank"
+              >Site web de la boutique</a
+            >
           </p>
-          <a (click)="switch(boutique); close()" class="btn btn-outline-dark">Choisir cette boutique</a>
+          <a (click)="switch(boutique); close()" class="btn btn-outline-dark"
+            >Choisir cette boutique</a
+          >
         </div>
       </div>
     </div>

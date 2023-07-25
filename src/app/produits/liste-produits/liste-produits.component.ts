@@ -92,11 +92,11 @@ export class ListeProduitsComponent implements OnInit {
           this.httpService.getById(this.httpService.shopUrl, this.shopId).subscribe(
             boutique => {
               this.currentShop = boutique;
+              this.ajout_prod_button = true;
+              this.spin = false;
               boutique?.produit?.forEach((element: any) => {
                 element.etat == false ? this.mesProduits.push(element) : null;
                 this.pageSlice = this.mesProduits ? this.mesProduits?.slice(0, 5) : null;
-                this.ajout_prod_button = true;
-                this.spin = false;
               });
               boutique?.categories?.forEach((element: any) => element.etat == false ? this.mesCategories.push(element) : null)
             })

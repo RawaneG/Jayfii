@@ -1,16 +1,19 @@
+.body,.paginator
+{
+    background-color: #F0F2F4;
+}
 .page-title
 {
-    font-family: 'Great Vibes', cursive;
-    font-size: 3em;
+    margin: 0;
+    font-size: 2em;
     font-weight: bold;
-    margin: 1em 0;
+    font-family: 'Lumanosimo', cursive;
 }
 .container
 {
-    min-height: 50vh;
-    width: 70%;
+    width: 80%;
     padding: 2em;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    min-height: 50vh;
     border-radius: 10px;
 }
 .first-parent
@@ -18,7 +21,7 @@
     margin: 1em 0 0 0;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 }
 .first-container
 {
@@ -64,7 +67,6 @@
     margin: 2em 0 0 0;
     display: flex;
     justify-content: space-around;
-    color:#9C9C9C;
 }
 .first-contayner
 {
@@ -82,13 +84,22 @@
     display: flex;
     justify-content: space-around;
 }
+.product-image
+{
+    img
+    {
+        width: 60px;
+        height: 60px;
+        object-fit: scale-down;
+    }
+}
 .checkbox
 {
-    width: 7%;
+    width: 10%;
 }
 td
 {
-    width: 13%;
+    width: 12%;
 }
 .fa-marker
 {
