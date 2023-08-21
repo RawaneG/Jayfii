@@ -28,39 +28,59 @@ export class HeaderComponent implements OnInit {
     public route: Router,
   ) { }
 
-  refresh(): void {
+  translate()
+  {
+    let nav = document.querySelector('nav');
+    nav?.classList.toggle('translate');
+  }
+
+  openPanier()
+  {
+    document.querySelector('.second-parent')?.classList.remove('hide_parent');
+  }
+
+  refresh(): void
+  {
     let currentUrl = this.route.url;
     this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => this.route.navigate([currentUrl]));
   }
-  switch(shop: any) {
+
+  switch(shop: any)
+  {
     this.indexDBService.clearData('currentShop');
     this.indexDBService.clearData('panier');
-    this.indexDBService.addData({ id: this.id, boutique: shop }, 'currentShop').subscribe(
+    this.indexDBService.putData({ id: this.id, boutique: shop }, 'currentShop').subscribe(
       {
         next: () => this.httpService.openSnackBar(shop.nomBoutique + ' a été choisie avec succès'),
         error: () => console.log("Erreur au niveau de l'ajout de la boutique"),
-        complete: () => console.log('Compleété avec succès')
+        complete: () => console.log('Complété avec succès')
       }
     );
   }
-  link(event: any) {
+  link(event: any)
+  {
     const allItems = document.querySelectorAll(".nav__item");
     allItems.forEach(element => element.classList.remove('active'));
     const daItem = document.querySelector(event);
     daItem.classList.add('active');
   }
-  open() {
+  open()
+  {
     document.querySelector('.popup-container')?.classList.remove('hidden');
   }
-  close() {
+  close()
+  {
     document.querySelector('.popup-container')?.classList.add('hidden');
   }
-  deconnexion() {
+  deconnexion()
+  {
     this.service.deconnecter();
   }
-  ngOnInit(): void {
+  ngOnInit(): void
+  {
     this.indexDBService.getData('currentUser').subscribe(
-      data => {
+      data =>
+      {
         this.boutiquierId = data.length > 0 ? data[0].user.id : [];
         this.monRole = data.length > 0 ? data[0].user.roles[0] : [];
         this.httpService.getAll(this.httpService.shopUrl).subscribe(data => data.forEach((element: any) => element.boutiquier.id === this.boutiquierId ? this.shops.push(element) : null))

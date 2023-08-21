@@ -9,7 +9,7 @@
     font-weight: bold;
     font-family: 'Lumanosimo', cursive;
 }
-.container
+.my_container
 {
     width: 80%;
     padding: 2em;
@@ -83,6 +83,18 @@
 {
     display: flex;
     justify-content: space-around;
+    tr
+    {
+        transition: 0.5s ease-in-out;
+        cursor: pointer;
+    }
+    tr:hover
+    {
+        box-shadow:
+        12.6px 11.5px 2.9px rgba(0, 0, 0, 0.09),
+        24px 22px 23px rgba(0, 0, 0, 0.09)
+      ;
+    }
 }
 .product-image
 {
@@ -104,4 +116,30 @@ td
 .fa-marker
 {
     cursor: pointer;
+}
+@media screen and (max-width: 1100px)
+{
+    .my_container
+    {
+        width: 90%;
+    }
+}
+@media screen and (max-width: 930px)
+{
+    .my_container
+    {
+        width: 100%;
+        padding: 0;
+    }
+}
+@media screen and (max-width: 780px)
+{
+    .first-container
+    {
+        width: 45%;
+    }
+    .second-container
+    {
+        width: 52%;
+    }
 }

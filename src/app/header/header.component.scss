@@ -1,5 +1,4 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap');
 button
 {
     border: none;
@@ -25,39 +24,34 @@ a
 {
   text-decoration: none;
 }
+.translate
+{
+  transform: translateX(0);
+  transition: 0.5s ease-in-out;
+}
 nav
 {
   position: fixed;
   top: 0;
-  width: 60px;
+  width: 280px;
   height: 100%;
-  z-index: 999;
+  z-index: 990;
   display: flex;
   overflow-x: hidden;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   background-color: #002978;
   transition: width 300ms ease;
-  &:hover
-  {
-    width: 280px;
-    .nav__item.active
-    {
-      .nav__item-icon,
-      .nav__item-name
-      {
-        box-shadow: 0px 0px 15px 5px #0005;
-      }
-    }
-  }
+  transition: 0.5s ease-in-out;
+  transform: translateX(-280px);
   .nav__container
   {
     width: 100%;
-    height: 85%;
+    height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
   }
   mat-icon{
     color:white;
@@ -106,7 +100,6 @@ nav
       width: 30px;
       height: 30px;
       content: "";
-      border-radius: 50%;
       opacity: 0;
       transition: opacity 100ms ease-in-out;
     }
@@ -151,17 +144,17 @@ nav
 }
 .popup-container
 {
-    transition: all 0.3s ease-in-out;
-    position: fixed;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(21, 17, 17, 0.61);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  background-color: rgba(21, 17, 17, 0.61);
 }
 .popup-content
 {
@@ -175,6 +168,7 @@ nav
   background-color: #eceff1;
   transition: 0.5s ease-in-out;
   justify-content: space-evenly;
+  padding: 4em;
 }
 .hidden
 {
@@ -220,4 +214,52 @@ nav
     height: 100%;
     max-width: 100%;
   }
+}
+
+// -- Burger button
+.icon-tabler,.ham
+{
+  position: absolute;
+  cursor: pointer;
+  color: white;
+  z-index: 992;
+}
+.icon-tabler
+{
+  right: 0.5%;
+}
+.ham
+{
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 400ms;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  left: 0.5%;
+}
+.hamRotate.active {
+  transform: rotate(45deg);
+}
+.hamRotate180.active {
+  transform: rotate(180deg);
+}
+.line {
+  fill:none;
+  transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+  stroke:#fff;
+  stroke-width:5.5;
+  stroke-linecap:round;
+}
+.ham1 .top {
+  stroke-dasharray: 40 139;
+}
+.ham1 .bottom {
+  stroke-dasharray: 40 180;
+}
+.ham1.active .top {
+  stroke-dashoffset: -98px;
+}
+.ham1.active .bottom {
+  stroke-dashoffset: -138px;
 }

@@ -58,8 +58,9 @@
   {
     height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
+    flex-direction: column;
+    background-color: #F0F2F4;
     justify-content: space-evenly;
   }
   .A
@@ -184,4 +185,8 @@
         }
       }
     }
+  }
+  .paginator
+  {
+    background-color: #F0F2F4;
   }

@@ -7,17 +7,14 @@
   padding: 2em;
   button
   {
-    border-radius: 250px;
+    width: 10%;
+    height: 95%;
+    border: none;
     color:black;
-    border: 1px solid black;
-    background: none;
     cursor:pointer;
+    background: none;
+    font-size: 1.5em;
     transition: 0.5s ease-in-out;
-  }
-  button:hover
-  {
-    color:white;
-    background: black;
   }
   span
   {

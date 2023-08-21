@@ -52,6 +52,10 @@ export class PosteDeVenteComponent implements OnInit {
     public location: Location,
   ) { }
 
+  closePanier()
+  {
+    document.querySelector('.second-parent')?.classList.add('hide_parent');
+  }
   recherche() {
     this.mesProduits = [];
     this.search = this.nomProduit.value;
