@@ -3,7 +3,7 @@
 <div
   class="big-container d-flex flex-column align-items-center justify-content-evenly"
 >
-  <div class="w-100 d-flex justify-content-evenly">
+  <div class="search-div w-100 d-flex justify-content-evenly">
     <mat-form-field appearance="outline" class="filterCategorie mt-5">
       <mat-label>Veuillez selectionner une catégorie</mat-label>
       <mat-select>
@@ -54,56 +54,6 @@
               <button class="add-cart"><i class="fas fa-cart-plus"></i></button>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-    <!-- ========== Panier ========== -->
-    <div class="second-parent hide_parent">
-      <div class="p-middle">
-        <div class="myCard">
-          <div class="myCard-header">
-            <span>Produit</span>
-            <span>Quantité</span>
-            <span>Prix</span>
-            <span (click)="closeAll()"><i class="fas fa-trash"></i></span>
-          </div>
-          <div class="myCard-content">
-            <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-            <div
-              *ngIf="monPanier === undefined || monPanier === []"
-              class="w-100 h-100 d-flex justify-content-center align-items-center"
-            >
-              <div
-                class="myCard-empty d-flex justify-content-center align-items-center"
-              >
-                <span>
-                  <i class="fas fa-shopping-cart"></i>
-                </span>
-              </div>
-            </div>
-            <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
-            <app-panier
-              *ngFor="let elus of monPanier"
-              [selected]="elus"
-              (message)="messageRecu($event)"
-            ></app-panier>
-          </div>
-          <div class="myCard-footer">
-            <span>Sous-Total</span>
-            <span>{{ monTotal }} FCFA</span>
-          </div>
-        </div>
-      </div>
-      <div class="p-footer">
-        <div class="payment close_paiement" (click)="closePanier()">
-          <span class="payment-title">
-            <i class="fas fa-close"></i>
-          </span>
-        </div>
-        <div class="payment" (click)="open()">
-          <span class="payment-title">
-            <i class="fas fa-check"></i>
-          </span>
         </div>
       </div>
     </div>
@@ -196,6 +146,56 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ========== Panier ========== -->
+<div class="overlay hide_parent">
+  <div class="second-parent hide_parent">
+    <div class="close_paiement" (click)="closePanier()">
+      <span class="paiement-title">
+        <i class="fas fa-arrow-right"></i>
+      </span>
+    </div>
+    <div class="p-middle">
+      <div class="myCard">
+        <div class="myCard-header">
+          <h2 class="produit">Panier</h2>
+          <span class="closeAll" (click)="closeAll()"
+            ><i class="fas fa-trash"></i
+          ></span>
+        </div>
+        <div class="myCard-content">
+          <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
+          <div
+            *ngIf="monPanier === undefined || monPanier === []"
+            class="w-100 h-100 d-flex justify-content-center align-items-center"
+          >
+            <div
+              class="myCard-empty d-flex justify-content-center align-items-center"
+            >
+              <span>
+                <i class="fas fa-shopping-cart"></i>
+              </span>
+            </div>
+          </div>
+          <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
+          <app-panier
+            *ngFor="let elus of monPanier"
+            [selected]="elus"
+            (message)="messageRecu($event)"
+          ></app-panier>
+        </div>
+        <div class="myCard-footer">
+          <span>Sous-Total</span>
+          <span>{{ monTotal }} FCFA</span>
+        </div>
+      </div>
+    </div>
+    <div class="p-footer">
+      <div class="payment" (click)="open()">
+        <span class="payment-title">Valider</span>
       </div>
     </div>
   </div>

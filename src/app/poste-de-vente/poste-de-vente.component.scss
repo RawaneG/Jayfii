@@ -46,7 +46,6 @@
 }
 .vide
 {
-  margin: 0 5em 15em 0;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -193,62 +192,23 @@
   }
 }
 
-@media(min-width : 180px) and (max-width : 650px)
-{
-  .container_custom
-  {
-    width: 100%;
-    .product-card
-    {
-      max-width: 30%;
-      margin: 5px;
-      .product-header
-      {
-        max-height: 100px;
-        .product-picture
-        {
-          position: relative;
-          top: -50px;
-          height: 150px;
-          width: 150px;
-          left: calc(50% - 75px);
-        }
-      }
-      .card-details
-      {
-        .product-name
-        {
-          font-size: 11pt;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 1; /* number of lines to show */
-                  line-clamp: 1;
-          -webkit-box-orient: vertical;
-        }
-        .stars
-        {
-          color: #ffd145;
-          margin: 5px 0 15px 0;
-          font-size: 7pt;
-        }
-        .bottom-row
-        {
-          .price
-          {
-            font-size: 10pt;
-          }
-        }
-      }
-    }
-  }
-}
 /************************ Panier *******************************/
+.overlay
+{
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background-color: #35353541;
+  top: 0;
+  right: 0;
+  z-index: 998;
+  transition: 1s ease-in-out;
+}
 .second-parent
 {
   width: 45%;
-  z-index: 999;
-  height: 100vh;
+  z-index: 1000;
+  height: 100%;
   display: flex;
   position: fixed;
   top: 0;
@@ -286,12 +246,22 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   border-bottom: 1px dotted gray;
   .fas
   {
     cursor: pointer;
   }
+}
+.produit,.closeAll
+{
+  width: 80%;
+  margin: 0!important;
+}
+.closeAll
+{
+  width: 10%;
+  text-align: end;
 }
 .myCard-content
 {
@@ -329,26 +299,45 @@
 }
 .p-footer
 {
+  margin: 2em 0;
   height: 10%;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
 }
-.payment
+.payment,.paiement-title
 {
-  width: 10%;
+  width: 50%;
   height: 90%;
   color:white;
   display: flex;
+  cursor: pointer;
   align-items: center;
   border-radius: 30px;
   background: #002978;
   justify-content: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
   .payment-title
   {
+    color:white;
     font-size: 1.5em;
+  }
+}
+.close_paiement
+{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: flex-end;
+  .paiement-title
+  {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #002978;
+    background: none;
+    font-size: 1.3em;
+    animation: pulse 1000ms infinite ;
   }
 }
 
@@ -703,4 +692,41 @@
 	100% {
 		stroke-dashoffset: 900;
 	}
+}
+
+@media screen and (max-width: 1080px)
+{
+  .second-parent
+  {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 910px)
+{
+  .second-parent
+  {
+    width: 80%;
+  }
+}
+@media screen and (max-width: 635px)
+{
+  .search-div
+  {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+@media screen and (max-width: 330px)
+{
+  .first-parent
+  {
+    margin: 5em 0;
+  }
+}
+@media screen and (max-width: 630px)
+{
+  .second-parent
+  {
+    width: 100%;
+  }
 }

@@ -36,6 +36,7 @@ export class HeaderComponent implements OnInit {
 
   openPanier()
   {
+    document.querySelector('.overlay')?.classList.remove('hide_parent');
     document.querySelector('.second-parent')?.classList.remove('hide_parent');
   }
 

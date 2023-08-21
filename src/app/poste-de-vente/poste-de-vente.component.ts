@@ -54,6 +54,7 @@ export class PosteDeVenteComponent implements OnInit {
 
   closePanier()
   {
+    document.querySelector('.overlay')?.classList.add('hide_parent');
     document.querySelector('.second-parent')?.classList.add('hide_parent');
   }
   recherche() {

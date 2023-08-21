@@ -1,10 +1,17 @@
 <div class="myCard-child">
-  <span class="name">{{ selected.nom }}</span>
-  <span class="quantity-control">
-    <input type="number" class="quantity form-control text-center" [formControl]="input"
-      (input)="ajoutQuantite(selected)">
+  <span class="name">
+    <img src="{{ 'data:image/png;base64,' + selected?.image }}" />
   </span>
-  <span class="prix">{{ selected.prix * prixCalculee}} FCFA</span>
+  <span>{{ selected.nom }} </span>
+  <span class="quantity-control">
+    <input
+      type="number"
+      class="quantity form-control text-center"
+      [formControl]="input"
+      (input)="ajoutQuantite(selected)"
+    />
+  </span>
+  <span class="prix">{{ selected.prix * prixCalculee }} FCFA</span>
   <button (click)="close(selected)">
     <i class="fas fa-close"></i>
   </button>

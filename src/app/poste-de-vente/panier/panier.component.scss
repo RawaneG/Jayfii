@@ -4,7 +4,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2em;
+  padding: 1em;
+  text-align: center;
   button
   {
     width: 10%;
@@ -33,4 +34,17 @@ input::-webkit-inner-spin-button
 input[type=number]
 {
   -moz-appearance: textfield;
+}
+img
+{
+    width: 60px;
+    height: 60px;
+    object-fit: scale-down;
+}
+@media screen and (max-width: 630px)
+{
+  .myCard-child
+  {
+    padding: 0.5em;
+  }
 }
