@@ -1,8 +1,8 @@
 form
 {
     display: flex;
-    justify-content: space-evenly;
     flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 .import
 {
@@ -19,14 +19,12 @@ form
     width: 100%;
     display: flex;
     margin: 2em 0 0 0;
-    min-height: 100vh;
     justify-content: flex-end;
 }
 .first-section
 {
     width: 45%;
     display: flex;
-    min-height: 80%;
     flex-direction: column;
     justify-content: space-evenly;
 }
@@ -34,7 +32,6 @@ form
 {
     width: 50%;
     display: flex;
-    min-height: 80%;
     align-items: center;
     flex-direction: column;
     justify-content: space-evenly;
@@ -66,7 +63,7 @@ h1
 }
 .example-input
 {
-    width: 45%;
+    width: 50%;
 }
 .box
 {
@@ -89,7 +86,6 @@ h1
 }
 .radio-group
 {
-    height: 40%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -167,4 +163,36 @@ h1
 {
     background-color:black;
 
+}
+@media screen and (max-width: 900px)
+{
+    .first-section, .second-section
+    {
+        width: 80%;
+    }
+    .body
+    {
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .container2
+    {
+        margin: 5em 0;
+        h1
+        {
+            margin: 2em 0;
+        }
+    }
+    .parent
+    {
+        margin: 1em 0;
+    }
+}
+@media screen and (max-width: 585px)
+{
+    .first-section, .second-section, .final-boutons, .container2, .example-input
+    {
+        width: 100%;
+    }
 }

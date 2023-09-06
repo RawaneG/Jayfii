@@ -211,3 +211,10 @@
   display: flex;
   justify-content: space-evenly;
 }
+@media screen and (max-width: 425px)
+{
+  .body, .profile-card
+  {
+    width: 100%;
+  }
+}

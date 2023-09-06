@@ -3,29 +3,30 @@ h1
   text-align: center;
   margin: 2em 0;
 }
-table
+.table-responsive
 {
   width: 100%;
-  max-width: 90%;
-  margin: 0 0 0 7.5em;
-  border-collapse: separate;
-  border-spacing: 0;
+  overflow-x: auto;
 }
-
+table
+{
+  width: 90%;
+  margin: 0 auto;
+  border-spacing: 0;
+  border-collapse: separate;
+}
 tbody tr:nth-child(odd)
 {
   background-color: #ECE9E9;
 }
-
 th, td
-{ /* cell */
+{
   padding: 0.75rem;
   font-size: 0.9375rem;
   text-align: center;
 }
-
 th
-{ /* header cell */
+{
   font-weight: 700;
   text-align: center;
   color: #272838;
@@ -34,9 +35,8 @@ th
   top: 0;
   background-color: #F9F8F8;
 }
-
 td
-{ /* body cell */
+{
   color: #7E7F9A;
 }
 .action
@@ -57,9 +57,22 @@ td
     color: #fff;
   }
 }
-/* demo stuff */
 body
 {
   padding: 6rem 2rem;
   background-color: #F9F8F8;
+}
+@media screen and (max-width: 768px)
+{
+  table
+  {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 660px)
+{
+  th, td
+  {
+    padding: 1em 2em;
+  }
 }

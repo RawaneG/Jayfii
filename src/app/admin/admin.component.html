@@ -1,36 +1,38 @@
 <app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
 <h1>Mes Boutiquiers</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Nom Complet</th>
-      <th>Email</th>
-      <th>Numéro de téléphone</th>
-      <th>Adresse</th>
-      <th>Statut</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let boutiquier of boutiquiers">
-      <td>{{ boutiquier?.nomComplet }}</td>
-      <td>{{ boutiquier?.email }}</td>
-      <td>{{ boutiquier?.telephone }}</td>
-      <td>{{ boutiquier?.adresse }}</td>
-      <td>{{ boutiquier?.status }}</td>
-      <td class="action">
-        <i
-          class="fas fa-check"
-          title="activer"
-          (click)="activer(boutiquier?.id)"
-        ></i>
-        <i
-          class="fas fa-remove"
-          title="desactiver"
-          (click)="desactiver(boutiquier?.id)"
-        ></i>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table>
+    <thead>
+      <tr>
+        <th>Nom Complet</th>
+        <th>Email</th>
+        <th>Numéro de téléphone</th>
+        <th>Adresse</th>
+        <th>Statut</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let boutiquier of boutiquiers">
+        <td>{{ boutiquier?.nomComplet }}</td>
+        <td>{{ boutiquier?.email }}</td>
+        <td>{{ boutiquier?.telephone }}</td>
+        <td>{{ boutiquier?.adresse }}</td>
+        <td>{{ boutiquier?.status }}</td>
+        <td class="action">
+          <i
+            class="fas fa-check"
+            title="activer"
+            (click)="activer(boutiquier?.id)"
+          ></i>
+          <i
+            class="fas fa-remove"
+            title="desactiver"
+            (click)="desactiver(boutiquier?.id)"
+          ></i>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

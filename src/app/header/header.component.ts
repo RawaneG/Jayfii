@@ -33,19 +33,16 @@ export class HeaderComponent implements OnInit {
     let nav = document.querySelector('nav');
     nav?.classList.toggle('translate');
   }
-
   openPanier()
   {
     document.querySelector('.overlay')?.classList.remove('hide_parent');
     document.querySelector('.second-parent')?.classList.remove('hide_parent');
   }
-
   refresh(): void
   {
     let currentUrl = this.route.url;
     this.route.navigateByUrl('/', { skipLocationChange: true }).then(() => this.route.navigate([currentUrl]));
   }
-
   switch(shop: any)
   {
     this.indexDBService.clearData('currentShop');

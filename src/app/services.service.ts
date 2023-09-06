@@ -112,7 +112,7 @@ export class HttpClientService {
         this.openSnackBar('Connexion non autorisée');
       }
     },
-      error => error.status === 401 ? this.openSnackBar('Email ou mot de passe incorrect') : null)
+      error => error.status === 401 ? this.openSnackBar('Email ou mot de passe incorrect') : this.openSnackBar('Connexion refusée'))
   }
   /* Obtenir le token d'authentification ***********************************************************************/
   getDecodedAccessToken(token: string): any {
