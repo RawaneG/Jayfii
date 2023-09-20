@@ -8,13 +8,21 @@
   <div class="my_container">
     <div class="first-parent">
       <div class="first-container" *ngIf="ajout_prod_button">
-        <button routerLink="add">
+        <button class="add-product" routerLink="add">
           <i class="fas fa-plus" style="font-size: 10px"></i>
           <p class="ajout">AJOUTER UN PRODUIT</p>
         </button>
-        <div data-toggle="modal" data-target="#exampleModal">
-          <i class="fas fa-trash" style="font-size: 20px" title="Supprimer"></i>
-        </div>
+        <button
+          class="delete-button"
+          data-toggle="modal"
+          data-target="#exampleModal"
+        >
+          <svg class="delete-svgIcon" viewBox="0 0 448 512">
+            <path
+              d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"
+            ></path>
+          </svg>
+        </button>
       </div>
       <div class="second-container">
         <mat-form-field appearance="outline">
@@ -153,7 +161,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">Vouslez-vous vraiment supprimer ?</div>
+      <div class="modal-body">Voulez-vous vraiment supprimer ?</div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">
           Fermer

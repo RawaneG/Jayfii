@@ -47,9 +47,14 @@ td
   cursor: pointer;
   .fas
   {
+    width: 30px;
+    height: 30px;
     padding: 1em;
-    transition: 0.5s ease-in-out;
+    display: flex;
     border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s ease-in-out;
   }
   .fas:hover
   {

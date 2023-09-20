@@ -1,17 +1,27 @@
 <app-spinner *ngIf="spin"></app-spinner>
 <app-header></app-header>
-<div class="container-fluid">
+<div class="contayner-fluid">
   <div class="body">
     <div class="profile-card">
       <div class="top-section">
         <div class="pic">
-          <img src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG.png" alt="picture" />
+          <img
+            src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG.png"
+            alt="picture"
+          />
         </div>
-        <div class="name">{{ currentSeller?.nomComplet | titlecase }}</div>
-        <div class="name">Téléphone : {{ currentSeller?.telephone }}</div>
-        <div class="name">
-          Adresse : {{ currentSeller?.adresse | titlecase }}
-        </div>
+        <tr class="name">
+          <td class="text-decoration-underline">Nom Complet</td>
+          <td>{{ currentSeller?.nomComplet | titlecase }}</td>
+        </tr>
+        <tr class="name">
+          <td class="text-decoration-underline">Téléphone</td>
+          <td>{{ currentSeller?.telephone }}</td>
+        </tr>
+        <tr class="name">
+          <td class="text-decoration-underline">Adresse</td>
+          <td>{{ currentSeller?.adresse | titlecase }}</td>
+        </tr>
       </div>
       <div class="bottom-section">
         <div class="social-media">

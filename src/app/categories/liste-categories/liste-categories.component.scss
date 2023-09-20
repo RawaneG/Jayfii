@@ -8,24 +8,21 @@
     font-weight: bold;
     font-family: 'Lumanosimo', cursive;
 }
-.container
+.my_container
 {
-    min-height: 50vh;
-    width: 75%;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 10px;
+    width: 80%;
     padding: 2em;
+    min-height: 50vh;
 }
 .first-container
 {
-    width: 50%;
+    width: 60%;
     display: flex;
     align-items: center;
-    margin: 1em 0 0 1em;
-    justify-content: space-around;
-    button
+    justify-content: space-evenly;
+    .add-category
     {
-        width: 60%;
+        min-width: 50%;
         padding: 1em;
         color:white;
         display: flex;
@@ -36,7 +33,7 @@
         transition: 0.5s ease-in-out;
         justify-content: space-evenly;
     }
-    button:hover
+    .add-category:hover
     {
         background-color: #033fb8;
     }
@@ -62,6 +59,11 @@
         box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
     }
 }
+.modif
+{
+    width: 50px;
+    height: 50px;
+}
 .checkbox
 {
     width: 20%;
@@ -78,7 +80,8 @@ table
 }
 td
 {
-    width: 30%;
+    width: 25%;
+    margin: 0 1.5em;
 }
 .box
 {
@@ -89,6 +92,148 @@ td
     border-radius: 5px;
     cursor: pointer;
 }
-@media screen {
+.delete-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    font-weight: 600;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: #002978;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition-duration: 0.3s;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  }
 
-}
+  .delete-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+  }
+
+  .delete-svgIcon path {
+    fill: white;
+  }
+
+  .delete-button:hover {
+    width: 90px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: #002978;
+  }
+
+  .delete-button:hover .delete-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(60%);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  .delete-button::before {
+    display: none;
+    color: white;
+    font-size: 2px;
+    padding: 0 20px;
+    text-align: center;
+    content: "Supprimer";
+    transition-duration: 0.3s;
+  }
+
+  .delete-button:hover::before {
+    opacity: 1;
+    display: block;
+    font-size: 13px;
+    padding-right: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(0px);
+  }
+
+  @media screen and (max-width: 975px)
+  {
+    .first-container
+    {
+        width: 80%;
+    }
+  }
+  @media screen and (max-width: 770px)
+  {
+    .my_container
+    {
+        width: 90%;
+    }
+    .first-container
+    {
+        width: 90%;
+    }
+  }
+  @media screen and (max-width: 645px)
+  {
+    .my_container
+    {
+        width: 100%;
+        padding: 1em;
+    }
+    .first-container
+    {
+        width: 90%;
+    }
+  }
+  @media screen and (max-width: 520px)
+  {
+    .first-container
+    {
+        width: 100%;
+    }
+  }
+  @media screen and (max-width: 460px)
+  {
+    .first-container
+    {
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .add-category
+    {
+        margin-bottom: 1em;
+        width: 55%;
+    }
+  }
+  @media screen and (max-width: 430px)
+  {
+    .my_container
+    {
+        padding: 0.5em;
+    }
+    .add-category
+    {
+        width: 60%;
+    }
+  }
+  @media screen and (max-width: 375px)
+  {
+    .add-category
+    {
+        width: 70%;
+    }
+  }
+  @media screen and (max-width: 332px)
+  {
+    .add-category
+    {
+        width: 80%;
+    }
+  }
+  @media screen and (max-width: 290px)
+  {
+    .add-category
+    {
+        width: 90%;
+    }
+  }

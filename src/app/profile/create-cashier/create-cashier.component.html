@@ -1,49 +1,42 @@
-<section>
-  <div class="box">
-    <div class="square" style="--i: 0"></div>
-    <div class="square" style="--i: 1"></div>
-    <div class="square" style="--i: 2"></div>
-    <div class="square" style="--i: 3"></div>
-    <div class="square" style="--i: 4"></div>
-    <div class="square" style="--i: 5"></div>
-    <div class="container">
-      <div class="form">
-        <h2>Inscrire un Caissier</h2>
-        <form [formGroup]="cashierCreation" (submit)="creation()">
-          <div class="inputBx">
-            <input type="text" formControlName="nomComplet" />
-            <span>Nom Complet</span>
-          </div>
-          <div class="inputBx">
-            <input type="email" formControlName="email" />
-            <span>Email</span>
-          </div>
-          <div class="inputBx">
-            <input type="password" name="password" formControlName="password" />
-            <span>Mot de passe</span>
-          </div>
-          <div class="inputBx">
-            <input type="text" name="password" formControlName="adresse" />
-            <span>Adresse</span>
-          </div>
-          <div class="inputBx">
-            <input type="text" name="password" formControlName="telephone" />
-            <span>Numéro de Téléphone</span>
-          </div>
-          <div class="inputBx">
-            <select name="password" formControlName="shop">
-              <option value="">Affecter une boutique</option>
-              <option value="{{ boutique.id }}" *ngFor="let boutique of shops">
-                {{ boutique.nomBoutique }}
-              </option>
-            </select>
-          </div>
-          <div class="inputBx">
-            <input type="button" class="submit" value="Annuler" (click)="retour()" />
-            <input type="submit" value="Enregistrer" />
-          </div>
-        </form>
+<section class="d-flex justify-content-center align-items-center">
+  <div class="form-container">
+    <h1>Inscrire un caissier</h1>
+    <form class="form" [formGroup]="cashierCreation" (submit)="creation()">
+      <div class="form-group">
+        <label for="nomComplet">Nom Complet</label>
+        <input type="text" id="nomComplet" formControlName="nomComplet" />
       </div>
-    </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" />
+      </div>
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input type="password" id="password" formControlName="password" />
+      </div>
+      <div class="form-group">
+        <label for="adresse">Adresse</label>
+        <input type="text" id="adresse" formControlName="adresse" />
+      </div>
+      <div class="form-group">
+        <label for="telephone">Numéro de Téléphone</label>
+        <input type="text" id="telephone" formControlName="telephone" />
+      </div>
+      <div class="form-group">
+        <label for="telephone">Boutique</label>
+        <select formControlName="shop">
+          <option value="">Affecter une boutique</option>
+          <option value="{{ boutique.id }}" *ngFor="let boutique of shops">
+            {{ boutique.nomBoutique }}
+          </option>
+        </select>
+      </div>
+      <div class="d-flex justify-content-between">
+        <button class="form-submit-btn" type="submit">Inscrire</button>
+        <button class="form-submit-btn" type="button" (click)="retour()">
+          Annuler
+        </button>
+      </div>
+    </form>
   </div>
 </section>

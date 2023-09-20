@@ -1,4 +1,4 @@
-.container-fluid
+.contayner-fluid
 {
   margin: 0 auto;
   width: 100%;
@@ -131,9 +131,14 @@
 }
 
 .name {
-  color: #f1f1f1;
-  font-size: 20px;
+  width: 100%;
+  display: flex;
   margin: 1em 0;
+  font-size: 20px;
+  color: #f1f1f1;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .tag {
@@ -214,6 +219,21 @@
 @media screen and (max-width: 425px)
 {
   .body, .profile-card
+  {
+    width: 100%;
+  }
+  .top-section
+  {
+    padding: 60px 20px;
+  }
+}
+@media screen and (max-width: 300px)
+{
+  .text-decoration-underline
+  {
+    display: none;
+  }
+  td
   {
     width: 100%;
   }

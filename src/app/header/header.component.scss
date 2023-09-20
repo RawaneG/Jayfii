@@ -147,33 +147,31 @@ nav
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
   z-index: 999;
-  height: 100%;
   display: flex;
+  overflow-y: auto;
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease-in-out;
   background-color: rgba(21, 17, 17, 0.61);
+
 }
 .popup-content
 {
   width: 80%;
-  z-index: 1000;
+  padding: 2em;
+  z-index: 999;
   display: flex;
-  min-height: 85%;
+  overflow-y: auto;
   border-radius: 2em;
   align-items: center;
   flex-direction: column;
   background-color: #eceff1;
   transition: 0.5s ease-in-out;
   justify-content: space-evenly;
-  padding: 4em;
-  z-index: 999;
 }
 .hidden
 {
-  // transform: scale(0);
   opacity: 0;
   z-index: -999;
 }
@@ -193,33 +191,12 @@ nav
   width: 100%;
   display:flex;
   flex-wrap: wrap;
-  min-height: 45vh;
+  overflow-y: auto;
   justify-content: space-evenly;
-  .card
-  {
-    width: 25%;
-    display: flex;
-    overflow: hidden;
-    text-align: center;
-    align-items: center;
-    border-radius: 15px;
-    justify-content: center;
-    border: 2px solid white;
-    backdrop-filter: blur(5px);
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.5);
-    border-top: 1px solid rgba(255, 255, 255, 0.5);
-    border-left: 1px solid rgba(255, 255, 255, 0.5);
-  }
-  .card img
-  {
-    width: auto;
-    height: 100%;
-    max-width: 100%;
-  }
 }
 
 // -- Burger button
+
 .icon-tabler,.ham
 {
   position: absolute;
@@ -265,4 +242,100 @@ nav
 }
 .ham1.active .bottom {
   stroke-dashoffset: -138px;
+}
+
+// Store cards
+
+.card
+{
+  position: relative;
+  width: 350px;
+  display: flex;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+  border-radius: 10px;
+  align-items: center;
+  perspective: 1000px;
+  justify-content: center;
+  background-color: #f2f2f2;
+  box-shadow: 0 0 0 5px #ffffff80;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card img
+{
+  width: 100%;
+  fill: #333;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card__image
+{
+  width: 100%;
+  height: 100%;
+}
+.card:hover
+{
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.2);
+}
+.card__content
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  transform-origin: bottom;
+  transform: rotateX(-90deg);
+  background-color: #f2f2f2;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card:hover .card__content
+{
+  transform: rotateX(0deg);
+}
+.card__title
+{
+  margin: 0;
+  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+}
+.card:hover img
+{
+  scale: 0;
+}
+.card__description
+{
+  color: #777;
+  font-size: 12px;
+  line-height: 1.4;
+  margin: 10px 0 10px;
+}
+.card__button
+{
+  border: none;
+  padding: 15px;
+  color: white;
+  border-radius: 8px;
+  background: #777;
+}
+
+
+@media screen and (max-width: 560px)
+{
+  .popup-content
+  {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 370px)
+{
+  .title h1
+  {
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
 }

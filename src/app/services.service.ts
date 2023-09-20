@@ -14,6 +14,7 @@ export class HttpClientService {
   /* Mes APIS **************************************************************************************************/
   removeBgKey = 'jBWxNa19KS49dmpcL38ibg6x';
   removeBgUrl = 'https://api.remove.bg/v1.0/removebg';
+
   shopUrl = 'https://jayfii.app/public/index.php/api/shops';
   loginUrl = 'https://jayfii.app/public/index.php/api/login';
   produitUrl = 'https://jayfii.app/public/index.php/api/produits';
@@ -21,6 +22,7 @@ export class HttpClientService {
   commandeUrl = 'https://jayfii.app/public/index.php/api/commandes';
   categorieUrl = 'https://jayfii.app/public/index.php/api/categories';
   boutiquierUrl = 'https://jayfii.app/public/index.php/api/boutiquiers';
+
   // shopUrl = 'https://127.0.0.1:8000/api/shops';
   // loginUrl = 'https://127.0.0.1:8000/api/login';
   // produitUrl = 'https://127.0.0.1:8000/api/produits';
@@ -28,6 +30,7 @@ export class HttpClientService {
   // commandeUrl = 'https://127.0.0.1:8000/api/commandes';
   // categorieUrl = 'https://127.0.0.1:8000/api/categories';
   // boutiquierUrl = 'https://127.0.0.1:8000/api/boutiquiers';
+
   /* Mes attributs *********************************************************************************************/
   itemsSubject = new BehaviorSubject<any[]>([]);
   items$ = this.itemsSubject.asObservable();

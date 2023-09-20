@@ -1,46 +1,68 @@
-<section>
-  <div class="box">
-    <div class="square" style="--i: 0"></div>
-    <div class="square" style="--i: 1"></div>
-    <div class="square" style="--i: 2"></div>
-    <div class="square" style="--i: 3"></div>
-    <div class="square" style="--i: 4"></div>
-    <div class="square" style="--i: 5"></div>
-    <div class="container">
-      <div class="form">
-        <h2>Créer une boutique</h2>
-        <form [formGroup]="shopCreation" (submit)="creation()">
-          <div class="inputBx">
-            <input type="text" formControlName="nom" />
-            <span>Nom de votre boutique</span>
-            <i class="fas fa-store"></i>
-          </div>
-          <div class="inputBx">
-            <input type="text" formControlName="link" />
-            <span>Lien de votre boutique</span>
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="inputBx">
-            <input type="text" name="password" formControlName="adresse" />
-            <span>Adresse de votre boutique</span>
-            <i class="fas fa-user"></i>
-          </div>
-          <div class="inputBx">
-            <label for="image">Choisir une image</label>
-            <input id="image" class="input" type="file" name="upload" class="image" (change)="readUrl($event)"
-              formControlName="image" hidden />
-            <span>Image de votre boutique</span>
-            <i class="fas fa-facebook"></i>
-          </div>
-          <div class="border border-dark my-5 p1 rounded shadow p-3 mb-5 w-50 mx-auto" *ngIf="url">
-            <img src="{{url}}" width="100px" height="100px">
-          </div>
-          <div class="inputBx">
-            <input type="button" class="submit" value="Annuler" (click)="retour()" />
-            <input type="submit" value="Enregistrer" />
-          </div>
-        </form>
+<section class="d-flex justify-content-center align-items-center">
+  <div class="form-container">
+    <h1>Créer une boutique</h1>
+    <form class="form" [formGroup]="shopCreation" (submit)="creation()">
+      <div class="form-group">
+        <label for="nom">Nom de la boutique</label>
+        <input type="text" id="nom" formControlName="nom" />
       </div>
-    </div>
+      <div class="form-group">
+        <label for="link">Lien de la boutique</label>
+        <input type="text" id="link" formControlName="link" />
+      </div>
+      <div class="form-group">
+        <label for="adresse">Adresse de la boutique</label>
+        <input type="text" id="adresse" formControlName="adresse" />
+      </div>
+
+      <div class="form-group">
+        <label>Photo de la boutique</label>
+        <label for="image" class="button w-75 mx-auto color-light">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
+              stroke="#ffffff"
+              stroke-width="2"
+            ></path>
+            <path
+              d="M17 15V18M17 21V18M17 18H14M17 18H20"
+              stroke="#ffffff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></path>
+          </svg>
+          AJOUTER UNE IMAGE
+        </label>
+        <input
+          type="file"
+          id="image"
+          formControlName="image"
+          (change)="readUrl($event)"
+          hidden
+        />
+      </div>
+      <div
+        class="border border-dark my-2 p1 rounded shadow p-3 w-50 mx-auto text-center"
+        *ngIf="url"
+      >
+        <img src="{{ url }}" width="100px" height="100px" />
+      </div>
+      <div class="d-flex justify-content-between">
+        <button class="form-submit-btn" type="submit">Ajouter</button>
+        <button class="form-submit-btn" type="button" (click)="retour()">
+          Annuler
+        </button>
+      </div>
+    </form>
   </div>
 </section>

@@ -28,7 +28,7 @@
     align-items: center;
     justify-content: space-around;
     width: 35%;
-    button
+    .add-product
     {
         padding: 1em;
         transition: 0.5s ease-in-out;
@@ -41,7 +41,7 @@
         cursor: pointer;
         color:white;
     }
-    button:hover
+    .add-product:hover
     {
         background-color: #033fb8;
     }
@@ -119,10 +119,75 @@ td
 {
     width: 12%;
 }
+
+.delete-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    display: flex;
+    font-weight: 600;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    background-color: #002978;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition-duration: 0.3s;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  }
+
+  .delete-svgIcon {
+    width: 15px;
+    transition-duration: 0.3s;
+  }
+
+  .delete-svgIcon path {
+    fill: white;
+  }
+
+  .delete-button:hover {
+    width: 90px;
+    border-radius: 50px;
+    transition-duration: 0.3s;
+    background-color: #002978;
+  }
+
+  .delete-button:hover .delete-svgIcon {
+    width: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(60%);
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+
+  .delete-button::before {
+    display: none;
+    color: white;
+    font-size: 2px;
+    padding: 0 20px;
+    text-align: center;
+    content: "Supprimer";
+    transition-duration: 0.3s;
+  }
+
+  .delete-button:hover::before {
+    opacity: 1;
+    display: block;
+    font-size: 13px;
+    padding-right: 20px;
+    transition-duration: 0.3s;
+    transform: translateY(0px);
+  }
+
 .fa-marker
 {
     cursor: pointer;
 }
+
 @media screen and (max-width: 1100px)
 {
     .my_container
@@ -211,7 +276,7 @@ td
     .first-container
     {
         justify-content: space-between;
-        button
+        .add-product
         {
             width: 80%;
         }
