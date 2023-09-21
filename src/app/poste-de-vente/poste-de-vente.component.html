@@ -65,7 +65,6 @@
             <h1>Méthode de paiement</h1>
             <div class="popup-div-2">
               <p>En espèce</p>
-              <!-- <p>Par carte</p> -->
             </div>
             <div class="popup-div-1">
               <h3>À Payer : {{ monTotal }} FCFA</h3>
@@ -152,50 +151,55 @@
 </div>
 <!-- ========== Panier ========== -->
 <div class="overlay hide_parent">
-  <div class="second-parent hide_parent">
-    <div class="close_paiement" (click)="closePanier()">
-      <span class="paiement-title">
-        <i class="fas fa-arrow-right"></i>
-      </span>
+  <div class="second-parent hide_parent d-flex flex-column">
+    <div class="heading d-flex justify-content-evenly align-items-center m-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="icon icon-table icon-table-shopping-bag"
+        width="50"
+        height="35"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        fill="none"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+        <path
+          d="M6.331 8h11.339a2 2 0 0 1 1.977 2.304l-1.255 8.152a3 3 0 0 1 -2.966 2.544h-6.852a3 3 0 0 1 -2.965 -2.544l-1.255 -8.152a2 2 0 0 1 1.977 -2.304z"
+        ></path>
+        <path d="M9 11v-5a3 3 0 0 1 6 0v5"></path>
+      </svg>
+      <h1>Mon Panier</h1>
+      <i class="fas fa-close" (click)="closePanier()"></i>
     </div>
-    <div class="p-middle">
-      <div class="myCard">
-        <div class="myCard-header">
-          <h2 class="produit">Panier</h2>
-          <span class="closeAll" (click)="closeAll()"
-            ><i class="fas fa-trash"></i
-          ></span>
-        </div>
-        <div class="myCard-content">
-          <!-- ========== Si le panier est vide, on obtient ce résultat ========== -->
-          <div
-            *ngIf="monPanier === undefined || monPanier === []"
-            class="w-100 h-100 d-flex justify-content-center align-items-center"
-          >
-            <div
-              class="myCard-empty d-flex justify-content-center align-items-center"
-            >
-              <span>
-                <i class="fas fa-shopping-cart"></i>
-              </span>
-            </div>
-          </div>
-          <!-- ========== Dans le cas contraire, on applique ce résultat ========== -->
+    <div class="section m-4 d-flex h-100">
+      <div class="bucket min-h-100">
+        <div class="cards min-h-100 d-flex flex-column justify-content-evenly">
+          <div *ngIf="monPanier === []" class=""></div>
           <app-panier
             *ngFor="let elus of monPanier"
             [selected]="elus"
             (message)="messageRecu($event)"
           ></app-panier>
         </div>
-        <div class="myCard-footer">
-          <span>Sous-Total</span>
-          <span>{{ monTotal }} FCFA</span>
-        </div>
       </div>
-    </div>
-    <div class="p-footer">
-      <div class="payment" (click)="open()">
-        <span class="payment-title">Valider</span>
+      <div
+        class="checkout d-flex flex-column justify-content-evenly align-items-center"
+      >
+        <div
+          class="sous-total d-flex justify-content-evenly align-items-center bg-light"
+        >
+          <h2>Total</h2>
+          <h3>{{ monTotal }} XOF</h3>
+        </div>
+        <button
+          class="commande border border-light text-uppercase"
+          (click)="open()"
+        >
+          Suivant
+        </button>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
-import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClientService } from '../services.service';
 import { IndexDBService } from '../index-db.service';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +22,6 @@ export class HeaderComponent implements OnInit {
   constructor(
     private httpService: HttpClientService,
     private indexDBService: IndexDBService,
-    private router: ActivatedRoute,
     private service: AuthService,
     public location: Location,
     public route: Router,
@@ -30,7 +29,7 @@ export class HeaderComponent implements OnInit {
 
   translate()
   {
-    let nav = document.querySelector('nav');
+    let nav = document.querySelector('#nav-bar');
     nav?.classList.toggle('translate');
   }
   openPanier()
@@ -55,13 +54,6 @@ export class HeaderComponent implements OnInit {
       }
     );
   }
-  link(event: any)
-  {
-    const allItems = document.querySelectorAll(".nav__item");
-    allItems.forEach(element => element.classList.remove('active'));
-    const daItem = document.querySelector(event);
-    daItem.classList.add('active');
-  }
   open()
   {
     document.querySelector('.popup-container')?.classList.remove('hidden');
@@ -85,10 +77,5 @@ export class HeaderComponent implements OnInit {
       },
       error => console.log("Vous n'avez pas encore d'utilisateur " + error)
     );
-    const allItems = document.querySelectorAll(".nav__item");
-    allItems.forEach(element => element.classList.remove('active'));
-    const path = this.router.snapshot.routeConfig?.path;
-    const daItem = document.querySelector(`[href*=${path}]`);
-    daItem?.classList.add('active');
   }
 }

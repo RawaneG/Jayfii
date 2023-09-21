@@ -38,111 +38,59 @@
 
   <h1>JAYFII</h1>
 </mat-toolbar>
-<nav>
-  <div class="nav__container">
-    <!-- ========== Boutique en Cours ========== -->
-    <a
-      id="a"
-      class="nav__item"
-      (click)="link('#a')"
-      (click)="open()"
-      *ngIf="monRole !== 'ROLE_CAISSIER'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>store</mat-icon>
-      </div>
-      <div class="nav__item-name">
-        En activité :
-        {{ currentStore?.nomBoutique }}
-      </div>
-    </a>
-    <!-- ========== Admin ========== -->
-    <a
-      id="b"
-      class="nav__item"
-      routerLink="../admin"
-      (click)="link('#b')"
-      *ngIf="monRole == 'ROLE_ADMIN'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>account_circle</mat-icon>
-      </div>
-      <div class="nav__item-name">Admin</div>
-    </a>
-    <!-- ========== Profil ========== -->
-    <a
-      id="c"
-      class="nav__item"
-      routerLink="../profile"
-      (click)="link('#c')"
-      *ngIf="monRole !== 'ROLE_CAISSIER'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>person</mat-icon>
-      </div>
-      <div class="nav__item-name">Profil</div>
-    </a>
-    <!-- ========== Dashboard ========== -->
-    <a
-      id="d"
-      class="nav__item"
-      routerLink="../dashboard"
-      (click)="link('#d')"
-      *ngIf="monRole !== 'ROLE_CAISSIER'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>dashboard</mat-icon>
-      </div>
-      <div class="nav__item-name">Dashboard</div>
-    </a>
-    <!-- ========== Produits ========== -->
-    <a
-      id="e"
-      class="nav__item"
-      routerLink="../produits"
-      (click)="link('#e')"
-      *ngIf="monRole !== 'ROLE_CAISSIER'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>shopping_basket</mat-icon>
-      </div>
-      <div class="nav__item-name">Produits</div>
-    </a>
-    <!-- ========== Catégories ========== -->
-    <a
-      id="f"
-      class="nav__item"
-      routerLink="../categories"
-      (click)="link('#f')"
-      *ngIf="monRole !== 'ROLE_CAISSIER'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>bubble_chart</mat-icon>
-      </div>
-      <div class="nav__item-name">Catégories</div>
-    </a>
-    <!-- ========== PDV ========== -->
-    <a
-      id="g"
-      class="nav__item"
-      routerLink="../poc"
-      (click)="link('#g')"
-      *ngIf="monRole !== 'ROLE_CAISSIER'"
-    >
-      <div class="nav__item-icon">
-        <mat-icon>add_shopping_cart</mat-icon>
-      </div>
-      <div class="nav__item-name">PDV</div>
-    </a>
-    <!-- ========== Déconnexion ========== -->
-    <a id="h" class="nav__item" (click)="link('#h'); deconnexion()">
-      <div class="nav__item-icon">
-        <mat-icon name="log-out-outline" fontIcon="logout"></mat-icon>
-      </div>
-      <div class="nav__item-name">Se Déconnecter</div>
-    </a>
+
+<div id="nav-bar">
+  <input id="nav-toggle" type="checkbox" />
+  <div id="nav-header">
+    <label for="nav-toggle"></label>
+    <hr />
   </div>
-</nav>
+  <div id="nav-content">
+    <div class="nav-button" (click)="open()">
+      <i class="fas fa-palette"></i><span>Mes Boutiques</span>
+    </div>
+    <div class="nav-button" routerLink="../admin">
+      <i class="fas fa-images"></i><span>Admin</span>
+    </div>
+    <div class="nav-button" routerLink="../profile">
+      <i class="fas fa-thumbtack"></i><span>Profil</span>
+    </div>
+    <div class="nav-button" routerLink="../dashboard">
+      <i class="fas fa-heart"></i><span>Dashboard</span>
+    </div>
+    <div class="nav-button" routerLink="../produits">
+      <i class="fas fa-chart-line"></i><span>Produits</span>
+    </div>
+    <div class="nav-button" routerLink="../categories">
+      <i class="fas fa-fire"></i><span>Catégories</span>
+    </div>
+    <div class="nav-button" routerLink="../poc">
+      <i class="fas fa-magic"></i><span>PDV</span>
+    </div>
+    <div class="nav-button" (click)="deconnexion()">
+      <i class="fas fa-gem"></i><span>Déconnexion</span>
+    </div>
+    <div id="nav-content-highlight"></div>
+  </div>
+  <input id="nav-footer-toggle" type="checkbox" />
+  <div id="nav-footer">
+    <div id="nav-footer-heading">
+      <div id="nav-footer-avatar">
+        <img src="" />
+      </div>
+      <div id="nav-footer-titlebox">
+        <a
+          id="nav-footer-title"
+          href="https://codepen.io/uahnbu/pens/public"
+          target="_blank"
+          >{{ currentStore?.nomBoutique }}</a
+        ><span id="nav-footer-subtitle"></span>
+      </div>
+      <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
+    </div>
+    <div id="nav-footer-content"></div>
+  </div>
+</div>
 
 <div class="popup-container hidden w-100 vh-100">
   <div class="popup-content h-100">
