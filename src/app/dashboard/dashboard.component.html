@@ -2,17 +2,21 @@
 <app-header></app-header>
 <div class="conteneur">
   <div class="A">
-    <div class="a">
-      <h3>Ventes Totales</h3>
-      <div class="a-1">
-        <i class="fas fa-money-bill-wave"></i>
-        <span>{{ totalVente }} FCFA</span>
+    <div class="a d-flex justify-content-evenly align-items-center">
+      <i class="fas fa-money-bill-wave"></i>
+      <div
+        class="a-1 d-flex flex-column justify-content-between align-items-center"
+      >
+        <h3>Ventes Totales</h3>
+        <span>{{ totalVente }} CFA</span>
       </div>
     </div>
-    <div class="a">
-      <h3>Marge totale</h3>
-      <div class="a-1">
-        <i class="fas fa-wallet"></i>
+    <div class="a d-flex justify-content-evenly align-items-center">
+      <i class="fas fa-wallet"></i>
+      <div
+        class="a-1 d-flex flex-column justify-content-between align-items-center"
+      >
+        <h3>Marge totale</h3>
         <span>{{ totalVente - totalCout }} FCFA</span>
       </div>
     </div>
@@ -83,8 +87,8 @@
       </div>
       <li class="table-header">
         <div class="col col-2">Date</div>
-        <div class="col col-2">Ventes Brutes</div>
-        <div class="col col-4">Coût des marchandises</div>
+        <div class="col col-2">Ventes</div>
+        <div class="col col-4">Coûts</div>
         <div class="col col-5">Marge</div>
       </li>
       <li

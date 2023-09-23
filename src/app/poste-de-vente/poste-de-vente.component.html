@@ -58,45 +58,64 @@
       </div>
     </div>
     <!-- ========== Pop Up Paiement ========== -->
-    <div class="first-popup hidden">
-      <div class="popup-container">
-        <div class="popup-content">
-          <div class="popup">
-            <h1>Méthode de paiement</h1>
-            <div class="popup-div-2">
-              <p>En espèce</p>
+    <div
+      class="modalll hidden d-flex justify-content-center align-items-center"
+    >
+      <div class="modall">
+        <form class="forme" [formGroup]="form">
+          <div class="payment--options">
+            <button name="google-pay" type="button">
+              <i class="fas fa-cart-plus"></i>
+            </button>
+          </div>
+          <div class="separator">
+            <hr class="line" />
+            <p>Payer en Espèces</p>
+            <hr class="line" />
+          </div>
+          <div class="credit-card-info--form">
+            <div class="input_container">
+              <label for="password_field" class="input_label"
+                >Montant à Payer : {{ monTotal }} CFA
+              </label>
             </div>
-            <div class="popup-div-1">
-              <h3>À Payer : {{ monTotal }} FCFA</h3>
-            </div>
-            <div class="form">
-              <!-- ========== Formulaire ========== -->
-              <form [formGroup]="form">
-                <mat-form-field class="example-full-width">
-                  <mat-label>Entrez votre montant Ici (FCFA)</mat-label>
-                  <input
-                    matInput
-                    class="input"
-                    (input)="ecriture()"
-                    formControlName="montant"
-                  />
-                </mat-form-field>
-              </form>
-              <div class="reste">
-                <h3>Reste : {{ reste }} FCFA</h3>
+            <div class="input_container">
+              <label for="password_field" class="input_label"
+                >Votre Montant</label
+              >
+              <div class="split">
+                <input
+                  type="number"
+                  id="password_field"
+                  (input)="ecriture()"
+                  title="Votre montant"
+                  formControlName="montant"
+                  class="input_field montant"
+                />
+                <input
+                  type="text"
+                  id="password_field"
+                  class="input_field"
+                  title="Votre monnaie"
+                  value="{{ reste }}"
+                  disabled
+                />
               </div>
             </div>
-            <!-- ========== Boutons de confirmation ========== -->
-            <div class="boutons">
-              <p (click)="ferme()">Annuler le paiement</p>
-              <p *ngIf="confirmer" (click)="confirmerPaiement()">
-                Valider le paiement
-              </p>
-            </div>
           </div>
-        </div>
+          <button class="purchase--btn" (click)="ferme()">Annuler</button>
+          <button
+            type="submit"
+            *ngIf="confirmer"
+            class="purchase--btn"
+            (click)="confirmerPaiement()"
+          >
+            Payer
+          </button>
+        </form>
       </div>
     </div>
+
     <!-- ========== Pop Up Reçu ========== -->
     <div class="second-popup cache">
       <div class="popup-container">
@@ -172,7 +191,10 @@
         <path d="M9 11v-5a3 3 0 0 1 6 0v5"></path>
       </svg>
       <h1>Mon Panier</h1>
-      <i class="fas fa-close" (click)="closePanier()"></i>
+      <i
+        class="fas fa-close d-flex justify-content-center align-items-center"
+        (click)="closePanier()"
+      ></i>
     </div>
     <div class="section m-4 d-flex h-100">
       <div class="bucket min-h-100">

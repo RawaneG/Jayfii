@@ -66,13 +66,17 @@ export class PosteDeVenteComponent implements OnInit {
     });
   }
   open() {
-    document.querySelector('.first-popup')?.classList.remove('hidden');
+    document.querySelector('.modalll')?.classList.remove('hidden');
   }
   ouvre() {
     document.querySelector(".second-popup")?.classList.remove('cache');
   }
-  ferme() {
-    document.querySelector('.first-popup')?.classList.add('hidden');
+  ferme()
+  {
+    this.reste = 0;
+    this.confirmer = false;
+    this.form.controls['montant'].patchValue(0);
+    document.querySelector('.modalll')?.classList.add('hidden');
   }
   close() {
     document.querySelector('.second-popup')?.classList.add('cache');
@@ -122,32 +126,6 @@ export class PosteDeVenteComponent implements OnInit {
           }
         }
       }
-      // else
-      // {
-      //   this.body =
-      //   {
-      //     "prixCommande": this.monTotal,
-      //     "montant": this.montant,
-      //     "reste": this.reste,
-      //     "methodePaiement":
-      //     {
-      //       "id": 1
-      //     },
-      //     "boutiquier":
-      //     {
-      //       "id": this.currentCashier?.boutiquier?.id
-      //     },
-      //     "ligneDeCommandes": this.getProduct(),
-      //     "shop":
-      //     {
-      //       "id": this.currentCashier?.shop?.id
-      //     },
-      //     "caissier":
-      //     {
-      //       "id": this.currentCashier?.id
-      //     }
-      //   }
-      // }
       this.httpService.create(this.httpService.commandeUrl, this.body).subscribe(
         {
           error: () => console.log("Il y'a erreur au niveau de l'ajout de commande'"),

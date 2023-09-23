@@ -1,9 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
-html, body
-{
-  margin: 0;
-  background: #9c88ff; }
-
+html, body { margin: 0; background: #9c88ff; }
 button {
     border: none;
     color: white;
@@ -33,7 +29,7 @@ a {
   color: #f5f6fa;
   overflow: hidden;
   height: calc(100%);
-  background: #18283b;
+  background: #002978;
   flex-direction: column;
   transform: translateX(-100%);
   transition: 0.5s ease-in-out;
@@ -47,7 +43,7 @@ a {
     left: 16px;
     width: calc(100% - 32px);
     border: none;
-    border-top: solid 1px #2c3e50; }
+    border-top: solid 1px #002978; }
   #nav-bar a {
     color: inherit;
     text-decoration: inherit; }
@@ -60,7 +56,7 @@ a {
   left: 16px;
   width: calc(256px - 16px);
   min-height: 65px;
-  background: #18283b;
+  background: #002978;
   border-radius: 16px;
   z-index: 2;
   display: flex;
@@ -94,8 +90,8 @@ label[for="nav-toggle"] {
   position: relative;
   flex: 1;
   width: 256px;
-  background: #18283b;
-  box-shadow: 0 0 0 16px #18283b;
+  background: #002978;
+  box-shadow: 0 0 0 16px #002978;
   direction: rtl;
   overflow-x: hidden;
   transition: width .2s; }
@@ -114,7 +110,7 @@ label[for="nav-toggle"] {
   top: -70px;
   width: calc(100% - 16px);
   height: 54px;
-  background: #9c88ff;
+  background: #fff;
   background-attachment: fixed;
   border-radius: 16px 0 0 16px;
   transition: top .2s; }
@@ -126,10 +122,10 @@ label[for="nav-toggle"] {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    box-shadow: 16px 16px #9c88ff; }
+    box-shadow: 16px 16px #fff; }
   #nav-content-highlight:after {
     top: 100%;
-    box-shadow: 16px -16px #9c88ff; }
+    box-shadow: 16px -16px #fff; }
 
 .nav-button {
   position: relative;
@@ -137,7 +133,7 @@ label[for="nav-toggle"] {
   height: 54px;
   display: flex;
   align-items: center;
-  color: #8392a5;
+  color: #fff;
   direction: ltr;
   cursor: pointer;
   z-index: 1;
@@ -147,35 +143,35 @@ label[for="nav-toggle"] {
   .nav-button .fas {
     transition: min-width .2s; }
   .nav-button:nth-of-type(1):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(1):hover ~ #nav-content-highlight {
       top: 16px; }
   .nav-button:nth-of-type(2):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(2):hover ~ #nav-content-highlight {
       top: 70px; }
   .nav-button:nth-of-type(3):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(3):hover ~ #nav-content-highlight {
       top: 124px; }
   .nav-button:nth-of-type(4):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(4):hover ~ #nav-content-highlight {
       top: 178px; }
   .nav-button:nth-of-type(5):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(5):hover ~ #nav-content-highlight {
       top: 232px; }
   .nav-button:nth-of-type(6):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(6):hover ~ #nav-content-highlight {
       top: 286px; }
   .nav-button:nth-of-type(7):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(7):hover ~ #nav-content-highlight {
       top: 340px; }
   .nav-button:nth-of-type(8):hover {
-    color: #18283b; }
+    color: #000; }
     .nav-button:nth-of-type(8):hover ~ #nav-content-highlight {
       top: 394px; }
 

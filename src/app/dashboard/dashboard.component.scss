@@ -1,15 +1,10 @@
-  body
-  {
-      font-family: 'lato', sans-serif;
-  }
+  * { margin: 0; padding: 0; }
+  body { font-family: 'lato', sans-serif; }
   table
   {
     width: 100%;
     text-align: center;
-    th
-    {
-      text-align: center;
-    }
+    th { text-align: center; }
   }
   .date
   {
@@ -21,21 +16,10 @@
   {
     width: 30%;
     padding: 0;
+    mat-label { display: inline; }
     background-color: #F0F2F4!important;
-    mat-label
-    {
-      display: inline;
-    }
-    .input
-    {
-      display: inline;
-      width: 50%;
-    }
-    .icon
-    {
-      float: right;
-      display: inline;
-    }
+    .input { display: inline; width: 50%; }
+    .icon { float: right; display: inline; }
   }
   .example-ripple-container,.filtre
   {
@@ -54,13 +38,13 @@
   .date-filters
   {
     display:flex;
-    justify-content: space-evenly;
     padding: 2em 0;
+    justify-content: space-evenly;
   }
   .conteneur
   {
-    height: 100vh;
     display: flex;
+    min-height: 100vh;
     align-items: center;
     flex-direction: column;
     background-color: #F0F2F4;
@@ -68,40 +52,25 @@
   }
   .A
   {
-    margin-left:4em;
-    width: 95%;
-    height: 50%;
+    width: 100%;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
     flex-wrap: wrap;
+    min-height: 50%;
+    align-items: center;
+    justify-content: space-evenly;
     .a
     {
-      border-radius: 16px;
+      height: 180px;
       color:#002978;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-evenly;
+      min-width: 300px;
       text-align: center;
-      width: 23%;
-      height: 50%;
+      border-radius: 16px;
+      .a-1 { span { font-size: 2em; } }
       box-shadow: 0 10px 15px rgba(0,0,100,0.3);
-      .fas
-      {
-        font-size: 3em;
-      }
-      .a-1
-      {
-        span
-        {
-          font-size: 2em;
-        }
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-      }
+      .fas { font-size: 3em; margin-bottom: 30px; }
     }
   }
+  .A,.container { margin: 3.5em 0; }
   .container
   {
     height: 50%;
@@ -109,20 +78,17 @@
     padding-left: 10px;
     padding-right: 10px;
   }
-  h2
-  {
-    font-size: 26px;
-    text-align: center;
-  }
+  h2 { font-size: 26px; text-align: center; }
   .responsive-table
   {
+    .col { flex-basis: 25%; }
     li
     {
+      display: flex;
       border-radius: 3px;
       padding: 25px 30px;
-      display: flex;
-      justify-content: space-between;
       margin-bottom: 25px;
+      justify-content: space-between;
     }
     .table-header
     {
@@ -138,70 +104,28 @@
     }
     .table-row
     {
+      text-align: center;
       background-color: #ffffff;
       box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .col-1
-    {
-      flex-basis: 15%;
-    }
-    .col-2
-    {
-      flex-basis: 20%;
-    }
-    .col-3
-    {
-      flex-basis: 25%;
-    }
-    .col-4
-    {
-      flex-basis: 25%;
-    }
-    .col-5
-    {
-      flex-basis: 15%;
-    }
-    @media all and (max-width: 767px)
-    {
-      .table-header
-      {
-        display: none;
-      }
-      li
-      {
-        display: block;
-      }
-      .col
-      {
-        flex-basis: 100%;
-      }
-      .col
-      {
-        display: flex;
-        padding: 10px 0;
-        &:before
-        {
-          color: #6C7A89;
-          padding-right: 10px;
-          content: attr(data-label);
-          flex-basis: 50%;
-          text-align: right;
-        }
-      }
     }
   }
-  .paginator
-  {
-    background-color: #F0F2F4;
-  }
+  .paginator { background-color: #F0F2F4; }
   .date-filters div
   {
     border-radius: 320px;
     transition: 0.2s ease-in-out;
-    &:hover
-    {
-      background-color: #6C7A89;
-      color: white;
-    }
+    &:hover { background-color: #6C7A89; color: white; }
   }
+  @media screen and (max-width: 590px)
+  {
+    .container { padding: 0; }
+    .date-filters { margin: 2em 0; }
+    .example-full-width, .filtre { width: 60%; }
+    .responsive-table { li { padding: 25px 0; } }
+    .table-row, .table-header { overflow-x: auto; }
+    .example-ripple-container { margin: 1em 0; width: 40%;}
+    .date, .date-filters { flex-direction: column; align-items: center; }
+  }
+  @media screen and (max-width: 300px) { .A { .a { min-width: 100%; } } }
+  @media screen and (max-width: 355px) { .example-ripple-container { width: 80%; } .example-full-width, .filtre { width: 80%; } }
+  @media screen and (max-width: 522px) { .responsive-table { .table-header { border-radius: 0; } .col { flex-basis: 50%; margin: 0 2em; } } }
