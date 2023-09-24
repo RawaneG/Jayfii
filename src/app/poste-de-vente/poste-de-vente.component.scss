@@ -177,7 +177,12 @@
   padding: 1.5em 0;
   border-radius: 320px;
   border: 1px solid black;
-  h1 { margin: 0; padding: 0; }
+  h1
+  {
+    margin: 0;
+    padding: 0;
+    font-family: "Luckybones", "Helvetica Neue", cursive;
+  }
   .fa-close
   {
     width: 50px;

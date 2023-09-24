@@ -1,10 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Varela+Round&display=swap");
+
 html, body { margin: 0; background: #9c88ff; }
+
 button {
     border: none;
     color: white;
     cursor: pointer;
     background: none; }
+
+.title h1 { font-family: "Luckybones", "Helvetica Neue", cursive; }
 
 .nav {
   color:white;
@@ -13,18 +17,15 @@ button {
   align-items: center;
   justify-content: center;
   background-color: #002978;
-  h1 {
-    margin: 0;
-    font-family: 'Lumanosimo', cursive; } }
+  h1 { margin: 0; font-family: 'Luckybones', cursive; } }
 
-a {
-  text-decoration: none; }
+a { text-decoration: none; }
 
 #nav-bar {
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 888;
   display: flex;
   color: #f5f6fa;
   overflow: hidden;
@@ -35,7 +36,7 @@ a {
   transition: 0.5s ease-in-out;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Luckybones', cursive;
   user-select: none; }
   #nav-bar hr {
     margin: 0;
@@ -44,11 +45,8 @@ a {
     width: calc(100% - 32px);
     border: none;
     border-top: solid 1px #002978; }
-  #nav-bar a {
-    color: inherit;
-    text-decoration: inherit; }
-  #nav-bar input[type="checkbox"] {
-    display: none; }
+    #nav-bar input[type="checkbox"] { display: none; }
+    #nav-bar a { color: inherit; text-decoration: inherit; }
 
 #nav-header {
   position: relative;
@@ -62,17 +60,11 @@ a {
   display: flex;
   align-items: center;
   transition: width .2s; }
-  #nav-header hr {
-    position: absolute;
-    bottom: 0; }
+  #nav-header hr { position: absolute; bottom: 0; }
 
-.translate {
-  transform: translateX(0)!important;
-  transition: 0.5s ease-in-out; }
+.translate { transform: translateX(0)!important; transition: 0.5s ease-in-out; }
 
-#nav-title {
-  font-size: 1.5rem;
-  transition: opacity 1s; }
+#nav-title { font-size: 1.5rem; transition: opacity 1s; }
 
 label[for="nav-toggle"] {
   position: absolute;
@@ -95,14 +87,9 @@ label[for="nav-toggle"] {
   direction: rtl;
   overflow-x: hidden;
   transition: width .2s; }
-  #nav-content::-webkit-scrollbar {
-    width: 8px;
-    height: 8px; }
-  #nav-content::-webkit-scrollbar-thumb {
-    border-radius: 99px;
-    background-color: white; }
-  #nav-content::-webkit-scrollbar-button {
-    height: 16px; }
+  #nav-content::-webkit-scrollbar-button { height: 16px; }
+  #nav-content::-webkit-scrollbar { width: 8px; height: 8px; }
+  #nav-content::-webkit-scrollbar-thumb { border-radius: 99px; background-color: white; }
 
 #nav-content-highlight {
   position: absolute;
@@ -123,9 +110,7 @@ label[for="nav-toggle"] {
     height: 32px;
     border-radius: 50%;
     box-shadow: 16px 16px #fff; }
-  #nav-content-highlight:after {
-    top: 100%;
-    box-shadow: 16px -16px #fff; }
+  #nav-content-highlight:after { top: 100%; box-shadow: 16px -16px #fff; }
 
 .nav-button {
   position: relative;
@@ -138,63 +123,43 @@ label[for="nav-toggle"] {
   cursor: pointer;
   z-index: 1;
   transition: color .2s; }
-  .nav-button span {
-    transition: opacity 1s; }
-  .nav-button .fas {
-    transition: min-width .2s; }
-  .nav-button:nth-of-type(1):hover {
-    color: #000; }
-    .nav-button:nth-of-type(1):hover ~ #nav-content-highlight {
-      top: 16px; }
-  .nav-button:nth-of-type(2):hover {
-    color: #000; }
-    .nav-button:nth-of-type(2):hover ~ #nav-content-highlight {
-      top: 70px; }
-  .nav-button:nth-of-type(3):hover {
-    color: #000; }
-    .nav-button:nth-of-type(3):hover ~ #nav-content-highlight {
-      top: 124px; }
-  .nav-button:nth-of-type(4):hover {
-    color: #000; }
-    .nav-button:nth-of-type(4):hover ~ #nav-content-highlight {
-      top: 178px; }
-  .nav-button:nth-of-type(5):hover {
-    color: #000; }
-    .nav-button:nth-of-type(5):hover ~ #nav-content-highlight {
-      top: 232px; }
-  .nav-button:nth-of-type(6):hover {
-    color: #000; }
-    .nav-button:nth-of-type(6):hover ~ #nav-content-highlight {
-      top: 286px; }
-  .nav-button:nth-of-type(7):hover {
-    color: #000; }
-    .nav-button:nth-of-type(7):hover ~ #nav-content-highlight {
-      top: 340px; }
-  .nav-button:nth-of-type(8):hover {
-    color: #000; }
-    .nav-button:nth-of-type(8):hover ~ #nav-content-highlight {
-      top: 394px; }
+  .nav-button span { transition: opacity 1s; }
+  .nav-button .fas { transition: min-width .2s; }
+  .nav-button:nth-of-type(1):hover { color: #000; }
+    .nav-button:nth-of-type(1):hover ~ #nav-content-highlight { top: 16px; }
+  .nav-button:nth-of-type(2):hover { color: #000; }
+    .nav-button:nth-of-type(2):hover ~ #nav-content-highlight { top: 70px; }
+  .nav-button:nth-of-type(3):hover { color: #000; }
+    .nav-button:nth-of-type(3):hover ~ #nav-content-highlight { top: 124px; }
+  .nav-button:nth-of-type(4):hover { color: #000; }
+    .nav-button:nth-of-type(4):hover ~ #nav-content-highlight { top: 178px; }
+  .nav-button:nth-of-type(5):hover { color: #000; }
+    .nav-button:nth-of-type(5):hover ~ #nav-content-highlight { top: 232px; }
+  .nav-button:nth-of-type(6):hover { color: #000; }
+    .nav-button:nth-of-type(6):hover ~ #nav-content-highlight { top: 286px; }
+  .nav-button:nth-of-type(7):hover { color: #000; }
+    .nav-button:nth-of-type(7):hover ~ #nav-content-highlight { top: 340px; }
+  .nav-button:nth-of-type(8):hover { color: #000; }
+    .nav-button:nth-of-type(8):hover ~ #nav-content-highlight { top: 394px; }
 
-#nav-bar .fas {
-  min-width: 3rem;
-  text-align: center; }
+#nav-bar .fas { min-width: 3rem; text-align: center; }
 
 #nav-footer {
-  position: relative;
+  z-index: 2;
   width: 256px;
   height: 54px;
-  background: #2c3e50;
-  border-radius: 16px;
   display: flex;
+  position: relative;
+  border-radius: 16px;
+  background: #2c3e50;
   flex-direction: column;
-  z-index: 2;
   transition: width .2s, height .2s; }
 
 #nav-footer-heading {
-  position: relative;
   width: 100%;
   height: 54px;
   display: flex;
+  position: relative;
   align-items: center; }
 
 #nav-footer-avatar {

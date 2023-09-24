@@ -1,18 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lumanosimo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckybones&display=swap');
 
 *
 {
     margin: 0;
     padding: 0;
+    font-family: "Luckybones", "Helvetica Neue", cursive;
 }
 body
 {
     min-height: 100vh;
     background-color: #F0F2F4;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
     &::-webkit-scrollbar-button { height: 16px; }
     &::-webkit-scrollbar { width: 8px; height: 8px; }
     &::-webkit-scrollbar-thumb { border-radius: 99px; background-color: #002978; }

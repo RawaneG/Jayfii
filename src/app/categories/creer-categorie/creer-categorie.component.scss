@@ -2,93 +2,72 @@
 {
     font-size: 2em;
     font-weight: bold;
-    font-family: 'Lumanosimo', cursive;
+    text-align: center;
+    font-family: 'Luckybones', cursive;
 }
-.container
+.contayner
 {
-    min-height: 50vh;
     width: 60%;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    border-radius: 10px;
     display: flex;
+    min-height: 50vh;
+    border-radius: 10px;
     flex-direction: column;
     justify-content: space-around;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
-form
-{
-    margin: 0 auto;
-}
+form { margin: 0 auto; }
 .radio-group
 {
     margin: 1em 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
 }
 .parent
 {
     display: flex;
-    flex-direction: column-reverse;
     align-items: center;
+    flex-direction: column-reverse;
     justify-content: space-between;
 }
-.radio
-{
-    margin: 0.5em;
-}
+.radio { margin: 0.5em; }
 .box
 {
-    background: rgb(0, 115, 255);
     padding: 2em;
-    border-radius: 5px;
     cursor: pointer;
+    border-radius: 5px;
+    background: rgb(0, 115, 255);
 }
 .example-form
 {
+    width: 100%;
     min-width: 80%;
     max-width: 500px;
-    width: 100%;
 }
-.example-full-width
-{
-   width: 100%;
-}
+.example-full-width { width: 100%; }
 .final-boutons
 {
-    margin: 0 29em;
-    width: 50%;
+    width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     button
     {
-        cursor:pointer;
         border: none;
+        cursor:pointer;
+        font-size: 15px;
         background: none;
         padding: 1em 3em;
+        border-radius: 10px;
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        font-size: 15px;
     }
-    .valider
-    {
-        background: #002978;
-        color:white;
-    }
+    .valider { background: #002978; color:white; }
 }
-.green
-{
-    background-color:greenyellow;
-}
-.red
-{
-    background-color:red;
+.red { background-color:red; }
+.black { background-color:black; }
+.purple { background-color:purple; }
+.green { background-color:greenyellow; }
 
-}
-.purple
-{
-    background-color:purple;
-
-}
-.black
-{
-    background-color:black;
-
-}
+@media screen and (max-width: 915px) { .contayner { width: 80%; } }
+@media screen and (max-width: 700px) { .contayner { width: 100%; } }
+@media screen and (max-width: 320px) { .final-boutons { button { margin: 1em auto; } .example-full-width { width: 90%; } } }

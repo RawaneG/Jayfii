@@ -17,6 +17,7 @@
     />
   </svg>
   <svg
+    *ngIf="cartIcon"
     (click)="openPanier()"
     xmlns="http://www.w3.org/2000/svg"
     class="icon icon-tabler icon-tabler-shopping-bag"
@@ -76,19 +77,18 @@
   <div id="nav-footer">
     <div id="nav-footer-heading">
       <div id="nav-footer-avatar">
-        <img src="" />
+        <img
+          *ngIf="currentStore?.imageBoutique"
+          src="{{ 'data:image/png;base64,' + currentStore?.imageBoutique }}"
+        />
       </div>
       <div id="nav-footer-titlebox">
-        <a
-          id="nav-footer-title"
-          href="https://codepen.io/uahnbu/pens/public"
-          target="_blank"
-          >{{ currentStore?.nomBoutique }}</a
+        <a id="nav-footer-title">{{ currentStore?.nomBoutique }}</a
         ><span id="nav-footer-subtitle"></span>
       </div>
       <label for="nav-footer-toggle"><i class="fas fa-caret-up"></i></label>
     </div>
-    <div id="nav-footer-content"></div>
+    <div id="nav-footer-content">{{ currentStore?.adresse }}</div>
   </div>
 </div>
 
