@@ -61,6 +61,6 @@ export class HeaderComponent implements OnInit {
       },
       error => console.log("Vous n'avez pas encore d'utilisateur " + error)
     );
-    this.indexDBService.getData('currentShop').subscribe((data : any) => this.currentStore = data[0].boutique)
+    this.indexDBService.getData('currentShop').subscribe((data : any) => this.currentStore = data[0]?.boutique)
   }
 }

@@ -202,9 +202,11 @@
     width: 40%;
     .sous-total
     {
+
       width: 80%;
       height: 200px;
       border-radius: 16px;
+      h2, h3 { font-family: "Luckybones", "Helvetica Neue", cursive; }
       box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
     }
     .commande

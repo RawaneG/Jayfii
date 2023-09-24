@@ -1,8 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Luckybones&display=swap');
 
+@font-face {
+    font-family: 'Luckybones';
+    src: url('./assets/fonts/Luckybones-Bold.otf') format('otf'),
+         url('./assets/fonts/Luckybones-Bold.ttf') format('ttf');
+    font-weight: 300;
+    font-style: normal;
+  }
 *
 {
     margin: 0;
