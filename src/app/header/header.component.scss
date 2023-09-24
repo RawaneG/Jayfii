@@ -8,7 +8,7 @@ button {
     cursor: pointer;
     background: none; }
 
-.title h1 { font-family: "Luckybones", "Helvetica Neue", cursive; }
+.title h1 { font-family: "Luckybones", "Helvetica Neue", sans-serif; }
 
 .nav {
   color:white;
@@ -17,7 +17,7 @@ button {
   align-items: center;
   justify-content: center;
   background-color: #002978;
-  h1 { margin: 0; font-family: 'Luckybones', cursive; } }
+  h1 { margin: 0; font-family: 'Luckybones', sans-serif; } }
 
 a { text-decoration: none; }
 
@@ -36,7 +36,7 @@ a { text-decoration: none; }
   transition: 0.5s ease-in-out;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
-  font-family: 'Luckybones', cursive;
+  font-family: 'Luckybones', sans-serif;
   user-select: none; }
   #nav-bar hr {
     margin: 0;
