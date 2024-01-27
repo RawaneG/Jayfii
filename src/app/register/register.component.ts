@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit
           this.httpService.create(this.httpService.boutiquierUrl, this.body).subscribe(
             {
               next : () => this.httpService.openSnackBar('Inscription effectuée avec succès', 'login'),
-              error : (e) => console.log("Erreur au niveau de la création de compte", e),
+              error : (e) => e.status === 500 || e.status === 200 ? this.httpService.openSnackBar('Inscription effectuée avec succès', 'login') : console.log("Erreur au niveau de la création de compte", e),
               complete : () => console.log("Completed"),
             });
         }
@@ -43,7 +43,8 @@ export class RegisterComponent implements OnInit
           this.httpService.openSnackBar('Cet email existe déjà, Veuillez vous connecter');
         }
       },
-      error => error.status === 500 ? this.httpService.openSnackBar('Inscription effectuée avec succès', 'login') : null)
+      error => error.status !== 500 ? this.httpService.openSnackBar('Inscription effectuée avec succès', 'login') : console.log(error.status)
+      )
   }
   ngOnInit(): void
   {

@@ -1,7 +1,22 @@
-.body,.paginator
+.cursor-pointer { cursor: pointer; }
+.dark-blue { background-color: #002978; }
+
+@mixin dimensions($width : 100%, $height : 0, $min-height: 0)
 {
-    background-color: #F0F2F4;
+  @if($min-height != 0) { min-height: $min-height; }
+  width: $width; @if($height != 0) { height: $height; };
 }
+
+@mixin centering($horizontal : center, $vertical : null, $direction : null, $wrap : null)
+{
+  display: flex;
+  @if($vertical != null) { align-items: $vertical; }
+  @if($direction != null) { flex-direction: $direction; }
+  justify-content: $horizontal; @if($wrap != null) { flex-wrap: $wrap; }
+}
+
+.body,.paginator { background-color: #F0F2F4; }
+
 .page-title
 {
     margin: 1em 0;
@@ -9,232 +24,148 @@
     font-weight: bold;
     font-family: 'Luckybones', sans-serif;
 }
-.my_container
-{
-    width: 80%;
-    padding: 2em;
-    min-height: 50vh;
-}
+
+.my_container { padding: 2em; @include dimensions(80%, 0, 50vh); }
+
 .first-container
 {
-    width: 60%;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
+    @include dimensions(60%);
+    @include centering(space-evenly, center);
     .add-category
     {
         min-width: 50%;
         padding: 1em;
         color:white;
-        display: flex;
-        cursor: pointer;
         border-radius: 5px;
-        align-items: center;
-        background-color: #002978;
         transition: 0.5s ease-in-out;
-        justify-content: space-evenly;
+        @include centering(space-evenly, center);
+        &:hover { background-color: #033fb8; }
     }
-    .add-category:hover
-    {
-        background-color: #033fb8;
-    }
-    .fa-trash
-    {
-        cursor: pointer;
-    }
-    .ajout
-    {
-        font-size: 14px;
-        margin: 1%;
-    }
+    .ajout { font-size: 14px; margin: 1%; }
 }
 .third-parent
 {
     tr
     {
         transition: 0.2s ease-in-out;
-        cursor: pointer;
-    }
-    tr:hover
-    {
-        box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+        &:hover { box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px; }
     }
 }
-.modif
-{
-    width: 50px;
-    height: 50px;
-}
-.checkbox
-{
-    width: 20%;
-}
-.table-responsive
-{
-    overflow-x: auto;
-}
+
+.modif { @include dimensions(50px, 50px); }
+.checkbox { @include dimensions(20%); }
+.table-responsive { overflow-x: auto; }
+
 table
 {
-    width: 100%;
-    border-spacing: 0;
-    border-collapse: collapse;
+  border-spacing: 0;
+  @include dimensions(100%);
+  border-collapse: collapse;
 }
-td
-{
-    width: 25%;
-    margin: 0 1.5em;
-}
+
+td { @include dimensions(25%); margin: 0 1.5em; }
+
 .box
 {
-    display: block;
-    width: 5%;
-    border: 2px solid rgb(0, 115, 255);
-    padding: 1.5em;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 5%;
+  display: block;
+  padding: 1.5em;
+  border-radius: 5px;
+  border: 2px solid rgb(0, 115, 255);
 }
-.delete-button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    display: flex;
-    font-weight: 600;
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    background-color: #002978;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    transition-duration: 0.3s;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
-  }
+.delete-button
+{
+  @include dimensions(40px, 40px);
+  @include centering(center, center);
+  border: none;
+  font-weight: 600;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+  transition-duration: 0.3s;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.164);
+  &:hover { width: 90px; border-radius: 50px; }
+}
 
-  .delete-svgIcon {
-    width: 15px;
-    transition-duration: 0.3s;
-  }
+.delete-svgIcon { width: 15px; transition-duration: 0.3s; }
 
-  .delete-svgIcon path {
-    fill: white;
-  }
+.delete-svgIcon path { fill: white; }
 
-  .delete-button:hover {
-    width: 90px;
-    border-radius: 50px;
-    transition-duration: 0.3s;
-    background-color: #002978;
-  }
+.delete-button:hover .delete-svgIcon {
+  width: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(60%);
+  -webkit-transform: rotate(360deg);
+  -moz-transform: rotate(360deg);
+  -o-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
 
-  .delete-button:hover .delete-svgIcon {
-    width: 20px;
-    transition-duration: 0.3s;
-    transform: translateY(60%);
-    -webkit-transform: rotate(360deg);
-    -moz-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+.delete-button::before {
+  display: none;
+  color: white;
+  font-size: 2px;
+  padding: 0 20px;
+  text-align: center;
+  content: "Supprimer";
+  transition-duration: 0.3s;
+}
 
-  .delete-button::before {
-    display: none;
-    color: white;
-    font-size: 2px;
-    padding: 0 20px;
-    text-align: center;
-    content: "Supprimer";
-    transition-duration: 0.3s;
-  }
+.delete-button:hover::before {
+  opacity: 1;
+  display: block;
+  font-size: 13px;
+  padding-right: 20px;
+  transition-duration: 0.3s;
+  transform: translateY(0px);
+}
 
-  .delete-button:hover::before {
-    opacity: 1;
-    display: block;
-    font-size: 13px;
-    padding-right: 20px;
-    transition-duration: 0.3s;
-    transform: translateY(0px);
-  }
+@media screen and (max-width: 975px)
+{
+  .first-container { width: 80%; }
+}
 
-  @media screen and (max-width: 975px)
-  {
-    .first-container
-    {
-        width: 80%;
-    }
-  }
-  @media screen and (max-width: 770px)
-  {
-    .my_container
-    {
-        width: 90%;
-    }
-    .first-container
-    {
-        width: 90%;
-    }
-  }
-  @media screen and (max-width: 645px)
-  {
-    .my_container
-    {
-        width: 100%;
-        padding: 1em;
-    }
-    .first-container
-    {
-        width: 90%;
-    }
-  }
-  @media screen and (max-width: 520px)
-  {
-    .first-container
-    {
-        width: 100%;
-    }
-  }
-  @media screen and (max-width: 460px)
-  {
-    .first-container
-    {
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    .add-category
-    {
-        margin-bottom: 1em;
-        width: 55%;
-    }
-  }
-  @media screen and (max-width: 430px)
-  {
-    .my_container
-    {
-        padding: 0.5em;
-    }
-    .add-category
-    {
-        width: 60%;
-    }
-  }
-  @media screen and (max-width: 375px)
-  {
-    .add-category
-    {
-        width: 70%;
-    }
-  }
-  @media screen and (max-width: 332px)
-  {
-    .add-category
-    {
-        width: 80%;
-    }
-  }
-  @media screen and (max-width: 290px)
-  {
-    .add-category
-    {
-        width: 90%;
-    }
-  }
+@media screen and (max-width: 770px)
+{
+  .my_container { width: 90%; }
+  .first-container { width: 90%; }
+}
+
+@media screen and (max-width: 645px)
+{
+  .first-container { width: 90%; }
+  .my_container { width: 100%; padding: 1em; }
+}
+
+@media screen and (max-width: 520px)
+{
+  .first-container { width: 100%; }
+}
+
+@media screen and (max-width: 460px)
+{
+  .add-category { margin-bottom: 1em; width: 55%; }
+  .first-container { @include centering(space-between, null , column); }
+}
+
+@media screen and (max-width: 430px)
+{
+  .add-category { width: 60%; }
+  .my_container { padding: 0.5em; }
+}
+
+@media screen and (max-width: 375px)
+{
+  .add-category { width: 70%; }
+}
+
+@media screen and (max-width: 332px)
+{
+  .add-category { width: 80%; }
+}
+
+@media screen and (max-width: 290px)
+{
+  .add-category { width: 90%; }
+}

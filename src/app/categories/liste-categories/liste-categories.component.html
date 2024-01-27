@@ -6,12 +6,12 @@
   <h1 class="page-title">Mes Catégories</h1>
   <div class="my_container">
     <div class="first-container mx-auto" *ngIf="ajout_cat_button">
-      <button class="add-category" routerLink="add">
+      <button class="add-category cursor-pointer dark-blue" routerLink="add">
         <i class="fas fa-plus" style="font-size: 10px"></i>
         <p class="ajout">AJOUTER UNE CATÉGORIE</p>
       </button>
       <button
-        class="delete-button"
+        class="delete-button cursor-pointer dark-blue"
         data-toggle="modal"
         data-target="#exampleModal"
       >
@@ -44,7 +44,7 @@
       <div class="w-100 d-flex align-items-center table-responsive">
         <table class="second-table w-100">
           <tr
-            class="d-flex justify-content-evenly bg-light align-items-center py-3 my-2 border border-bottom-dark rounded"
+            class="d-flex cursor-pointer justify-content-evenly bg-light align-items-center py-3 my-2 border border-bottom-dark rounded"
           >
             <td class="checkbox text-center">
               <mat-checkbox
@@ -69,7 +69,7 @@
               <span>{{ categorie?.nom }}</span>
             </td>
             <td class="text-center d-flex justify-content-center">
-              <span class="box"></span>
+              <span class="box cursor-pointer"></span>
             </td>
           </tr>
         </table>

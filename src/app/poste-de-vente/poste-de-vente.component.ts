@@ -128,7 +128,7 @@ export class PosteDeVenteComponent implements OnInit {
       }
       this.httpService.create(this.httpService.commandeUrl, this.body).subscribe(
         {
-          error: () => console.log("Il y'a erreur au niveau de l'ajout de commande'"),
+          error: (e) => console.log("Il y'a erreur au niveau de l'ajout de commande", e),
           complete: () => console.log("Commande ajoutée avec succès")
         }
       );

@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
     templateUrl: './liste-produits.component.html',
     styleUrls: ['./liste-produits.component.scss']
   })
+
 export class ListeProduitsComponent implements OnInit {
   ajout_prod_button !: boolean;
   isChecked: any = 'decochee';
@@ -46,7 +47,8 @@ export class ListeProduitsComponent implements OnInit {
         element.etat = true;
         this.httpService.update(this.httpService.produitUrl, element.id, element).subscribe(
           {
-            next: () => this.httpService.openSnackBar('Suppression effectuée avec succès'),
+            next: () => this.httpService.openSnackBar('Suppression effectuée avec succès')
+            ,
             error: () => console.log('Erreur au niveau de la suppression'),
             complete: () => console.log('Suppression bien effectuée')
           })
