@@ -1,0 +1,24 @@
+.w-100 { width: 100%; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.text-center { text-align: center; }
+.radius_rounded { border-radius: 50%; }
+
+@mixin dimensions($width : 0, $height : 0, $min-width : 0, $min-height : 0, $max-width : 0, $max-height : 0)
+{
+  @if($width != 0) { width: $width; }
+  @if($height != 0) { height: $height; }
+  @if($min-width != 0) { min-width: $min-width; }
+  @if($max-width != 0) { max-width: $max-width; }
+  @if($min-height != 0) { min-height: $min-height; }
+  @if($max-height != 0) { max-height: $max-height; }
+}
+
+@mixin centering($horizontal : null, $vertical : null, $direction : null, $wrap : null)
+{
+  display: flex;
+  @if($wrap != null) { flex-wrap: $wrap; }
+  @if($vertical != null) { align-items: $vertical; }
+  @if($direction != null) { flex-direction: $direction; }
+  @if($horizontal != null) { justify-content: $horizontal; }
+}

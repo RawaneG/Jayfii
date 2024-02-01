@@ -2,7 +2,7 @@
 <app-header></app-header>
 <div class="conteneur">
   <div class="A">
-    <div class="a d-flex justify-content-evenly align-items-center">
+    <div class="a d-flex justify-content-evenly align-items-center text-center">
       <i class="fas fa-money-bill-wave"></i>
       <div
         class="a-1 d-flex flex-column justify-content-between align-items-center"
@@ -52,47 +52,51 @@
           <mat-datepicker #pickerr></mat-datepicker>
         </mat-form-field>
 
-        <input type="submit" class="filtre mat-elevation-z4" value="Filtrer" />
+        <input
+          type="submit"
+          class="filtre mat-elevation-z4 text-center"
+          value="Filtrer"
+        />
       </form>
 
       <div class="date-filters">
         <div
-          class="example-ripple-container mat-elevation-z4"
+          class="example-ripple-container mat-elevation-z4 text-center"
           matRipple
           (click)="filtering('week')"
         >
           Aujourd'hui
         </div>
         <div
-          class="example-ripple-container mat-elevation-z4"
+          class="example-ripple-container mat-elevation-z4 text-center"
           matRipple
           (click)="filtering('week')"
         >
           Cette Semaine
         </div>
         <div
-          class="example-ripple-container mat-elevation-z4"
+          class="example-ripple-container mat-elevation-z4 text-center"
           matRipple
           (click)="filtering('month')"
         >
           Ce Mois
         </div>
         <div
-          class="example-ripple-container mat-elevation-z4"
+          class="example-ripple-container mat-elevation-z4 text-center"
           matRipple
           (click)="filtering('year')"
         >
           Cette année
         </div>
       </div>
-      <li class="table-header">
+      <li class="table-header text-center">
         <div class="col col-2">Date</div>
         <div class="col col-2">Ventes</div>
         <div class="col col-4">Coûts</div>
         <div class="col col-5">Marge</div>
       </li>
       <li
-        class="table-row"
+        class="table-row text-center"
         *ngFor="let vente of pageSlice | filter : filtreDate"
       >
         <div class="col col-2">{{ vente.date | date : "fullDate" }}</div>

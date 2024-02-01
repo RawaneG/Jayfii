@@ -1,0 +1,73 @@
+@import "../../bases";
+
+.form-container
+{
+  width: 400px;
+  font-size: 14px;
+  padding: 32px 24px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  background: linear-gradient(#212121, #212121) padding-box, linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+  & .form-group
+  {
+    gap: 2px;
+    & label
+    {
+      display: block;
+      font-size: 12px;
+      color: #717171;
+      margin-bottom: 5px;
+    }
+    & input { width: 100%; &::placeholder { opacity: 0.5; } }
+    & textarea { resize: none; @include dimensions(100%,96px) }
+    & input:focus, & textarea:focus { border-color: #e81cff; }
+  }
+  & .form-submit-btn
+  {
+    gap: 8px;
+    width: 40%;
+    margin-top: 8px;
+    color: #717171;
+    font-size: inherit;
+    border-radius: 6px;
+    font-family: inherit;
+    background: #313131;
+    align-self: flex-start;
+    @include centering(center, flex-start);
+    &:hover { border-color: #fff; background-color: #fff; }
+  }
+
+  &, & .form { gap: 20px; }
+  & button:active { scale: 0.95; }
+  & select, & .form-submit-btn { cursor: pointer; }
+  & .form-group label, & .form-submit-btn { font-weight: 600; }
+  &, & .form, & .form-group { @include centering(null, null, column); }
+  & select { width: 100%; &, option { background-color: #414141; color: #fff; } }
+  & select, & .form-group input:focus, .form-group textarea:focus { outline: none; }
+  & select, & .form-group input, .form-group textarea { border-radius: 8px; background-color: transparent; }
+  & .form-group input, & .form-group textarea, & .form-submit-btn, & select { padding: 12px 16px; border: 1px solid #414141; }
+}
+.button
+{
+  gap: 0.75rem;
+  border: none;
+  font-weight: 700;
+  line-height: 1rem;
+  user-select: none;
+  font-size: 0.75rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  vertical-align: middle;
+  padding: 0.75rem 1.5rem;
+  text-transform: uppercase;
+  transition: all .6s ease;
+  cursor: pointer !important;
+  @include centering(space-evenly, center);
+  & svg { @include dimensions(1.25rem, 1.25rem); }
+  &:focus, &:active { opacity: .85; box-shadow: none; }
+  box-shadow: 0 4px 6px -1px #488aec31, 0 2px 4px -1px #488aec17;
+  &:hover { box-shadow: 0 10px 15px -3px #488aec4f, 0 4px 6px -2px #488aec17; }
+  background: linear-gradient(#212121, #212121) padding-box, linear-gradient(145deg, transparent 35%,#e81cff, #40c9ff) border-box;
+}
+section { background-color: #212121; @include dimensions(100%, 0, 0, 100vh); }
+.form-container, .form-container .form-group, .button { color: #fff; border: 2px solid transparent; }

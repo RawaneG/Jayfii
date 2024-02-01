@@ -2,30 +2,35 @@
 <app-header></app-header>
 <div class="contayner-fluid">
   <div class="body">
-    <div class="profile-card">
+    <div class="profile-card relative text-center">
       <div class="top-section">
-        <div class="pic">
+        <div class="pic radius_rounded relative">
           <img
+            class="radius_rounded"
             src="https://www.pngall.com/wp-content/uploads/5/Profile-PNG.png"
             alt="picture"
           />
         </div>
-        <tr class="name">
+        <tr class="name text-center w-100">
           <td class="w-100">{{ currentSeller?.nomComplet | titlecase }}</td>
         </tr>
-        <tr class="name">
+        <tr class="name text-center w-100">
           <td class="w-100">{{ currentSeller?.telephone }}</td>
         </tr>
-        <tr class="name">
+        <tr class="name text-center w-100">
           <td class="w-100">{{ currentSeller?.adresse | titlecase }}</td>
         </tr>
       </div>
-      <div class="bottom-section">
-        <div class="social-media">
-          <a routerLink="addShop"><i class="fas fa-store"></i></a>
-          <a routerLink="addCashier"><i class="fas fa-person"></i></a>
+      <div class="bottom-section relative">
+        <div class="social-media absolute w-100">
+          <a routerLink="addShop"
+            ><i class="fas fa-store radius_rounded relative"></i
+          ></a>
+          <a routerLink="addCashier"
+            ><i class="fas fa-person radius_rounded relative"></i
+          ></a>
         </div>
-        <div class="videos">
+        <div class="videos w-100 absolute">
           <span>Ajouter une boutique</span>
           <span>Ajouter un opérateur</span>
         </div>

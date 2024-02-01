@@ -115,57 +115,6 @@
         </form>
       </div>
     </div>
-
-    <!-- ========== Pop Up Reçu ========== -->
-    <div class="second-popup cache">
-      <div class="popup-container">
-        <div class="popup-content-receive">
-          <div class="first-line">
-            <div class="child">
-              <h1>Reçu du paiement</h1>
-              <h1>Date d'achat : {{ receipt?.date | date : "fullDate" }}</h1>
-            </div>
-          </div>
-          <div class="second-line">
-            <div class="first-child">
-              <div class="the_header">
-                <h3><strong>Nom du produit</strong></h3>
-                <h3><strong>Quantité</strong></h3>
-                <h3><strong>Prix du produit</strong></h3>
-              </div>
-              <div class="the_main">
-                <div
-                  class="child_o_the_main"
-                  *ngFor="let article of receipt?.ligneDeCommandes"
-                >
-                  <h3>{{ article?.produit?.nom }}</h3>
-                  <h3>{{ article?.quantite }}</h3>
-                  <h3>{{ article?.prix }} FCFA</h3>
-                </div>
-              </div>
-            </div>
-            <div class="second-child">
-              <h3><strong>Sous-Total</strong></h3>
-              <h3>{{ receipt?.prixCommande }} FCFA</h3>
-            </div>
-          </div>
-          <div class="third-line">
-            <div>
-              <h3><strong>Méthode de paiement</strong></h3>
-              <h3>{{ receipt?.methodePaiement }}</h3>
-            </div>
-            <div>
-              <h3><strong>Montant</strong></h3>
-              <h3>{{ receipt?.montant }} FCFA</h3>
-            </div>
-            <div>
-              <h3><strong>Reste</strong></h3>
-              <h3>{{ receipt?.reste }} FCFA</h3>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 <!-- ========== Panier ========== -->
